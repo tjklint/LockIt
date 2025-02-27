@@ -1,7 +1,3 @@
----
-Team member: <your name here>
----
-
 # Subsystem Brainstorming
 
 ## Purpose
