@@ -1,5 +1,9 @@
 # Project Brainstorming
 
+Once you are finished brainstorming your project ideas, fill in each of the sections below. You can continually update this project up to the morning of March 10th (the deadline).
+
+**NOTE:** you should delete the initial sentences provided for each section (only include your own writing).
+
 ## Purpose
 
 Write 2-4 sentences outlining the purpose of your overall project.
