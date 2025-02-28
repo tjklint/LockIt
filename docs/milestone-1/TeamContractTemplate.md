@@ -35,7 +35,7 @@ A project that we are confident presenting to our peers and friends without hesi
 ## Frequency of communication
 
 Bare minimum; Mondays and Fridays. 
-Recommended: Mondays, Fridays, Saturdays.
+Recommended; Mondays, Fridays, Saturdays.
 
 ## Response delays
 
