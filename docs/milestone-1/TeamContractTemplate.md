@@ -34,8 +34,8 @@ A project that we are confident presenting to our peers and friends without hesi
 
 ## Frequency of communication
 
-Bare minimum; Mondays and Fridays. 
-Recommended; Mondays, Fridays, Saturdays.
+- Bare minimum; Mondays and Fridays. 
+- Recommended; Mondays, Fridays, Saturdays.
 
 ## Response delays
 
@@ -54,5 +54,5 @@ Response delays are acceptable in cases of family obligations, internship-relate
 
 If a team member is unresponsive, does not contribute equally, disregards feedback, or fails to collaborate effectively, the following steps will be taken:
 
-Initial Resolution: Direct, one-on-one discussion to address the issue.
-Escalation: If the issue persists, the concern will be brought to the instructor for mediation.
+- Initial Resolution: Direct, one-on-one discussion to address the issue.
+- Escalation: If the issue persists, the concern will be brought to the instructor for mediation.
