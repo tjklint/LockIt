@@ -4,53 +4,43 @@ This is an informal contract to ensure that all team members have a common under
 
 ## Team Members
 
-- Name of member A:
-- Name of member B:
-- Name of member C:
+- Name of member A: Timothy Klint
+- Name of member B: Joshua Kravitz
+- Name of member C: Dylan Savelson
 
 ## Strength & Weaknesses
 
-*Within the context of this project, what are the strengths and weaknesses that each member brings to the team?*
-
-- A:
+- A: 
+    - Strengths: Project managment, backend
+    - Weaknesses: Frontend, UI/UX
 - B:
 - C:
 
 ## Definition of “good enough” for this project
 
-*What would the team collectively consider “good enough” of an achievement for the project?*
-
-*(One response for the whole team)*
+Full functionality with a decent yet functional UI.
 
 ## Division of work
 
-*How will each member contribute to the project?*
+Subject to change.
 
-- A:
-- B:
-- C:
+- A: Project management, full-stack developer.
+- B: Back-end developer.
+- C: Hardware developer, UI/UX
 
 ## Frequency of communication
 
-*How often will the team be in touch and what tools will be used to communicate?*
-
-*(One response per team)*
+Group chat will be utilized over Discord, as well as in-person meetings in class.
 
 ## Response delays
 
-*What is a reasonable delay to reply to messages? Is it the same for weekdays and weekends?*
-
-*(One response per team)*
+1 day.
 
 ## Receiving feedback
 
-*How do you prefer to receive feedback? Each member must provide a sample sentence for how they would like to receive constructive feedback from their peers.*
-
-*(If unsure, assume a hypothetical situation such as you have not completed your work in time or you have not replied to a message in a timely manner).*
-
-- A:
+- A: Hey! I think that this piece of code could use a refactor, or this UI/UX isn't the most appealing, think we could try to rework it.
 - B:
-- C:
+- C: 
 
 ## In case of conflict
 
