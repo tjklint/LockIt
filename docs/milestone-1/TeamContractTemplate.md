@@ -15,6 +15,8 @@ This is an informal contract to ensure that all team members have a common under
     - Weaknesses: Frontend, UI/UX
 - B:
 - C:
+    - Strengths: Frontend, Hardware
+    - Weaknesses: Indecisiveness, Distractions
 
 ## Definition of “good enough” for this project
 
@@ -40,7 +42,7 @@ Group chat will be utilized over Discord, as well as in-person meetings in class
 
 - A: Hey! I think that this piece of code could use a refactor, or this UI/UX isn't the most appealing, think we could try to rework it.
 - B:
-- C: 
+- C: Please fix (x) because of (y) thanks.
 
 ## In case of conflict
 
