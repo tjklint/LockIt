@@ -14,6 +14,8 @@ This is an informal contract to ensure that all team members have a common under
     - Strengths: Project managment, backend
     - Weaknesses: Frontend, UI/UX
 - B:
+    - Strengths: Backend
+    - Weaknesses: Frontend
 - C:
     - Strengths: Frontend, Hardware
     - Weaknesses: Indecisiveness, Distractions
@@ -41,7 +43,7 @@ Group chat will be utilized over Discord, as well as in-person meetings in class
 ## Receiving feedback
 
 - A: Hey! I think that this piece of code could use a refactor, or this UI/UX isn't the most appealing, think we could try to rework it.
-- B:
+- B: Do you mind fixing this bit of code? It could be more efficient if you do (x), also could you please add (y) for functionality?
 - C: Please fix (x) because of (y) thanks.
 
 ## In case of conflict
