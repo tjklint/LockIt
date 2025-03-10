@@ -15,6 +15,7 @@ In the system's home security features, users will be able to monitor doors and 
 #### Devices
 
 - Buzzer           ; [Buzzer Info](https://wiki.seeedstudio.com/reTerminal-hardware-interfaces-usage/#schematics-10)
+- Door Sensor      ; [Door Info](https://projects.raspberrypi.org/en/projects/grandpa-scarer/3)
 - Motion Detector  ; [Motion Info](https://wiki.seeedstudio.com/Grove-PIR_Motion_Sensor/)
 - Noise Detector   ; [Noise Info](https://wiki.seeedstudio.com/Grove-Sound_Sensor/)
 - LED Lights       ; [LED Info](https://wiki.seeedstudio.com/reterminal-dm/#led-indicator)
