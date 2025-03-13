@@ -1,43 +1,42 @@
 # Project Brainstorming
 
-Once you are finished brainstorming your project ideas, fill in each of the sections below. You can continually update this project up to the morning of March 10th (the deadline).
-
-**NOTE:** you should delete the initial sentences provided for each section (only include your own writing).
-
 ## Purpose
 
-Write 2-4 sentences outlining the purpose of your overall project.
+Our project aims to create a smart doorbell and security system that enhances home security while providing real-time environmental insights. The system features a motion-activated doorbell camera and a smart lock that can be controlled remotely via a mobile app. In addition to security, the app will display key environmental data such as luminosity, humidity, and temperature.
 
 ## Subsystems
 
-Each team partner will be responsible for a subsystem of the project.
-
 ### Subsystem 1
 
-Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
+This subsystem is responsible for monitoring the front door area using a motion-activated camera and sensor. It enhances home security by detecting movement and capturing footage.
 
 #### Devices
 
-List, or put in a table, the devices your subsystem will use. 
-
-For each device, include the Component name, Interface type, and link to any documentation you can find about that device.
+| Component Name   | Interface Type   | Documentation Link |
+|-----------------|-----------------|--------------------|
+| Camera         | USB      | TBD  |
+| Motion Sensor  | GPIO / I2C       | TBD  |
 
 ### Subsystem 2
 
-Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
+This subsystem is responsible for collecting real-time environmental data, including temperature, luminosity, and humidity. It enhances the smart doorbell system by providing homeowners with insights into outdoor conditions, allowing them to make informed decisions about their home environment.
 
 #### Devices
 
-List, or put in a table, the devices your subsystem will use. 
-
-For each device, include the Component name, Interface type, and link to any documentation you can find about that device.
+| Component Name      | Interface Type | Documentation Link |
+|--------------------|---------------|--------------------|
+| Temperature Sensor | PIN           | TBD |
+| Luminosity Sensor  | BUS           | TBD |
+| Humidity Sensor    | PIN           | TBD |
 
 ### Subsystem 3
 
-Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
+This subsystem manages the smart lock mechanism, allowing users to remotely control access to their home via the mobile app.
 
 #### Devices
 
-List, or put in a table, the devices your subsystem will use. 
+| Component Name | Interface Type | Documentation Link |
+|---------------|---------------|--------------------|
+| Lock         | GPIO / I2C     | TBD  |
+| Motor        | PWM / GPIO     | TBD  |
 
-For each device, include the Component name, Interface type, and link to any documentation you can find about that device.
