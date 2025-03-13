@@ -1,22 +1,30 @@
 <!-- README HEADER -->
 
-<br />
-<div align="center">
-  <h3 align="center">Winter 2025 6A6/6P3 Final Project Repository</h3>
-</div>
 
-# Project Name Goes Here
+<h1 align="center">
+  LockIt
+</h1>
 
-A project README, especially when hosted on GitHub, is the first landing point for anyone viewing your project. It should explain the following:
+<!--<div align="center">
+  <img src="https://github.com/your-repo/demo.gif" alt="Smart Doorbell Demo">
+</div>--->
 
-- What your project is for
-  - Why it exists
-  - What problem(s) it solves
-- How to use your project
-  - How to install project dependencies
-  - How to run the project
-  - How to test the project code
-- Rules for contributing to your project
+<h3 align="center">
+  Smart Doorbell and Security System with Environmental Monitoring
+</h3>
 
-Your team will continuously update this README as your project takes shape over the course of the semester.
+<h4 align="center">
+Technologies used:
+</h4>
 
+<p align="center">
+    <img src="https://img.shields.io/badge/python-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/raspberry%20pi-%23C51A4A.svg?style=for-the-badge&logo=raspberry-pi&logoColor=white" alt="Raspberry Pi">
+    <img src="https://img.shields.io/badge/IOT-%23000000.svg?style=for-the-badge&logo=iot&logoColor=white" alt="IoT">
+    <img src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase" alt="Firebase">
+    <img src="https://img.shields.io/badge/mobile%20app-%230A66C2.svg?style=for-the-badge&logo=android&logoColor=white" alt="Mobile App">
+</p>
+
+<h6 align="center">
+  Like what you see? Give us a ⭐ to support our work!  
+</h6>
