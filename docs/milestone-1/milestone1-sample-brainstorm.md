@@ -40,4 +40,4 @@ This subsystem manages the smart lock mechanism, allowing users to remotely cont
 |---------------|---------------|--------------------|
 | Lock         | GPIO / I2C     | TBD  |
 | Motor        | PWM / GPIO     | TBD  |
-
+| Door Sensor | TBD
