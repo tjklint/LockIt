@@ -16,6 +16,7 @@ This subsystem is responsible for monitoring the front door area using a motion-
 |-----------------|-----------------|--------------------|
 | Camera         | USB      | TBD  |
 | Motion Sensor  | GPIO / I2C       | TBD  |
+| GPS | GPIO / I2C |
 
 ### Subsystem 2
 
