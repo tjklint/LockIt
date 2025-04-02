@@ -28,3 +28,5 @@ Technologies used:
 <h6 align="center">
   Like what you see? Give us a ⭐ to support our work!  
 </h6>
+
+FIGMA LINK: https://www.figma.com/design/uf5WlLdbZZYCgFgUs9wD4E/Untitled?node-id=0-1&t=dAYyFkfrFAsHoqCr-1
