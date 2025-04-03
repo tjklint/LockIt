@@ -22,6 +22,7 @@ namespace LockIt.Models
         
         }
 
+        //TODO: Add validation
         public int Motor
         {
             get { return _motor; }
