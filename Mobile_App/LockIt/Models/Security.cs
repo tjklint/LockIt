@@ -10,7 +10,10 @@ namespace LockIt.Models
     {
         private int _lock;
         private int _motor;
-        public Security() { }
+        public Security() 
+        { 
+        
+        }
 
         public int Lock { get { return _lock; }
             set { _lock = value; }  
