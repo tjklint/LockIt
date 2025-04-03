@@ -11,7 +11,7 @@ namespace LockIt.Models
     {
         private int _lockPin;
         private GpioController _lock = new GpioController();
-        private int _motor;
+        private GpioController _motor = new GpioController();
         public Security(int lockPin) 
         { 
             _lockPin = lockPin;
@@ -23,7 +23,7 @@ namespace LockIt.Models
         }
 
         //TODO: Add validation
-        public int Motor
+        public GpioController Motor
         {
             get { return _motor; }
             set { _motor = value; }
@@ -45,6 +45,11 @@ namespace LockIt.Models
                 _lock.OpenPin(_lockPin, PinMode.Output);
                 _lock.Write(_lockPin, PinValue.Low);
             }
+        }
+        //TODO: Figure out how to get the data/properly use the Motor.
+        public void GetMotor()
+        {
+
         }
     }
 }

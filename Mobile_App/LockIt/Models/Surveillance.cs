@@ -12,6 +12,7 @@ namespace LockIt.Models
     {
 
         private int _motionSensorPin;
+        //TODO: Figure out how the data from the camera will be used.
         private int _camera;
         private GpioController _motionSensor = new GpioController();
         private int _GPS;
