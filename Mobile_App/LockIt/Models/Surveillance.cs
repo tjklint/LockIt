@@ -4,22 +4,26 @@ using System.Device.Gpio;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AForge.Video;
+using AForge.Video.DirectShow;
 namespace LockIt.Models
 {
     internal class Surveillance
     {
+
         private int _motionSensorPin;
         private int _camera;
         private GpioController _motionSensor = new GpioController();
         private int _GPS;
+
+        //TODO: Add validation
         public Surveillance(int motionSensorPin) 
         { 
            _motionSensorPin = motionSensorPin;  
         }
         public int Camera { get { return _camera; } 
             set {
-                //Add validation
+               
                 _camera = value;
             } }
         public GpioController MotionSensor
@@ -60,6 +64,22 @@ namespace LockIt.Models
         public void GetGPSData()
         {
 
+        }
+
+  
+        public VideoCaptureDevice GetCamera()
+        {
+            var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            if (videoDevices.Count == 0)
+            {
+                Console.WriteLine("No camera found.");
+                return null;
+            }
+            else
+            {
+                return new VideoCaptureDevice(videoDevices[0].MonikerString);
+            }
+            
         }
     }
 }
