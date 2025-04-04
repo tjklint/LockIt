@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="LockIt.Views.SelectUserTypePage"
+    BackgroundColor="#D3D3D3" 
+    Title="SelectUserTypePage">
+
+    <Grid Padding="30">
+        <StackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="Center"
+            Spacing="20">
+
+            <!-- Title -->
+            <Label 
+                Text="SELECT YOUR TYPE"
+                FontSize="24"
+                HorizontalOptions="Center"
+                TextColor="Black"
+                FontFamily="Jersey15Regular" />
+
+            <!-- Homeowner Option -->
+            <Frame
+                x:Name="HomeownerFrame"
+                BorderColor="#189E8A"
+                CornerRadius="8"
+                Padding="10"
+                HasShadow="False"
+                BackgroundColor="White"
+                WidthRequest="250"
+                HeightRequest="80"
+                HorizontalOptions="Center">
+
+                <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="CenterAndExpand">
+                    <Image 
+                        Source="homeowner.png"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                    <Label 
+                        Text="HOMEOWNER"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        FontSize="18"
+                        FontFamily="Jersey15Regular"
+                        TextColor="Black" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Visitor Option -->
+            <Frame
+                x:Name="VisitorFrame"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                Padding="10"
+                HasShadow="False"
+                BackgroundColor="White"
+                WidthRequest="250"
+                HeightRequest="80"
+                HorizontalOptions="Center">
+
+                <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="CenterAndExpand">
+                    <Image 
+                        Source="visitor.png"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                    <Label 
+                        Text="VISITOR"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        FontSize="18"
+                        FontFamily="Jersey15Regular"
+                        TextColor="Black" />
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>
