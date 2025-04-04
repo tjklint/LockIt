@@ -9,7 +9,7 @@
     Title="LockIt">
 
     <ShellContent
-        ContentTemplate="{DataTemplate views:LoginPage}"
+        ContentTemplate="{DataTemplate views:RegisterPage}"
         Route="LoginPage" />
 
 </Shell>
