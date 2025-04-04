@@ -5,11 +5,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:LockIt"
     xmlns:views="clr-namespace:LockIt.Views"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="#189E8A"
+    Shell.TabBarForegroundColor="White"
     Title="LockIt">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate views:RegisterPage}"
-        Route="LoginPage" />
+
+    <TabBar>
+        
+        <ShellContent
+        Icon="radar.png"
+        ContentTemplate="{DataTemplate views:FindMyPage}"/>
+
+        <ShellContent
+        Icon="lock.png"
+        ContentTemplate="{DataTemplate views:AccessCodePage}"/>
+        
+        <!-- Todo change where it goes based on login -->
+        <ShellContent
+        Icon="menu.png"
+        ContentTemplate="{DataTemplate views:VisitorMenuPage}"/>
+        
+        <ShellContent
+        Icon="profile.png"
+        ContentTemplate="{DataTemplate views:ProfilePage}"/>
+
+    </TabBar>
+
+
 
 </Shell>

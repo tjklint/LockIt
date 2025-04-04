@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LockIt.Views.VisitorMenuPage"
+             >
+    <VerticalStackLayout VerticalOptions="Center">
+        <Button
+            Margin="25"
+            Text="ACCESS CAMERA" 
+            BackgroundColor="#189E8A" 
+            TextColor="White" 
+            FontFamily="Jersey15Regular"
+            CornerRadius="2"
+            FontSize="30"
+            WidthRequest="300"
+            Clicked="OnAccessCameraClicked"/>
+
+        <Button 
+            Margin="25"
+            Text="OPEN LOCK"
+            BackgroundColor="#189E8A" 
+            TextColor="White" 
+            FontFamily="Jersey15Regular"
+            CornerRadius="2"
+            FontSize="30"
+            WidthRequest="300"
+            Clicked="OnOpenLockClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

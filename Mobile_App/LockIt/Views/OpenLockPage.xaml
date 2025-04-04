@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LockIt.Views.OpenLockPage"
+             >
+    <VerticalStackLayout>
+        <Label 
+                Margin="0,100,0,0"
+                Text="Open Lock" 
+                FontSize="40"
+                FontFamily="Jersey15Regular"
+                HorizontalOptions="Center"
+                TextColor="Black" />
+        
+        <Label 
+            Margin="0,20,0,0"
+                HorizontalOptions="Center"
+                Text="Dont remember? Contact the homeowner." 
+                FontSize="20"
+                FontFamily="Jersey15Regular"
+                TextColor="Black"
+            />
+
+        <Grid Margin="0,20,0,0" BackgroundColor="#123530" HorizontalOptions="Center" Padding="30" RowSpacing="20" ColumnSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="1" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="2" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="0"
+                Grid.Column="2"
+                Text="3" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="4" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="5" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="1"
+                Grid.Column="2"
+                Text="6" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="7" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="8" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="2"
+                Grid.Column="2"
+                Text="9" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            
+            <Button 
+                Grid.Row="3"
+                Grid.Column="0"
+                Text="*" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="3"
+                Grid.Column="1"
+                Text="0" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Button 
+                Grid.Row="3"
+                Grid.Column="2"
+                Text="#" 
+                BackgroundColor="#189E8A" 
+                TextColor="White" 
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                FontSize="25"
+                WidthRequest="60"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+
+        </Grid>
+        
+
+    </VerticalStackLayout>
+</ContentPage>

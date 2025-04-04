@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LockIt.Views.AccessCodePage">
+    
+    <VerticalStackLayout>
+        <Label 
+                Margin="0,150,0,0"
+                Text="Set Access Code" 
+                FontSize="40"
+                FontFamily="Jersey15Regular"
+                HorizontalOptions="Center"
+                TextColor="Black" />
+        <Label 
+            Margin="50,20,0,0"
+                HorizontalOptions="Start"
+                Text="Access Code:" 
+                FontSize="20"
+                FontFamily="Jersey15Regular"
+                TextColor="Black"
+            />
+        <Entry 
+                x:Name="AccessCodeEntry" 
+                BackgroundColor="White" 
+                TextColor="Black" 
+                FontFamily="Jersey15Regular"
+                WidthRequest="300"/>
+        <Button 
+            Margin="25"
+            Text="SET CODE" 
+            BackgroundColor="#189E8A" 
+            TextColor="White" 
+            FontFamily="Jersey15Regular"
+            CornerRadius="2"
+            FontSize="25"
+            WidthRequest="200"/>
+    </VerticalStackLayout>
+</ContentPage>
