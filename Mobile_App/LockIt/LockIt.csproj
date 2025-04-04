@@ -62,6 +62,8 @@
 
 	<ItemGroup>
 	  <None Remove=".env" />
+	  <None Remove="Resources\Images\homeowner.png" />
+	  <None Remove="Resources\Images\visitor.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -112,6 +114,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SelectUserTypePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\VisitorMenuPage.xaml">

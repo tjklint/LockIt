@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
+using LockIt.Views;
 
 namespace LockIt.ViewModels
 {
@@ -27,12 +28,15 @@ namespace LockIt.ViewModels
         }
 
         public IAsyncRelayCommand LoginCommand { get; }
+        public IAsyncRelayCommand NavigateToRegisterCommand { get; }
+
         private readonly FirebaseAuthRepository _authRepo;
 
         public LoginViewModel()
         {
             _authRepo = new FirebaseAuthRepository();
             LoginCommand = new AsyncRelayCommand(LoginAsync);
+            NavigateToRegisterCommand = new AsyncRelayCommand(NavigateToRegisterAsync);
         }
 
         private async Task LoginAsync()
@@ -40,12 +44,17 @@ namespace LockIt.ViewModels
             var result = await _authRepo.LoginAsync(Email, Password);
             if (result != null && !string.IsNullOrEmpty(result.idToken))
             {
-                // TODO: Handle success
+                await Shell.Current.GoToAsync(nameof(SelectUserTypePage));
             }
             else
             {
                 // TODO: Handle error 
             }
+        }
+
+        private async Task NavigateToRegisterAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(RegisterPage));
         }
     }
 }

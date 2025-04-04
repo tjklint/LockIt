@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LockIt.Views.RegisterPage"
+             Shell.TabBarIsVisible="False"
              xmlns:vm="clr-namespace:LockIt.ViewModels"
 >
 
@@ -63,6 +64,13 @@
                 TextColor="White" 
                 FontFamily="Jersey15Regular" 
                 CornerRadius="5"/>
+
+            <Button Text="Already have an account? Login"
+                Command="{Binding NavigateToLoginCommand}"
+                BackgroundColor="Transparent"
+                TextColor="#189E8A"
+                HorizontalOptions="Center" />
+
         </StackLayout>
     </Grid>
 </ContentPage>
