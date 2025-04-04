@@ -11,6 +11,7 @@ namespace LockIt
             Routing.RegisterRoute(nameof(OpenLockPage), typeof(OpenLockPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(MenuPage), typeof(MenuPage));
         }
     }
 }

@@ -44,7 +44,7 @@ namespace LockIt.ViewModels
             var result = await _authRepo.LoginAsync(Email, Password);
             if (result != null && !string.IsNullOrEmpty(result.idToken))
             {
-                // TODO: Handle success
+                await Shell.Current.GoToAsync(nameof(MenuPage));
             }
             else
             {
