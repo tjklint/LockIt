@@ -24,8 +24,7 @@
                 Placeholder="Username" 
                 BackgroundColor="White" 
                 TextColor="Black" 
-                FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand" />
+                FontFamily="Jersey15Regular"/>
 
             <!-- Password Entry -->
             <Entry 
@@ -34,8 +33,7 @@
                 IsPassword="True" 
                 BackgroundColor="White" 
                 TextColor="Black" 
-                FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand" />
+                FontFamily="Jersey15Regular" />
 
             <!-- Login Button -->
             <Button 
@@ -43,8 +41,7 @@
                 BackgroundColor="#189E8A" 
                 TextColor="White" 
                 FontFamily="Jersey15Regular"
-                CornerRadius="5"
-                HorizontalOptions="FillAndExpand" />
+                CornerRadius="5" />
         </StackLayout>
     </Grid>
 </ContentPage>

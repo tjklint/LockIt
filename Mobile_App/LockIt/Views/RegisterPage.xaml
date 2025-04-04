@@ -24,8 +24,7 @@
                 Placeholder="Username" 
                 BackgroundColor="White" 
                 TextColor="Black" 
-                FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand" />
+                FontFamily="Jersey15Regular"/>
 
             <!-- Email Entry -->
             <Entry 
@@ -34,7 +33,6 @@
                 BackgroundColor="White" 
                 TextColor="Black" 
                 FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand"
                 Keyboard="Email" />
 
             <!-- Password Entry -->
@@ -44,8 +42,7 @@
                 IsPassword="True" 
                 BackgroundColor="White" 
                 TextColor="Black" 
-                FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand" />
+                FontFamily="Jersey15Regular"/>
 
             <!-- Confirm Password Entry -->
             <Entry 
@@ -54,8 +51,7 @@
                 IsPassword="True" 
                 BackgroundColor="White" 
                 TextColor="Black" 
-                FontFamily="Jersey15Regular"
-                HorizontalOptions="FillAndExpand" />
+                FontFamily="Jersey15Regular"/>
 
             <!-- Register Button -->
             <Button 
@@ -63,9 +59,7 @@
                 BackgroundColor="#189E8A" 
                 TextColor="White" 
                 FontFamily="Jersey15Regular" 
-                CornerRadius="5"
-                HorizontalOptions="FillAndExpand" />
-
+                CornerRadius="5"/>
         </StackLayout>
     </Grid>
 </ContentPage>
