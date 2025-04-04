@@ -47,6 +47,11 @@ namespace LockIt.ViewModels
                 // TODO: Handle error 
             }
         }
+
+        private async Task NavigateToRegisterAsync()
+        {
+            await Shell.Current.GoToAsync("//register");
+        }
     }
 }
 

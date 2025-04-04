@@ -45,6 +45,9 @@
                 TextColor="White" 
                 FontFamily="Jersey15Regular" 
                 CornerRadius="5"/>
+
+            <Button Text="Don't have an account? Register" Command="{Binding NavigateToRegisterCommand}" BackgroundColor="Transparent" TextColor="#189E8A" HorizontalOptions="Center" />
+
         </StackLayout>
     </Grid>
 </ContentPage>
