@@ -81,6 +81,10 @@ namespace LockIt.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "Registration failed. Please try again.", "OK");
             }
         }
+        private async Task NavigateToLoginAsync()
+        {
+            await Shell.Current.GoToAsync("//login");
+        }
     }
 }
 
