@@ -8,8 +8,34 @@
     Shell.FlyoutBehavior="Disabled"
     Title="LockIt">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate views:RegisterPage}"
-        Route="LoginPage" />
+    <FlyoutItem Title="Home" Icon="home.png">
+        <ShellContent
+        Title="Find My"
+        Icon="search.png"
+        ContentTemplate="{DataTemplate views:FindMyPage}"/>
+        
+        <ShellContent
+        Title="Camera"
+        Icon="select.png"
+        ContentTemplate="{DataTemplate views:CameraPage}"/>
+        
+        <ShellContent
+        Title="Access Code"
+        Icon="camera.png"
+        ContentTemplate="{DataTemplate views:AccessCodePage}"/>
+        
+        <ShellContent
+        Title="Menu"
+        Icon="video.png"
+        ContentTemplate="{DataTemplate views:VisitorMenuPage}"/>
+        
+        <ShellContent
+        Title="Profile"
+        Icon="user.png"
+        ContentTemplate="{DataTemplate views:ProfilePage}"/>
+
+    </FlyoutItem>
+
+
 
 </Shell>
