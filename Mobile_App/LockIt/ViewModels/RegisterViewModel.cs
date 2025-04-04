@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
+using LockIt.Views;
+using Microsoft.Maui.Controls;
 
 namespace LockIt.ViewModels
 {
@@ -41,12 +43,15 @@ namespace LockIt.ViewModels
         }
 
         public IAsyncRelayCommand RegisterCommand { get; }
+        public IAsyncRelayCommand NavigateToLoginCommand { get; }
+
         private readonly FirebaseAuthRepository _authRepo;
 
         public RegisterViewModel()
         {
             _authRepo = new FirebaseAuthRepository();
             RegisterCommand = new AsyncRelayCommand(RegisterAsync);
+            NavigateToLoginCommand = new AsyncRelayCommand(NavigateToLoginAsync);
         }
 
         private async Task RegisterAsync()
@@ -74,16 +79,17 @@ namespace LockIt.ViewModels
             if (result != null && !string.IsNullOrEmpty(result.idToken))
             {
                 await Application.Current.MainPage.DisplayAlert("Success", "Registration successful.", "OK");
-                // TODO: Navigate to the home page or log the user in automatically.
+                await Shell.Current.GoToAsync(nameof(LoginPage));
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Registration failed. Please try again.", "OK");
             }
         }
+
         private async Task NavigateToLoginAsync()
         {
-            await Shell.Current.GoToAsync("//login");
+            await Shell.Current.GoToAsync(nameof(LoginPage));
         }
     }
 }

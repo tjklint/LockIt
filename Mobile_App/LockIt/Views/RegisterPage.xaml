@@ -64,7 +64,11 @@
                 FontFamily="Jersey15Regular" 
                 CornerRadius="5"/>
 
-            <Button Text="Already have an account? Login" Command="{Binding NavigateToLoginCommand}" BackgroundColor="Transparent" TextColor="#189E8A" HorizontalOptions="Center" />
+            <Button Text="Already have an account? Login"
+                Command="{Binding NavigateToLoginCommand}"
+                BackgroundColor="Transparent"
+                TextColor="#189E8A"
+                HorizontalOptions="Center" />
 
         </StackLayout>
     </Grid>
