@@ -15,7 +15,7 @@ namespace LockIt
 
             if (string.IsNullOrEmpty(testApiKey))
             {
-                throw new Exception("Firebase API key not found. Ensure your .env file is loaded.");
+                throw new Exception("Firebase API key not found. Ensure the .env file is loaded.");
             }
 
             var builder = MauiApp.CreateBuilder();
