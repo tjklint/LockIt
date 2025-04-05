@@ -10,6 +10,7 @@ using LockIt.Models;
 
 namespace LockIt.Repos
 {
+    // TODO: ADD XML DOCUMENTATION WHEN CONFIRMATION IS GIVEN TO HANDLE FIREBASE IN A REPO OR SERVICE
     public class FirebaseAuthRepository
     {
         private readonly string apiKey;
