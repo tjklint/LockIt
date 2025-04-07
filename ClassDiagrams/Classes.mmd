@@ -1,0 +1,57 @@
+classDiagram
+
+class Surveillance {
+  -int _motionSensorPin
+  -int _camera
+  -GpioController _motionSensor
+  -int _GPS
+  +int Camera
+  +GpioController MotionSensor
+  +int GPS
+  +bool IsMotion()
+  +void GetGPSData()
+  +VideoCaptureDevice GetCamera()
+}
+
+class Security {
+  -int _lockPin
+  -GpioController _lock
+  -GpioController _motor
+  -bool isLocked
+  +GpioController Lock
+  +GpioController Motor
+  +void Unlocking()
+  +void Locking()
+  +void GetMotor()
+}
+
+class FirebaseAuthResponse {
+  +string idToken
+  +string email
+  +string refreshToken
+  +string expiresIn
+  +string localId
+  +string Error
+}
+
+class EnvironmentalSensor {
+  -I2cDevice _temperatureHumiditySensor
+  -GpioController _luminositySensor
+  +I2cDevice TemperatureHumiditySensor
+  +GpioController LuminositySensor
+  +Temperature GetTemperature()
+  +RelativeHumidity GetHumidity()
+  +void GetLuminosity()
+}
+
+class User {
+  +string Uid
+  +string Email
+  +string DisplayName
+}
+
+Surveillance --> GpioController : uses
+Security --> GpioController : uses
+EnvironmentalSensor --> I2cDevice : uses
+EnvironmentalSensor --> GpioController : uses
+Surveillance --> VideoCaptureDevice : returns
