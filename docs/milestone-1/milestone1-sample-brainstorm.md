@@ -1,38 +1,38 @@
 # Project Brainstorming
 
+Once you are finished brainstorming your project ideas, fill in each of the sections below. You can continually update this project up to the morning of March 10th (the deadline).
+
+**NOTE:** you should delete the initial sentences provided for each section (only include your own writing).
+
 ## Purpose
 
-Our project is designed for home security & comfort with additional features for larger businesses. Our software provides various features including, monitoring door activity, monitoring noise levels & providing custom alarms. It also includes a temperature & moisture detection system for home comfort and cost reductions. 
+Write 2-4 sentences outlining the purpose of your overall project.
 
 ## Subsystems
 
 Each team partner will be responsible for a subsystem of the project.
 
-### Subsystem 1 - Monitoring door & noise activity.
+### Subsystem 1
 
-In the system's home security features, users will be able to monitor doors and noise levels for specified rooms. Allowing for a peace of comfort by setting curfews to detect when unusual noises are detected or when doors are opened at unallocated times. When activity is detected during the set "down time," buzzers and LEDs will be activated.
-
-#### Devices
-
-- Buzzer           ; [Buzzer Info](https://wiki.seeedstudio.com/reTerminal-hardware-interfaces-usage/#schematics-10)
-- Door Sensor      ; [Door Info](https://projects.raspberrypi.org/en/projects/grandpa-scarer/3)
-- Motion Detector  ; [Motion Info](https://wiki.seeedstudio.com/Grove-PIR_Motion_Sensor/)
-- Noise Detector   ; [Noise Info](https://wiki.seeedstudio.com/Grove-Sound_Sensor/)
-- LED Lights       ; [LED Info](https://wiki.seeedstudio.com/reterminal-dm/#led-indicator)
-
-### Subsystem 2 - Monitoring temperature & moisture levels.
-
-In the system's home comfort features, users will be able to measure temperature & moisture levels. These will allow users to set limits on temperature, detecting fluctuations, alerting users and turning on fans to bring temperatures to normal levels. This will reduce overhead costs for homeowners and businesses. Likewise, for moisture detection, alarms will signal users.
+Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
 
 #### Devices
 
-- Buzzer               ; [Buzzer Info](https://wiki.seeedstudio.com/reTerminal-hardware-interfaces-usage/#schematics-10)
-- Fan                  ; [Fan Info](https://wiki.seeedstudio.com/reTerminalBridge/#fan)
-- LED Lights           ; [LED Info](https://wiki.seeedstudio.com/reterminal-dm/#led-indicator)
-- Moisture Detector    ; [Moisture & Temperature Info](https://projects.raspberrypi.org/en/projects/build-your-own-weather-station/2)
-- Temperature Detector ; ^^
+List, or put in a table, the devices your subsystem will use. 
 
-### Subsystem 3 - Custom alarms & analysis charts.
+For each device, include the Component name, Interface type, and link to any documentation you can find about that device.
+
+### Subsystem 2
+
+Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
+
+#### Devices
+
+List, or put in a table, the devices your subsystem will use. 
+
+For each device, include the Component name, Interface type, and link to any documentation you can find about that device.
+
+### Subsystem 3
 
 Write 2-3 sentences outlining the purpose of your subsystem, and how it fits in to the overall project.
 
