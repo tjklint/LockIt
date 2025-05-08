@@ -7,6 +7,7 @@ from common.devices.actuator import Action, Command, Actuator
 @dataclass
 class LockActuator(Actuator):
     """Actuator to control the state of a digital gpio fan"""
+
     device: OutputDevice
     action: Action
     state: float = 0

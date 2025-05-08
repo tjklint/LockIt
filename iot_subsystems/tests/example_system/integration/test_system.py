@@ -59,9 +59,7 @@ def system(
 
 
 @pytest.mark.asyncio
-async def test_loop_all_sensor_readings_logged_with_correct_units(
-    system: ExampleSystem, logot: Logot
-):
+async def test_loop_all_sensor_readings_logged_with_correct_units(system: ExampleSystem, logot: Logot):
     system.telemetry_interval = 0.1
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
@@ -71,13 +69,9 @@ async def test_loop_all_sensor_readings_logged_with_correct_units(
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_press_turns_fan_on(
-    mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot
-):
+async def test_loop_f1_press_turns_fan_on(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
     mock_key_press = {"value": 1, "key": "F1"}
-    mocker.patch.object(
-        MockInterface, "mock_event", AsyncMock(return_value=mock_key_press)
-    )
+    mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_press))
     fan_actuator.device.value = 0
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
@@ -87,13 +81,9 @@ async def test_loop_f1_press_turns_fan_on(
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_release_turns_fan_off(
-    mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot
-):
+async def test_loop_f1_release_turns_fan_off(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
     mock_key_release = {"value": 0, "key": "F1"}
-    mocker.patch.object(
-        MockInterface, "mock_event", AsyncMock(return_value=mock_key_release)
-    )
+    mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_release))
     fan_actuator.device.value = 1
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
@@ -105,9 +95,7 @@ async def test_loop_f1_release_turns_fan_off(
 @pytest.mark.asyncio
 async def test_loop_f2_press_gets_logged(mocker, system: ExampleSystem, logot: Logot):
     mock_key_press = {"value": 1, "key": "F2"}
-    mocker.patch.object(
-        MockInterface, "mock_event", AsyncMock(return_value=mock_key_press)
-    )
+    mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_press))
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
         await logot.await_for(logged.debug("F2 pressed"))
@@ -117,9 +105,7 @@ async def test_loop_f2_press_gets_logged(mocker, system: ExampleSystem, logot: L
 @pytest.mark.asyncio
 async def test_loop_f2_release_gets_logged(mocker, system: ExampleSystem, logot: Logot):
     mock_key_release = {"value": 0, "key": "F2"}
-    mocker.patch.object(
-        MockInterface, "mock_event", AsyncMock(return_value=mock_key_release)
-    )
+    mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_release))
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
         await logot.await_for(logged.debug("F2 released"))

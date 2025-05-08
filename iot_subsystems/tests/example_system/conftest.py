@@ -91,8 +91,6 @@ def all_sensors(
 
 
 @pytest.fixture
-def device_controller(
-    all_actuators: list[Actuator], all_sensors: list[Sensor]
-) -> DeviceController:
+def device_controller(all_actuators: list[Actuator], all_sensors: list[Sensor]) -> DeviceController:
     """Fixture DeviceController instantiated with all available actuators and sensors."""
     return DeviceController(actuators=all_actuators, sensors=all_sensors)

@@ -6,13 +6,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class InfraRedSensor(Sensor):
     def __init__(self, device) -> None:
         self.device = device
         self.measurement = Measurement.INFRARED
 
     def read_sensor(self) -> Reading:
-        infrared,_,_,_,_ = self.device.read()
+        infrared, _, _, _, _ = self.device.read()
         reading = Reading(infrared, self.measurement)
         logger.info(reading)
         return reading
@@ -24,7 +25,7 @@ class RedColorSensor(Sensor):
         self.measurement = Measurement.RED
 
     def read_sensor(self) -> Reading:
-        _,red,_,_,_ = self.device.read()
+        _, red, _, _, _ = self.device.read()
         reading = Reading(red, self.measurement)
         logger.info(reading)
         return reading
@@ -36,21 +37,23 @@ class GreenColorSensor(Sensor):
         self.measurement = Measurement.GREEN
 
     def read_sensor(self) -> Reading:
-        _,_,green,_,_ = self.device.read()
+        _, _, green, _, _ = self.device.read()
         reading = Reading(green, self.measurement)
         logger.info(reading)
         return reading
-    
+
+
 class BlueColorSensor(Sensor):
     def __init__(self, device) -> None:
         self.device = device
         self.measurement = Measurement.BLUE
 
     def read_sensor(self) -> Reading:
-        _,_,_,blue,_ = self.device.read()
+        _, _, _, blue, _ = self.device.read()
         reading = Reading(blue, self.measurement)
         logger.info(reading)
         return reading
+
 
 class ProximitySensor(Sensor):
     def __init__(self, device) -> None:
@@ -58,11 +61,12 @@ class ProximitySensor(Sensor):
         self.measurement = Measurement.PROXIMITY
 
     def read_sensor(self) -> Reading:
-        _,_,_,_,proximity = self.device.read()
+        _, _, _, _, proximity = self.device.read()
         reading = Reading(proximity, self.measurement)
         logger.info(reading)
         return reading
-    
+
+
 def main():
     device = MockTMG39931()
 

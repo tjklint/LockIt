@@ -35,7 +35,7 @@ from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from common.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
 from common.devices.mocks import MockTMG39931
-from common.devices.tmg39931 import InfraRedSensor,RedColorSensor,BlueColorSensor,ProximitySensor,GreenColorSensor
+from common.devices.tmg39931 import InfraRedSensor, RedColorSensor, BlueColorSensor, ProximitySensor, GreenColorSensor
 from common.devices.actuator import Action
 from example_system.devices.aht20 import (
     HumiditySensor,
@@ -77,8 +77,16 @@ def main() -> None:
     else:
         raise ValueError
 
-    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20),InfraRedSensor(device=luminosity_sensor),RedColorSensor(device=luminosity_sensor),GreenColorSensor(device=luminosity_sensor),BlueColorSensor(device=luminosity_sensor),ProximitySensor(device=luminosity_sensor)]
-    actuators = [LockActuator(device=lock,action=Action.LOCK_TOGGLE)]
+    sensors = [
+        TemperatureSensor(device=aht20),
+        HumiditySensor(device=aht20),
+        InfraRedSensor(device=luminosity_sensor),
+        RedColorSensor(device=luminosity_sensor),
+        GreenColorSensor(device=luminosity_sensor),
+        BlueColorSensor(device=luminosity_sensor),
+        ProximitySensor(device=luminosity_sensor),
+    ]
+    actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     system = ExampleSystem(
