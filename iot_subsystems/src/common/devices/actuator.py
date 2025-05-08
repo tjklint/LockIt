@@ -49,6 +49,7 @@ class Action(dict, Enum):
         "max_value": 1,
         "description": "Command to turn the fan on/off",
     }
+
     LOCK_TOGGLE = {
         "min_value": 0,
         "max_value": 1,

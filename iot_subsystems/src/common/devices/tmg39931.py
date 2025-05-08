@@ -1,8 +1,10 @@
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 import time
-from mocks import MockTMG39931
-from sensor import Sensor, Measurement, Reading
+from common.devices.mocks import MockTMG39931
+from common.devices.sensor import Sensor, Measurement, Reading
+import logging
 
+logger = logging.getLogger(__name__)
 
 class InfraRedSensor(Sensor):
     def __init__(self, device) -> None:
@@ -12,6 +14,7 @@ class InfraRedSensor(Sensor):
     def read_sensor(self) -> Reading:
         infrared,_,_,_,_ = self.device.read()
         reading = Reading(infrared, self.measurement)
+        logger.info(reading)
         return reading
 
 
@@ -23,6 +26,7 @@ class RedColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _,red,_,_,_ = self.device.read()
         reading = Reading(red, self.measurement)
+        logger.info(reading)
         return reading
 
 
@@ -34,6 +38,7 @@ class GreenColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _,_,green,_,_ = self.device.read()
         reading = Reading(green, self.measurement)
+        logger.info(reading)
         return reading
     
 class BlueColorSensor(Sensor):
@@ -44,6 +49,7 @@ class BlueColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _,_,_,blue,_ = self.device.read()
         reading = Reading(blue, self.measurement)
+        logger.info(reading)
         return reading
 
 class ProximitySensor(Sensor):
@@ -54,6 +60,7 @@ class ProximitySensor(Sensor):
     def read_sensor(self) -> Reading:
         _,_,_,_,proximity = self.device.read()
         reading = Reading(proximity, self.measurement)
+        logger.info(reading)
         return reading
     
 def main():

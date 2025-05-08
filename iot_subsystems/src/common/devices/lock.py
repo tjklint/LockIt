@@ -1,7 +1,7 @@
 from gpiozero import OutputDevice
 from time import sleep
 from dataclasses import dataclass
-from actuator import Action, Command, Actuator
+from common.devices.actuator import Action, Command, Actuator
 
 
 @dataclass

@@ -32,8 +32,11 @@ from dotenv import dotenv_values
 from gpiozero import OutputDevice
 from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
-
+from common.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
+from common.devices.mocks import MockTMG39931
+from common.devices.tmg39931 import InfraRedSensor,RedColorSensor,BlueColorSensor,ProximitySensor,GreenColorSensor
+from common.devices.actuator import Action
 from example_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
@@ -65,16 +68,17 @@ def main() -> None:
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
         aht20 = MockGroveTemperatureHumidityAHT20()
-        fan = OutputDevice(pin=16, pin_factory=MockFactory())
+        luminosity_sensor = MockTMG39931()
+        lock = OutputDevice(pin=16, pin_factory=MockFactory())
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
         aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
-        fan = OutputDevice(pin=16)
+        lock = OutputDevice(pin=16)
     else:
         raise ValueError
 
-    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20)]
-    actuators = [FanActuator(device=fan)]
+    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20),InfraRedSensor(device=luminosity_sensor),RedColorSensor(device=luminosity_sensor),GreenColorSensor(device=luminosity_sensor),BlueColorSensor(device=luminosity_sensor),ProximitySensor(device=luminosity_sensor)]
+    actuators = [LockActuator(device=lock,action=Action.LOCK_TOGGLE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     system = ExampleSystem(
