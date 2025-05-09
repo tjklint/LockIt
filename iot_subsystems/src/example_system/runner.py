@@ -47,6 +47,8 @@ from example_system.interfaces import (
 )
 from example_system.iot.azure_device_client import AzureDeviceClient
 
+from example_system.devices.camera import MockCamera, CameraActuator
+from common.devices.actuator import Action
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -64,17 +66,15 @@ def main() -> None:
     runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
-        aht20 = MockGroveTemperatureHumidityAHT20()
-        fan = OutputDevice(pin=16, pin_factory=MockFactory())
+        camera = MockCamera()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
-        aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
-        fan = OutputDevice(pin=16)
+        #todo
     else:
         raise ValueError
 
-    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20)]
-    actuators = [FanActuator(device=fan)]
+    sensors = []
+    actuators = [CameraActuator(camera, Action.TAKE_PICTURE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     system = ExampleSystem(
