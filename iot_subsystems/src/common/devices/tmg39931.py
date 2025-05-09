@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class InfraRedSensor(Sensor):
+class ProximitySensor(Sensor):
     def __init__(self, device) -> None:
         self.device = device
         self.measurement = Measurement.INFRARED
@@ -70,7 +70,7 @@ class ProximitySensor(Sensor):
 def main():
     device = MockTMG39931()
 
-    infrared_sensor = InfraRedSensor(device=device)
+    infrared_sensor = ProximitySensor(device=device)
     red_sensor = RedColorSensor(device=device)
     green_sensor = GreenColorSensor(device=device)
     blue_sensor = BlueColorSensor(device=device)

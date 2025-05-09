@@ -31,7 +31,7 @@ from asyncmock import AsyncMock
 from logot import Logot, logged
 
 from common.devices.device_controller import DeviceController
-from example_system.devices.fan import FanActuator
+from common.devices.lock import LockActuator
 from example_system.example_system import ExampleSystem
 from example_system.interfaces import ExampleSystemInterface, Interface
 from example_system.iot.azure_device_client import AzureDeviceClient
@@ -69,27 +69,27 @@ async def test_loop_all_sensor_readings_logged_with_correct_units(system: Exampl
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_press_turns_fan_on(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
+async def test_loop_f1_press_turns_lock_on(mocker, system: ExampleSystem, lock_actuator: LockActuator, logot: Logot):
     mock_key_press = {"value": 1, "key": "F1"}
     mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_press))
-    fan_actuator.device.value = 0
+    lock_actuator.device.value = 0
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
-        await logot.await_for(logged.info("%sFAN_TOGGLE%sON%s"))
+        await logot.await_for(logged.info("%sLOCK_TOGGLE%sON%s"))
         test_task.cancel()
-    assert fan_actuator.device.value == 1
+    assert lock_actuator.device.value == 1
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_release_turns_fan_off(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
+async def test_loop_f1_release_turns_fan_off(mocker, system: ExampleSystem, lock_actuator: LockActuator, logot: Logot):
     mock_key_release = {"value": 0, "key": "F1"}
     mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_release))
-    fan_actuator.device.value = 1
+    lock_actuator.device.value = 1
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
-        await logot.await_for(logged.info("%sFAN_TOGGLE%sOFF%s"))
+        await logot.await_for(logged.info("%sLOCK_TOGGLE%sOFF%s"))
         test_task.cancel()
-    assert fan_actuator.device.value == 0
+    assert lock_actuator.device.value == 0
 
 
 @pytest.mark.asyncio

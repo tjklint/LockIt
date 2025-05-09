@@ -25,32 +25,32 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from common.devices.actuator import Action, Command
-from example_system.devices.fan import FanActuator
+from common.devices.lock import LockActuator
 
 
-def test_control_actuator_return_true_off_to_on(fan_actuator: FanActuator):
-    fan_on = Command(Action.FAN_TOGGLE, 1)
-    assert fan_actuator.control_actuator(fan_on)
-    assert fan_actuator.device.value == 1
+def test_control_actuator_return_true_off_to_on(lock_actuator: LockActuator):
+    lock_on = Command(Action.LOCK_TOGGLE, 1)
+    assert lock_actuator.control_actuator(lock_on)
+    assert lock_actuator.device.value == 1
 
 
-def test_control_actuator_return_true_on_to_off(fan_actuator: FanActuator):
-    fan_on = Command(Action.FAN_TOGGLE, 1)
-    fan_off = Command(Action.FAN_TOGGLE, 0)
-    fan_actuator.control_actuator(fan_on)
-    assert fan_actuator.control_actuator(fan_off)
-    assert fan_actuator.device.value == 0
+def test_control_actuator_return_true_on_to_off(lock_actuator: LockActuator):
+    lock_on = Command(Action.LOCK_TOGGLE, 1)
+    lock_off = Command(Action.LOCK_TOGGLE, 0)
+    lock_actuator.control_actuator(lock_on)
+    assert lock_actuator.control_actuator(lock_off)
+    assert lock_actuator.device.value == 0
 
 
-def test_control_actuator_return_false_on_to_on(fan_actuator: FanActuator):
-    fan_on = Command(Action.FAN_TOGGLE, 1)
-    fan_actuator.control_actuator(fan_on)
-    assert not fan_actuator.control_actuator(fan_on)
-    assert fan_actuator.device.value == 1
+def test_control_actuator_return_false_on_to_on(lock_actuator: LockActuator):
+    lock_on = Command(Action.LOCK_TOGGLE, 1)
+    lock_actuator.control_actuator(lock_on)
+    assert not lock_actuator.control_actuator(lock_on)
+    assert lock_actuator.device.value == 1
 
 
-def test_control_actuator_return_false_off_to_off(fan_actuator: FanActuator):
-    fan_off = Command(Action.FAN_TOGGLE, 0)
-    fan_actuator.control_actuator(fan_off)
-    assert not fan_actuator.control_actuator(fan_off)
-    assert fan_actuator.device.value == 0
+def test_control_actuator_return_false_off_to_off(lock_actuator: LockActuator):
+    lock_off = Command(Action.LOCK_TOGGLE, 0)
+    lock_actuator.control_actuator(lock_off)
+    assert not lock_actuator.control_actuator(lock_off)
+    assert lock_actuator.device.value == 0
