@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
+using LockIt.Services;
 using LockIt.Views;
 
 namespace LockIt.ViewModels
@@ -44,6 +45,8 @@ namespace LockIt.ViewModels
             var result = await _authRepo.LoginAsync(Email, Password);
             if (result != null && !string.IsNullOrEmpty(result.idToken))
             {
+                AuthService.IdToken = result.idToken;
+                AuthService.Email = Email;
                 await Shell.Current.GoToAsync(nameof(SelectUserTypePage));
             }
             else
