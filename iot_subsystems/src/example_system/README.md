@@ -1,7 +1,6 @@
 IoT Device Name: Project_Device
 
 Devices used:
-
 Lock
 
 TMG39931 Sensor
@@ -11,7 +10,6 @@ SEC-100 Magnetic Door Sensors
 AHT20 Sensor
 
 Connections:
-
 Lock: GPIO OutputDevice, pin 16, analog
 
 TMG39931 Sensor: Temporarily AHT20 sensor mock, address 0x39,bus=1, i2c
