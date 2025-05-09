@@ -43,6 +43,11 @@ class Action(dict, Enum):
         max_value (float): float defining the maximum valid value for this command
         name (str): String that is the unique name of the action.
     """
+    TAKE_PICTURE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to take picture",
+    }
 
     FAN_TOGGLE = {
         "min_value": 0,

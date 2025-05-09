@@ -1,10 +1,14 @@
+from dataclasses import dataclass
+from actuator import Action, Command, Actuator
+
+
+@dataclass
 class MockCamera(Actuator):
     """Mock implementation of the Camera."""
 
-    def __init__(self):
+    def __init__(self, action):
         """Initializes the mock class."""
-        self.device = None
-        self.action = Action.TAKE_PICTURE
+        self.action = action
         self.state = 0
 
     def picture(self):
@@ -22,3 +26,20 @@ class MockCamera(Actuator):
             self.picture()
             self.state = 0
             return True
+        
+def main():
+    """Routine for testing actuators when this file is run as a script rather than a module."""
+    camera_actuator = MockCamera(action=Action.TAKE_PICTURE)
+
+    take_picture = Command(Action.FAN_TOGGLE, 1)
+    result = camera_actuator.control_actuator(take_picture)
+    print(f"Command result: {result}")
+
+
+if __name__ == "__main__":
+
+
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
