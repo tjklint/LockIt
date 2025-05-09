@@ -11,8 +11,6 @@ This subsystem contains two devices connected to the Base Hat:
 
 These components allow the IOT system to track motion detection and geographical position (latitude & longitude).
 
----
-
 ## Devices
 
 ### 1. Grove Adjustable PIR Motion Sensor
@@ -28,8 +26,6 @@ These components allow the IOT system to track motion detection and geographical
 | VCC           | 3.3V     | Power   |                   |
 | GND           | GND      | Ground  |                   |
 
----
-
 ### 2. Grove GPS Air530
 
 - **Model:** Grove - GPS (Air530)
@@ -44,12 +40,12 @@ These components allow the IOT system to track motion detection and geographical
 | VCC         | 3.3V     | Power  |                        |
 | GND         | GND      | Ground |                        |
 
----
-
 ## Unimplemented Devices
 
 - Both (both devices are currently mocked in development).
 
----
+## Relevant Issues:
 
-
+- https://github.com/420-6A6-6P3-W25/final-project-leshabitants/issues/33
+- https://github.com/420-6A6-6P3-W25/final-project-leshabitants/issues/34
+$$
