@@ -26,19 +26,33 @@
 
 from common.devices.sensor import Reading
 from common.iot import IOTDeviceClient
-
+from dotenv import dotenv_values
 
 class AzureDeviceClient(IOTDeviceClient):
     """IOT integrations with Azure Iot Hub."""
 
-    async def connect(self) -> None:
+    async def connect(self) -> IOTDeviceClient:
         """Connects to IoTHub."""
-        pass
+        conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
+
+        # Create instance of the device client using the connection string
+        device_client = super().create_from_connection_string(conn_str)
+
+        # Connect the device client.
+        await device_client.connect()
+
+        return device_client
+  
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
-        pass
+        device_client = self.connect()
+
+        await device_client.send_message(reading)
 
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
-        pass
+        device_client = self.connect()
+
+        for reading in readings:
+            await device_client.send_message(reading)
