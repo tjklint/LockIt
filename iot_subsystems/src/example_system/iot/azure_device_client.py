@@ -31,28 +31,28 @@ from dotenv import dotenv_values
 class AzureDeviceClient(IOTDeviceClient):
     """IOT integrations with Azure Iot Hub."""
 
-    async def connect(self) -> IOTDeviceClient:
+    async def connect(self) -> None:
         """Connects to IoTHub."""
-        conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
+        #conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
 
         # Create instance of the device client using the connection string
-        device_client = super().create_from_connection_string(conn_str)
+        #device_client = type(self).create_from_connection_string(conn_str)
 
         # Connect the device client.
-        await device_client.connect()
+        #await device_client.connect()
 
-        return device_client
+        #return device_client
   
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
-        device_client = self.connect()
+        #device_client = await self.connect()
 
-        await device_client.send_message(reading)
+        #await device_client.send_message(reading)
 
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
-        device_client = self.connect()
+        #device_client = await self.connect()
 
-        for reading in readings:
-            await device_client.send_message(reading)
+        #for reading in readings:
+            #await device_client.send_message(reading)
