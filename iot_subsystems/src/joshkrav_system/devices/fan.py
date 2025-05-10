@@ -30,7 +30,7 @@ from time import sleep
 from gpiozero import OutputDevice
 
 from common.devices.actuator import Action, Command
-from example_system.devices.toggle_actuator import ToggleActuator
+from joshkrav_system.devices.toggle_actuator import ToggleActuator
 
 
 class FanActuator(ToggleActuator):

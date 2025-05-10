@@ -24,7 +24,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from example_system.devices.aht20 import HumiditySensor, TemperatureSensor
+from joshkrav_system.devices.aht20 import HumiditySensor, TemperatureSensor
 
 
 def test_temperature_sensor_read_sensor_returns_reading(

@@ -32,23 +32,23 @@ from dotenv import dotenv_values
 from gpiozero import OutputDevice
 from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
-from common.devices.lock import LockActuator
+from joshkrav_system.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
 from common.devices.mocks import MockTMG39931
-from common.devices.tmg39931 import ProximitySensor, RedColorSensor, BlueColorSensor, ProximitySensor, GreenColorSensor
+from joshkrav_system.devices.tmg39931 import ProximitySensor, RedColorSensor, BlueColorSensor, ProximitySensor, GreenColorSensor
 from common.devices.actuator import Action
-from example_system.devices.aht20 import (
+from joshkrav_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
     TemperatureSensor,
 )
-from example_system.devices.fan import FanActuator
-from example_system.example_system import ExampleSystem
-from example_system.interfaces import (
+from joshkrav_system.devices.fan import FanActuator
+from joshkrav_system.example_system import ExampleSystem
+from joshkrav_system.interfaces import (
     ExampleSystemKeyboardInterface,
     ExampleSystemReterminalInterface,
 )
-from example_system.iot.azure_device_client import AzureDeviceClient
+from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

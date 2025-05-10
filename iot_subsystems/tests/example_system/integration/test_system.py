@@ -32,9 +32,9 @@ from logot import Logot, logged
 
 from common.devices.device_controller import DeviceController
 from common.devices.lock import LockActuator
-from example_system.example_system import ExampleSystem
-from example_system.interfaces import ExampleSystemInterface, Interface
-from example_system.iot.azure_device_client import AzureDeviceClient
+from joshkrav_system.example_system import ExampleSystem
+from joshkrav_system.interfaces import ExampleSystemInterface, Interface
+from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
 from .conftest import MockInterface, MockIOTDeviceClient
 

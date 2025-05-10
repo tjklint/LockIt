@@ -32,12 +32,12 @@ from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from common.devices.actuator import Actuator
 from common.devices.device_controller import DeviceController
 from common.devices.sensor import Sensor
-from example_system.devices.aht20 import (
+from joshkrav_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
     TemperatureSensor,
 )
-from example_system.devices.fan import FanActuator
+from joshkrav_system.devices.fan import FanActuator
 
 
 @pytest.fixture
