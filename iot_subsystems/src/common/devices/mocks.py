@@ -1,4 +1,4 @@
-from random import random
+from random import random,choice
 
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from common.devices.sensor import Sensor,Measurement,Reading
@@ -31,12 +31,12 @@ class MockTMG39931(GroveTemperatureHumidityAHT20):
 
 class MockDoorSensor(Sensor):
 
-  def init(self) -> None:
+  def __init__(self) -> None:
         self.measurement = Measurement.DOOR
 
   def read_sensor(self) -> Reading:
         
-        is_closed = self.device.is_pressed
-        reading = Reading(value=str(is_closed), measurement=self.measurement)
+        isClosed = choice([True, False])
+        reading = Reading(value=str(isClosed), measurement=self.measurement)
         logger.info(reading)
         return reading

@@ -34,7 +34,7 @@ from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from joshkrav_system.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
-from common.devices.mocks import MockTMG39931
+from common.devices.mocks import MockTMG39931,MockDoorSensor
 from joshkrav_system.devices.tmg39931 import ProximitySensor, RedColorSensor, BlueColorSensor, ProximitySensor, GreenColorSensor
 from common.devices.actuator import Action
 from joshkrav_system.devices.aht20 import (
@@ -70,6 +70,7 @@ def main() -> None:
         aht20 = MockGroveTemperatureHumidityAHT20()
         luminosity_sensor = MockTMG39931()
         lock = OutputDevice(pin=16, pin_factory=MockFactory())
+        door_sensor = MockDoorSensor()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
         aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
@@ -85,6 +86,7 @@ def main() -> None:
         GreenColorSensor(device=luminosity_sensor),
         BlueColorSensor(device=luminosity_sensor),
         ProximitySensor(device=luminosity_sensor),
+        MockDoorSensor()
     ]
     actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 
