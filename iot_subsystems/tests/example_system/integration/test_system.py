@@ -65,6 +65,13 @@ async def test_loop_all_sensor_readings_logged_with_correct_units(system: Exampl
         test_task = tasks.create_task(system.loop())
         await logot.await_for(logged.info("%s%f%sRH%s"), timeout=0.2)
         await logot.await_for(logged.info("%s%f%s°C%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%.2f lux%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%.2f lux%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%.2f lux%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%.2f lux%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%.2f lux%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%s%d%s"), timeout=0.2)
+        await logot.await_for(logged.info("%s%f%sbool%s"), timeout=0.2)
         test_task.cancel()
 
 
