@@ -50,7 +50,8 @@ class Measurement(dict, Enum):
     GREEN = {"unit": "%.2f lux", "description": "Green Color Luminance"}
     BLUE = {"unit": "%.2f lux", "description": "Blue Color Luminance"}
     PROXIMITY = {"unit": "%d", "description": "Proximity of device."}
-    DOOR = {"unit":"bool","description":"If True Door is closed if False door is open"}
+    DOOR = {"unit": "bool", "description": "If True Door is closed if False door is open"}
+
     def __init__(self, items: dict[str, str]) -> None:
         """Initialize the Measurement instance.
 

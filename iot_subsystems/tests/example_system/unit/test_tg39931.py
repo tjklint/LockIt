@@ -40,12 +40,14 @@ def test_redcolor_sensor_read_sensor_returns_reading(Redcolor_sensor: RedColorSe
     assert isinstance(reading.value, float)
     assert reading.measurement == Redcolor_sensor.measurement
 
+
 def test_bluecolor_sensor_read_sensor_returns_reading(
     bluecolor_sensor: BlueColorSensor,
 ):
     reading = bluecolor_sensor.read_sensor()
     assert isinstance(reading.value, float)
     assert reading.measurement == bluecolor_sensor.measurement
+
 
 def test_proximity_sensor_read_sensor_returns_reading(
     proximity_sensor: ProximitySensor,
@@ -54,11 +56,10 @@ def test_proximity_sensor_read_sensor_returns_reading(
     assert isinstance(reading.value, float)
     assert reading.measurement == proximity_sensor.measurement
 
+
 def test_green_sensor_read_sensor_returns_reading(
     greencolor_sensor: GreenColorSensor,
 ):
     reading = greencolor_sensor.read_sensor()
     assert isinstance(reading.value, float)
     assert reading.measurement == greencolor_sensor.measurement
-
-
