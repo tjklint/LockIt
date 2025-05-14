@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from common.devices.actuator import Command, Actuator
 import logging
+import subprocess
 
 logger = logging.getLogger(__name__)
 
@@ -8,8 +9,22 @@ logger = logging.getLogger(__name__)
 class Camera:
     """Implementation of the Camera."""
 
-    # todo
+    def __init__(self):
+        """Initializes the mock class."""
+        self.state = 0
+        
+    def take_picture(self):
+        "Takes a picture"
+        command = [
+        'ffmpeg',
+        '-f', 'v4l2',
+        '-video_size', '640x480',
+        '-i', '/dev/video0',
+        '-frames:v', '1',
+        'output.jpg'
+        ]
 
+        subprocess.run(command)
 
 class MockCamera:
     """Mock implementation of the Camera."""

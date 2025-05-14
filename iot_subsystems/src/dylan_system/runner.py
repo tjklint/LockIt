@@ -39,7 +39,7 @@ from dylan_system.interfaces import (
 )
 from dylan_system.iot.azure_device_client import AzureDeviceClient
 
-from dylan_system.devices.camera import MockCamera, CameraActuator
+from dylan_system.devices.camera import MockCamera, CameraActuator, Camera
 from common.devices.actuator import Action
 
 logging.basicConfig(level=logging.DEBUG)
@@ -62,8 +62,10 @@ def main() -> None:
         camera = MockCamera()
         aht20 = MockGroveTemperatureHumidityAHT20()
     elif runtime_environment == "PRODUCTION":
-        interface = ExampleSystemReterminalInterface()
-        # todo
+        interface = ExampleSystemKeyboardInterface()
+        camera = Camera()
+        aht20 = MockGroveTemperatureHumidityAHT20()
+
     else:
         raise ValueError
 
