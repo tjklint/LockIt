@@ -30,7 +30,7 @@ from dotenv import dotenv_values
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
 import json
-
+import os
 
 
 class AzureDeviceClient(IOTDeviceClient):
@@ -46,6 +46,10 @@ class AzureDeviceClient(IOTDeviceClient):
         await self.device_client.connect()
 
     def send_picure(self,output_path='output.jpg'):
+        if not os.path.exists(output_path):
+            print("image not found")
+            return
+        
         with open(output_path, 'rb') as image_file:
             image_data = image_file.read()
             msg = Message(image_data)
