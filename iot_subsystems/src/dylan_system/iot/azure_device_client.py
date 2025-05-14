@@ -32,6 +32,7 @@ from azure.iot.device import Message
 import json
 
 
+
 class AzureDeviceClient(IOTDeviceClient):
     """IOT integrations with Azure Iot Hub."""
 
@@ -43,6 +44,16 @@ class AzureDeviceClient(IOTDeviceClient):
     async def connect(self) -> None:
         """Connects to IoTHub."""
         await self.device_client.connect()
+
+    def send_picure(self,output_path='output.jpg'):
+        with open(output_path, 'rb') as image_file:
+            image_data = image_file.read()
+            msg = Message(image_data)
+            msg.content_encoding = "utf-8"
+            msg.content_type = "application/octet-stream"
+            msg.custom_properties["filename"] = output_path
+            self.device_client.send_message(msg)
+            print("image sent")
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
