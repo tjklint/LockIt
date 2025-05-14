@@ -37,7 +37,7 @@ if not __package__:
 
 
 if __name__ == "__main__":
-    from example_system.runner import main
+    from dylan_system.runner import main
 
     with contextlib.suppress(KeyboardInterrupt):
         main()

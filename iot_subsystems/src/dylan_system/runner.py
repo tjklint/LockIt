@@ -1,4 +1,4 @@
-# File: src/example_system/runner.py
+# File: src/dylan_system/runner.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -29,26 +29,19 @@ import contextlib
 import logging
 
 from dotenv import dotenv_values
-from gpiozero import OutputDevice
-from gpiozero.pins.mock import MockFactory
-from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 
 from common.devices.device_controller import DeviceController
-from example_system.devices.aht20 import (
-    HumiditySensor,
-    MockGroveTemperatureHumidityAHT20,
-    TemperatureSensor,
-)
-from example_system.devices.fan import FanActuator
-from example_system.example_system import ExampleSystem
-from example_system.interfaces import (
+from dylan_system.devices.aht20 import HumiditySensor, MockGroveTemperatureHumidityAHT20, TemperatureSensor
+from dylan_system.example_system import ExampleSystem
+from dylan_system.interfaces import (
     ExampleSystemKeyboardInterface,
     ExampleSystemReterminalInterface,
 )
-from example_system.iot.azure_device_client import AzureDeviceClient
+from dylan_system.iot.azure_device_client import AzureDeviceClient
 
-from example_system.devices.camera import MockCamera, CameraActuator
+from dylan_system.devices.camera import MockCamera, CameraActuator
 from common.devices.actuator import Action
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -67,13 +60,16 @@ def main() -> None:
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
         camera = MockCamera()
+        aht20 = MockGroveTemperatureHumidityAHT20()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
-        #todo
+        # todo
     else:
         raise ValueError
 
-    sensors = []
+    sensors = [        
+        TemperatureSensor(device=aht20),
+        HumiditySensor(device=aht20),]
     actuators = [CameraActuator(camera, Action.TAKE_PICTURE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)

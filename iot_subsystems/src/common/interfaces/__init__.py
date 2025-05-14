@@ -42,11 +42,7 @@ class Interface(ABC):
 
     def __init__(self) -> None:
         """Initizalizes the system interface."""
-        self.callbacks = {
-            "control_actuator": lambda: logger.error(
-                "No callback registered for 'control_actuator'"
-            )
-        }
+        self.callbacks = {"control_actuator": lambda: logger.error("No callback registered for 'control_actuator'")}
 
     def register_callback(self, key: str, callback: Callable) -> None:
         """Connects the system interface to the system using a callback pattern.

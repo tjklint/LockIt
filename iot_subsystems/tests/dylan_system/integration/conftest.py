@@ -1,4 +1,4 @@
-# File: src/example_system/__main__.py
+# File: tests/dylan_system/integration/conftest.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -24,20 +24,35 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import contextlib
-import sys
-from pathlib import Path
-
-if not __package__:
-    # Make CLI runnable from source tree with
-    #    python src/package
-    # See: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/#running-a-command-line-interface-from-source-with-src-layout
-    package_source_path = Path(__file__).parent.parent.as_posix()
-    sys.path.insert(0, package_source_path)
+from common.devices.sensor import Reading
+from dylan_system.interfaces import ExampleSystemInterface
+from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 
-if __name__ == "__main__":
-    from example_system.runner import main
+class MockInterface(ExampleSystemInterface):
+    async def mock_event(self) -> dict:
+        return {}
 
-    with contextlib.suppress(KeyboardInterrupt):
-        main()
+    async def event_loop(self) -> None:
+        event = await self.mock_event()
+        if event.get("value") == 1:
+            self.key_press(event["key"])
+        elif event.get("value") == 0:
+            self.key_release(event["key"])
+
+    def end_event_loop(self) -> None:
+        pass
+
+    def key_press(self, key: str) -> None:
+        return super().key_press(key)
+
+    def key_release(self, key: str) -> None:
+        return super().key_release(key)
+
+
+class MockIOTDeviceClient(AzureDeviceClient):
+    async def connect(self) -> None:
+        pass
+
+    async def send_reading(self, reading: Reading) -> None:
+        pass

@@ -1,4 +1,4 @@
-# File: src/example_system/example_system.py
+# File: src/dylan_system/example_system.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
