@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using DotNetEnv;
 using LockIt.DataRepos;
+using LockIt.Services;
 
 namespace LockIt
 {
