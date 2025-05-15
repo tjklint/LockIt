@@ -1,4 +1,5 @@
-﻿using LockIt.Views;
+﻿using LockIt.Services;
+using LockIt.Views;
 
 namespace LockIt
 {
@@ -10,11 +11,18 @@ namespace LockIt
 
             MainPage = new AppShell();
 
+         
             Application.Current.Dispatcher.Dispatch(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(RegisterPage));
             });
 
+        }
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            Task.Run(async () => await HubService.ProcessData());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace LockIt.Models
     /// <summary>
     /// Provides functionality to read environmental data including temperature and humidity.
     /// </summary>
-    internal class EnvironmentalSensor
+    public class EnvironmentalSensor
     {
         private double _temperatureSensor;
         private double _humiditySensor;
@@ -23,7 +23,7 @@ namespace LockIt.Models
         /// Gets or sets the value used for temperature measurements.
         /// </summary>
         // TODO: Add validation
-        public double TemperatureHumiditySensor
+        public double TemperatureSensor
         {
             get { return _temperatureSensor; }
             set { _temperatureSensor = value; }

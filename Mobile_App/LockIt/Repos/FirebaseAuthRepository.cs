@@ -20,7 +20,7 @@ namespace LockIt.Repos
         public FirebaseAuthRepository()
         {
             _client = new HttpClient();
-            apiKey = "AIzaSyDunVNhDF035vH9KHsNIc-LvbkF-qegyvw";
+            apiKey = "";
         }
 
         public async Task<FirebaseAuthResponse> LoginAsync(string email, string password)

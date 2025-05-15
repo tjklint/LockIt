@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using DotNetEnv;
 using LockIt.DataRepos;
+using LockIt.Services;
 
 namespace LockIt
 {
@@ -12,7 +13,7 @@ namespace LockIt
             var envPath = Path.Combine(baseDir, ".env");
             DotNetEnv.Env.Load(envPath);
 
-            var testApiKey = "AIzaSyDunVNhDF035vH9KHsNIc-LvbkF-qegyvw";
+            var testApiKey = "";
 
             if (string.IsNullOrEmpty(testApiKey))
             {
