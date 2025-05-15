@@ -20,6 +20,7 @@ from common.interfaces import Interface
 
 logger = logging.getLogger(__name__)
 
+
 class TJKlintSystemInterface(Interface):
     """Custom interface for tjklint-system."""
 
@@ -56,6 +57,7 @@ class TJKlintSystemInterface(Interface):
 
     async def event_loop(self) -> None:
         import asyncio
+
         while True:
             await asyncio.sleep(1)
 

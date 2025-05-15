@@ -38,13 +38,21 @@ from tjklint_system.system import TJKlintSystem
 from tjklint_system.interfaces import TJKlintSystemInterface
 from tjklint_system.iot.azure_device_client import AzureDeviceClient
 
+
 def main() -> None:
     env_path = os.path.join(os.path.dirname(__file__), ".env")
     runtime_environment = dotenv_values(env_path)["ENVIRONMENT"]
 
     parser = argparse.ArgumentParser(description="TJKlint System CLI")
-    parser.add_argument("--telemetry-interval", type=float, default=5, help="Telemetry interval in seconds")
-    parser.add_argument("--no-sensor-logs", action="store_true", help="Disable sensor reading logs")
+    parser.add_argument(
+        "--telemetry-interval",
+        type=float,
+        default=5,
+        help="Telemetry interval in seconds",
+    )
+    parser.add_argument(
+        "--no-sensor-logs", action="store_true", help="Disable sensor reading logs"
+    )
     args = parser.parse_args()
 
     # Logging: both to stdout and to file
@@ -54,14 +62,14 @@ def main() -> None:
         format=log_format,
         handlers=[
             logging.StreamHandler(),
-            logging.FileHandler("tjklint_system.log", mode="a")
-        ]
+            logging.FileHandler("tjklint_system.log", mode="a"),
+        ],
     )
     logger = logging.getLogger(__name__)
 
     if runtime_environment == "DEVELOPMENT":
         sensors = [MotionSensor(), GPSSensor()]
-        actuators = []  
+        actuators = []
     elif runtime_environment == "PRODUCTION":
         sensors = [MotionSensor(), GPSSensor()]
         actuators = []
@@ -82,6 +90,7 @@ def main() -> None:
         asyncio.run(system.loop())
     except StopAsyncIteration as e:
         logger.error(e)
+
 
 if __name__ == "__main__":
     with contextlib.suppress(KeyboardInterrupt):

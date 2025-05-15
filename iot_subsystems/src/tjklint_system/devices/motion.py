@@ -3,6 +3,7 @@ from common.devices.sensor import Sensor, Measurement, Reading
 
 logger = logging.getLogger(__name__)
 
+
 class MockMotionSensorDevice:
     def __init__(self):
         self.state = False
@@ -11,6 +12,7 @@ class MockMotionSensorDevice:
         # Toggle state for mock
         self.state = not self.state
         return int(self.state)
+
 
 class MotionSensor(Sensor):
     device: MockMotionSensorDevice

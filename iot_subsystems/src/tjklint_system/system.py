@@ -8,6 +8,7 @@ from common.iot import IOTDeviceClient
 
 logger = logging.getLogger(__name__)
 
+
 class TJKlintSystem:
     device_controller: DeviceController
     interface: Interface

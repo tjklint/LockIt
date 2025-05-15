@@ -39,6 +39,7 @@ from example_system.iot.azure_device_client import AzureDeviceClient
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+
 def main() -> None:
     runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
     sensors = [MotionSensor(), GPSSensor()]
@@ -51,6 +52,7 @@ def main() -> None:
         asyncio.run(system.loop())
     except StopAsyncIteration as e:
         logger.error(e)
+
 
 if __name__ == "__main__":
     with contextlib.suppress(KeyboardInterrupt):

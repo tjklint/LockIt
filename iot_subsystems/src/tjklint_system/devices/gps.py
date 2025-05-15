@@ -4,11 +4,13 @@ from common.devices.sensor import Sensor, Measurement, Reading
 
 logger = logging.getLogger(__name__)
 
+
 class MockGPSDevice:
     def read(self):
         lat = round(uniform(-90, 90), 6)
         lon = round(uniform(-180, 180), 6)
         return lat, lon
+
 
 class GPSSensor(Sensor):
     device: MockGPSDevice

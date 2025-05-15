@@ -94,6 +94,7 @@ class TJKlintSystemInterface(Interface):
 
     async def event_loop(self) -> None:
         import asyncio
+
         while True:
             await asyncio.sleep(1)
 

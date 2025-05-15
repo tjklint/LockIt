@@ -57,7 +57,9 @@ class AzureDeviceClient(IOTDeviceClient):
         """Connects to IoTHub."""
         if IoTHubDeviceClient is None:
             raise ImportError("azure-iot-device not installed")
-        self.client = IoTHubDeviceClient.create_from_connection_string(self.connection_string)
+        self.client = IoTHubDeviceClient.create_from_connection_string(
+            self.connection_string
+        )
         await self.client.connect()
         self.connected = True
 
@@ -65,7 +67,11 @@ class AzureDeviceClient(IOTDeviceClient):
         """Sends reading to IoTHub."""
         if self.client is None:
             await self.connect()
-        msg = Message(json.dumps({"value": reading.value, "measurement": reading.measurement.name}))
+        msg = Message(
+            json.dumps(
+                {"value": reading.value, "measurement": reading.measurement.name}
+            )
+        )
         msg.custom_properties["measurement"] = reading.measurement.name
         await self.client.send_message(msg)
 
