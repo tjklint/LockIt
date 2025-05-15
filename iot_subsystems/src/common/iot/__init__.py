@@ -46,12 +46,8 @@ class IOTDeviceClient(ABC):
         """Contructor."""
         self.connected = False
         self.callbacks = {
-            "control_actuator": lambda: logger.error(
-                "No callback registered for 'control_actuator'"
-            ),
-            "set_telemetry_interval": lambda: logger.error(
-                "No callback registered for 'set_telemetry_interval'"
-            ),
+            "control_actuator": lambda: logger.error("No callback registered for 'control_actuator'"),
+            "set_telemetry_interval": lambda: logger.error("No callback registered for 'set_telemetry_interval'"),
         }
 
     def register_callback(self, key: str, callback: Callable) -> None:

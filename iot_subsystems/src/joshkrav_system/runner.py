@@ -32,20 +32,29 @@ from dotenv import dotenv_values
 from gpiozero import OutputDevice
 from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
-
+from joshkrav_system.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
-from example_system.devices.aht20 import (
+from common.devices.mocks import MockTMG39931, MockDoorSensor
+from joshkrav_system.devices.tmg39931 import (
+    ProximitySensor,
+    RedColorSensor,
+    BlueColorSensor,
+    ProximitySensor,
+    GreenColorSensor,
+)
+from common.devices.actuator import Action
+from joshkrav_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
     TemperatureSensor,
 )
-from example_system.devices.fan import FanActuator
-from example_system.example_system import ExampleSystem
-from example_system.interfaces import (
+from joshkrav_system.devices.fan import FanActuator
+from joshkrav_system.example_system import ExampleSystem
+from joshkrav_system.interfaces import (
     ExampleSystemKeyboardInterface,
     ExampleSystemReterminalInterface,
 )
-from example_system.iot.azure_device_client import AzureDeviceClient
+from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -65,16 +74,27 @@ def main() -> None:
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
         aht20 = MockGroveTemperatureHumidityAHT20()
-        fan = OutputDevice(pin=16, pin_factory=MockFactory())
+        luminosity_sensor = MockTMG39931()
+        lock = OutputDevice(pin=16, pin_factory=MockFactory())
+        door_sensor = MockDoorSensor()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
         aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
-        fan = OutputDevice(pin=16)
+        lock = OutputDevice(pin=16)
     else:
         raise ValueError
 
-    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20)]
-    actuators = [FanActuator(device=fan)]
+    sensors = [
+        TemperatureSensor(device=aht20),
+        HumiditySensor(device=aht20),
+        ProximitySensor(device=luminosity_sensor),
+        RedColorSensor(device=luminosity_sensor),
+        GreenColorSensor(device=luminosity_sensor),
+        BlueColorSensor(device=luminosity_sensor),
+        ProximitySensor(device=luminosity_sensor),
+        MockDoorSensor(),
+    ]
+    actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     system = ExampleSystem(

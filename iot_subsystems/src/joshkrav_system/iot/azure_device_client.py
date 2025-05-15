@@ -24,21 +24,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import asyncio
+import json
 from common.devices.sensor import Reading
 from common.iot import IOTDeviceClient
+from dotenv import dotenv_values
+from azure.iot.device.aio import IoTHubDeviceClient
+from azure.iot.device import Message
 
 
 class AzureDeviceClient(IOTDeviceClient):
     """IOT integrations with Azure Iot Hub."""
 
+    def __init__(self):
+        super().__init__()
+        conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
+        self.device_client = IoTHubDeviceClient.create_from_connection_string(
+            "HostName=joshuakravitz-iot-hub.azure-devices.net;DeviceId=Project_Device;SharedAccessKey=OHxdGE9uPyGxPsP1Kg3QOp8qbPnN2pKFKq86syLO0CU=",
+            websockets=True,
+        )
+
     async def connect(self) -> None:
         """Connects to IoTHub."""
-        pass
+        await self.device_client.connect()
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
-        pass
+
+        await self.device_client.send_message(reading.value)
 
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
-        pass
+
+        for reading in readings:
+            payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
+            await self.device_client.send_message(Message(payload))

@@ -25,8 +25,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from common.devices.sensor import Reading
-from example_system.interfaces import ExampleSystemInterface
-from example_system.iot.azure_device_client import AzureDeviceClient
+from joshkrav_system.interfaces import ExampleSystemInterface
+from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
 
 class MockInterface(ExampleSystemInterface):
