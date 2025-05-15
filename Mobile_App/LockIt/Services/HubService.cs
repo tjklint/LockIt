@@ -15,10 +15,11 @@ namespace LockIt.Services
 {
     public static class HubService
     {
-    
+
         public static BlobContainerClient _storageClient = new BlobContainerClient(StorageConnectionString, BlobContainerName);
         private static EventProcessorClient _processor = new EventProcessorClient(_storageClient, ConsumerGroup, EventHubConnectionString);
         
+
         public static async Task ProcessData()
         {
             _processor.ProcessEventAsync += ProcessEventHandler;
@@ -54,6 +55,7 @@ namespace LockIt.Services
             
             try
             {
+                Console.WriteLine(args.Data.EventBody);
                 JObject json = JObject.Parse(args.Data.EventBody.ToString());
                 UserDataRepo.UpdateFromJson(json);
                 // This is where the repo parsing the data should come into place. 
