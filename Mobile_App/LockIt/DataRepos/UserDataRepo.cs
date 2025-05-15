@@ -1,4 +1,5 @@
 ﻿
+using LockIt.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,19 +8,15 @@ using System.Threading.Tasks;
 
 namespace LockIt.DataRepos
 {
-    internal class TestDataRepo
+    internal class UserDataRepo
     {
         public string Username { get; set; } = "AUsername";
 
         public string Password { get; set; } = "APassword";
 
-        public double Temperature { get; set; } = 20.8;
+        public EnvironmentalSensor EnvironmentalSensor { get; set; } = new EnvironmentalSensor();
 
-        public int Humidity { get; set; } = 38;
-
-        public int Luminosity { get; set; } = 20;
-
-        public bool isLocked {  get; set; } = false;
+        public SecurityModel SecurityData { get; set; } = new SecurityModel(123);
 
         public float Longitude { get; set; } = 92.90769F;
 

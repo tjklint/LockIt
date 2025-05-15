@@ -10,41 +10,37 @@ namespace LockIt.Models
     /// <summary>
     /// Controls locking and unlocking mechanisms using GPIO, and includes preliminary support for motor control.
     /// </summary>
-    internal class Security
+    public class SecurityModel
     {
         private int _lockPin;
-        private GpioController _lock = new GpioController();
-        private GpioController _motor = new GpioController();
-        private bool isLocked = false;
-
+        private bool _isLocked;
+        private bool _isClosed;
         /// <summary>
-        /// Initializes a new instance of the <see cref="Security"/> class with a specified GPIO pin for lock control.
+        /// Initializes a new instance of the <see cref="SecurityModel"/> class with a specified GPIO pin for lock control.
         /// </summary>
         /// <param name="lockPin">The GPIO pin number used for locking and unlocking.</param>
-        public Security(int lockPin)
+        public SecurityModel(int lockPin)
         {
             _lockPin = lockPin;
         }
 
         /// <summary>
-        /// Gets or sets the GPIO controller responsible for lock operations.
+        /// Gets or sets the boolean for whether the door is locked or not.
         /// </summary>
-        public GpioController Lock
+        public bool IsLocked
         {
-            get { return _lock; }
-            set { _lock = value; }
+            get { return _isLocked; }
+            set { _isLocked = value; }
         }
 
         /// <summary>
-        /// Gets or sets the GPIO controller assigned to motor operations.
+        /// Gets or sets the boolean for whether the door is closed or not.
         /// </summary>
-        // TODO: Add validation
-        public GpioController Motor
+        public bool IsClosed
         {
-            get { return _motor; }
-            set { _motor = value; }
+            get { return _isClosed; }
+            set { _isClosed = value; }
         }
-
         /// <summary>
         /// Unlocks the device by writing a high value to the lock pin.
         /// </summary>
@@ -56,12 +52,7 @@ namespace LockIt.Models
         /// </example>
         public void Unlocking()
         {
-            using (_lock)
-            {
-                _lock.OpenPin(_lockPin, PinMode.Output);
-                _lock.Write(_lockPin, PinValue.High);
-                isLocked = false;
-            }
+           
         }
 
         /// <summary>
@@ -75,18 +66,8 @@ namespace LockIt.Models
         /// </example>
         public void Locking()
         {
-            using (_lock)
-            {
-                _lock.OpenPin(_lockPin, PinMode.Output);
-                _lock.Write(_lockPin, PinValue.Low);
-                isLocked = true;
-            }
+          
         }
 
-        // TODO: Figure out how to get the data/properly use the Motor.
-        public void GetMotor()
-        {
-
-        }
     }
 }

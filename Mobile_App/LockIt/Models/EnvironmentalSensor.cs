@@ -14,81 +14,37 @@ namespace LockIt.Models
     /// </summary>
     internal class EnvironmentalSensor
     {
-        private I2cDevice _temperatureHumiditySensor;
-        private GpioController _luminositySensor = new GpioController();
+        private double _temperatureSensor;
+        private double _humiditySensor;
+        private LuminositySensor _luminositySensor = new LuminositySensor();
+
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnvironmentalSensor"/> class,
-        /// and sets up the I2C connection for the temperature and humidity sensor.
-        /// </summary>
-        EnvironmentalSensor()
-        {
-            I2cConnectionSettings settings = new I2cConnectionSettings(4, 0x38);
-            _temperatureHumiditySensor = I2cDevice.Create(settings);
-        }
-
-        /// <summary>
-        /// Gets or sets the I2C device used for temperature and humidity measurements.
+        /// Gets or sets the value used for temperature measurements.
         /// </summary>
         // TODO: Add validation
-        public I2cDevice TemperatureHumiditySensor
+        public double TemperatureHumiditySensor
         {
-            get { return _temperatureHumiditySensor; }
-            set { _temperatureHumiditySensor = value; }
+            get { return _temperatureSensor; }
+            set { _temperatureSensor = value; }
         }
 
         /// <summary>
-        /// Gets or sets the GPIO controller used for the luminosity sensor.
+        /// Gets or sets the value used for the luminosity sensor.
         /// </summary>
-        public GpioController LuminositySensor
+        public LuminositySensor LuminositySensor
         {
             get { return _luminositySensor; }
             set { _luminositySensor = value; }
         }
 
         /// <summary>
-        /// Retrieves the current ambient temperature using the AHT20 sensor.
+        /// Gets or sets the value used for the humidity measurements.
         /// </summary>
-        /// <returns>The current temperature as a <see cref="UnitsNet.Temperature"/> object.</returns>
-        /// <example>
-        /// <code>
-        /// var sensor = new EnvironmentalSensor();
-        /// var temp = sensor.GetTemperature();
-        /// Console.WriteLine(temp.DegreesCelsius + " °C");
-        /// </code>
-        /// </example>
-        public UnitsNet.Temperature GetTemperature()
+        public double HumiditySensor
         {
-            using (Aht20 sensor = new Aht20(_temperatureHumiditySensor))
-            {
-                return sensor.GetTemperature();
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the current relative humidity using the AHT20 sensor.
-        /// </summary>
-        /// <returns>The current humidity as a <see cref="UnitsNet.RelativeHumidity"/> object.</returns>
-        /// <example>
-        /// <code>
-        /// var sensor = new EnvironmentalSensor();
-        /// var humidity = sensor.GetHumidity();
-        /// Console.WriteLine(humidity.Percent + " %");
-        /// </code>
-        /// </example>
-        public UnitsNet.RelativeHumidity GetHumidity()
-        {
-            using (Aht20 sensor = new Aht20(_temperatureHumiditySensor))
-            {
-                return sensor.GetHumidity();
-            }
-        }
-
-        // TODO: Figure out how the luminosity sensor will function
-        // and what data it will return.
-        public void GetLuminosity()
-        {
-
+            get { return _humiditySensor; }
+            set { _humiditySensor = value; }
         }
     }
 }
