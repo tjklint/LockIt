@@ -45,8 +45,17 @@ class Measurement(dict, Enum):
 
     TEMPERATURE = {"unit": "°C", "description": "temperature in degrees celsius"}
     HUMIDITY = {"unit": "%RH", "description": "relative measurement of humidity"}
+<<<<<<< HEAD
     MOTION = {"unit": "bool", "description": "motion detected (1/0)"}
     GPS = {"unit": "latlon", "description": "GPS latitude and longitude"}
+=======
+    INFRARED = {"unit": "%.2f lux", "description": "InfraRed Luminance"}
+    RED = {"unit": "%.2f lux", "description": "Red Color Luminance"}
+    GREEN = {"unit": "%.2f lux", "description": "Green Color Luminance"}
+    BLUE = {"unit": "%.2f lux", "description": "Blue Color Luminance"}
+    PROXIMITY = {"unit": "%d", "description": "Proximity of device."}
+    DOOR = {"unit": "bool", "description": "If True Door is closed if False door is open"}
+>>>>>>> main
 
     def __init__(self, items: dict[str, str]) -> None:
         """Initialize the Measurement instance.

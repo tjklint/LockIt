@@ -44,10 +44,22 @@ class Action(dict, Enum):
         name (str): String that is the unique name of the action.
     """
 
+    TAKE_PICTURE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to take picture",
+    }
+
     FAN_TOGGLE = {
         "min_value": 0,
         "max_value": 1,
         "description": "Command to turn the fan on/off",
+    }
+
+    LOCK_TOGGLE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to turn the lock on/off",
     }
 
     LED_TOGGLE = {

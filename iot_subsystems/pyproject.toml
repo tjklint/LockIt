@@ -1,0 +1,58 @@
+[project]
+name = "final-project-upstream"
+version = "0.1.0"
+description = "assignment 2"
+authors = [
+    {name = "DylanSavelson", email = "Dylannsavelson@gmail.com"},
+    {name = "joshkrav", email = "jbkravitz2005@gmail.com"},
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+
+dependencies = [
+  "azure-iot-device @ git+https://github.com/Azure/azure-iot-sdk-python@e75d1c2026eab939d5d31097fd0c22924c53abf8",
+  "bme680>=2.0.0",
+  "bmm150>=0.2.2",
+  "certifi>=2025.4.26",
+  "charset-normalizer>=3.4.2",
+  "colorzero>=2.0",
+  "deprecation>=2.1.0",
+  "dotenv>=0.9.9",
+  "enum-tools>=0.9.0.post1",
+  "evdev>=1.9.2",
+  "gpiod>=2.3.0",
+  "gpiozero>=2.0.1",
+  "idna>=3.10",
+  "janus>=2.0.0",
+  "packaging>=25.0",
+  "paho-mqtt>=1.6.1",
+  "Pygments>=2.19.1",
+  "PySocks>=1.7.1",
+  "python-dotenv>=1.1.0",
+  "requests>=2.32.3",
+  "requests-unixsocket2>=1.0.0",
+  "rpi-ws281x>=5.0.0",
+  "RPi.GPIO>=0.7.1",
+  "Seeed-grove.py>=0.7",
+  "seeed-python-rpi>=0.6",
+  "sgp30>=0.1.6",
+  "smbus2>=0.4.3",
+  "sshkeyboard>=2.3.1",
+  "typing_extensions>=4.13.2",
+  "urllib3>=2.4.0"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.3.5",
+  "pytest-asyncio>=0.26.0",
+  "pytest-mock>=3.14.0",
+  "logot[pytest]==1.3.0"
+]
+format = [
+    "ruff>=0.11.8"
+]
+
+[tool.ruff]
+line-length = 120

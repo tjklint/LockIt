@@ -1,4 +1,4 @@
-# File: tests/example_system/conftest.py
+# File: tests/dylan_system/conftest.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -32,12 +32,12 @@ from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from common.devices.actuator import Actuator
 from common.devices.device_controller import DeviceController
 from common.devices.sensor import Sensor
-from example_system.devices.aht20 import (
+from dylan_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
     TemperatureSensor,
 )
-from example_system.devices.fan import FanActuator
+from dylan_system.devices.fan import FanActuator
 
 
 @pytest.fixture
@@ -91,8 +91,6 @@ def all_sensors(
 
 
 @pytest.fixture
-def device_controller(
-    all_actuators: list[Actuator], all_sensors: list[Sensor]
-) -> DeviceController:
+def device_controller(all_actuators: list[Actuator], all_sensors: list[Sensor]) -> DeviceController:
     """Fixture DeviceController instantiated with all available actuators and sensors."""
     return DeviceController(actuators=all_actuators, sensors=all_sensors)
