@@ -1,10 +1,15 @@
 [project]
 name = "final-project-upstream"
 version = "0.1.0"
-description = "project branch"
+description = "assignment 2"
 authors = [
+    {name = "DylanSavelson", email = "Dylannsavelson@gmail.com"},
     {name = "joshkrav", email = "jbkravitz2005@gmail.com"},
 ]
+requires-python = ">=3.11"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+
 dependencies = [
   "azure-iot-device @ git+https://github.com/Azure/azure-iot-sdk-python@e75d1c2026eab939d5d31097fd0c22924c53abf8",
   "bme680>=2.0.0",
@@ -13,8 +18,10 @@ dependencies = [
   "charset-normalizer>=3.4.2",
   "colorzero>=2.0",
   "deprecation>=2.1.0",
+  "dotenv>=0.9.9",
   "enum-tools>=0.9.0.post1",
   "evdev>=1.9.2",
+  "gpiod>=2.3.0",
   "gpiozero>=2.0.1",
   "idna>=3.10",
   "janus>=2.0.0",
@@ -35,6 +42,7 @@ dependencies = [
   "typing_extensions>=4.13.2",
   "urllib3>=2.4.0"
 ]
+
 [project.optional-dependencies]
 test = [
   "pytest>=8.3.5",
@@ -45,5 +53,6 @@ test = [
 format = [
     "ruff>=0.11.8"
 ]
+
 [tool.ruff]
 line-length = 120

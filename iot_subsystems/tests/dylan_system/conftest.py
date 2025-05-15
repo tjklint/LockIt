@@ -1,4 +1,4 @@
-# File: tests/example_system/conftest.py
+# File: tests/dylan_system/conftest.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -32,12 +32,12 @@ from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from common.devices.actuator import Actuator
 from common.devices.device_controller import DeviceController
 from common.devices.sensor import Sensor
-from joshkrav_system.devices.aht20 import (
+from dylan_system.devices.aht20 import (
     HumiditySensor,
     MockGroveTemperatureHumidityAHT20,
     TemperatureSensor,
 )
-from joshkrav_system.devices.fan import FanActuator
+from dylan_system.devices.fan import FanActuator
 
 
 @pytest.fixture

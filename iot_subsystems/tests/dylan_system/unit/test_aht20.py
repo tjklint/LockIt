@@ -1,4 +1,4 @@
-# File: tests/example_system/unit/test_aht20.py
+# File: tests/dylan_system/unit/test_aht20.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -24,7 +24,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from joshkrav_system.devices.aht20 import HumiditySensor, TemperatureSensor
+from dylan_system.devices.aht20 import HumiditySensor, TemperatureSensor
 
 
 def test_temperature_sensor_read_sensor_returns_reading(
