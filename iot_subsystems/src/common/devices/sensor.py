@@ -45,6 +45,8 @@ class Measurement(dict, Enum):
 
     TEMPERATURE = {"unit": "°C", "description": "temperature in degrees celsius"}
     HUMIDITY = {"unit": "%RH", "description": "relative measurement of humidity"}
+    MOTION = {"unit": "bool", "description": "motion detected (1/0)"}
+    GPS = {"unit": "latlon", "description": "GPS latitude and longitude"}
 
     def __init__(self, items: dict[str, str]) -> None:
         """Initialize the Measurement instance.

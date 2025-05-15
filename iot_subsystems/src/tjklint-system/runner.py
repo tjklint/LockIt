@@ -27,68 +27,30 @@
 import asyncio
 import contextlib
 import logging
-
 from dotenv import dotenv_values
-from gpiozero import OutputDevice
-from gpiozero.pins.mock import MockFactory
-from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 
+from tjklint_system.devices.motion import MotionSensor
+from tjklint_system.devices.gps import GPSSensor
 from common.devices.device_controller import DeviceController
-from example_system.devices.aht20 import (
-    HumiditySensor,
-    MockGroveTemperatureHumidityAHT20,
-    TemperatureSensor,
-)
-from example_system.devices.fan import FanActuator
-from example_system.example_system import ExampleSystem
-from example_system.interfaces import (
-    ExampleSystemKeyboardInterface,
-    ExampleSystemReterminalInterface,
-)
+from tjklint_system.system import TJKlintSystem
+from tjklint_system.interfaces import TJKlintSystemInterface
 from example_system.iot.azure_device_client import AzureDeviceClient
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# https://www.gnu.org/licenses/gpl-3.0.html#howto
-LICENSE_NOTICE = """
-example_system: Copyright (C) 2025 michaelhaaf
-This program comes with ABSOLUTELY NO WARRANTY.
-This is free software, and you are welcome to redistribute it
-under certain conditions; for details see LICENSE packaged with source code.
-"""
-
-
 def main() -> None:
-    """Routine for running system from cli."""
     runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
-    if runtime_environment == "DEVELOPMENT":
-        interface = ExampleSystemKeyboardInterface()
-        aht20 = MockGroveTemperatureHumidityAHT20()
-        fan = OutputDevice(pin=16, pin_factory=MockFactory())
-    elif runtime_environment == "PRODUCTION":
-        interface = ExampleSystemReterminalInterface()
-        aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
-        fan = OutputDevice(pin=16)
-    else:
-        raise ValueError
-
-    sensors = [TemperatureSensor(device=aht20), HumiditySensor(device=aht20)]
-    actuators = [FanActuator(device=fan)]
-
+    sensors = [MotionSensor(), GPSSensor()]
+    actuators = []  # Add actuators if needed
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
-    system = ExampleSystem(
-        device_controller=device_controller,
-        interface=interface,
-        iot_device_client=AzureDeviceClient(),
-    )
-
+    interface = TJKlintSystemInterface()
+    iot_device_client = AzureDeviceClient()
+    system = TJKlintSystem(device_controller, interface, iot_device_client)
     try:
-        print(LICENSE_NOTICE)
         asyncio.run(system.loop())
     except StopAsyncIteration as e:
-        logger.error(e)  # noqa: TRY400
-
+        logger.error(e)
 
 if __name__ == "__main__":
     with contextlib.suppress(KeyboardInterrupt):

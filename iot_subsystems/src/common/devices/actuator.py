@@ -68,6 +68,12 @@ class Action(dict, Enum):
         "description": "Command to set the brightness of the LED",
     }
 
+    MOTION_TOGGLE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to simulate motion detection",
+    }
+
     def __init__(self, items: dict) -> None:
         """Initialize the Action instance.
 
