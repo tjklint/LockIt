@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+  x:Class="LockIt.Views.SetLockPage"
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:vm="clr-namespace:LockIt.ViewModels"
+  Title="Set Your Lock Code">
+
+    <ContentPage.BindingContext>
+        <vm:SetLockViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Enter your 4-digit code:" 
+           FontAttributes="Bold" />
+
+        <Entry Text="{Binding Code}" 
+           Placeholder="e.g. 1234"
+           Keyboard="Numeric" />
+
+        <Button Text="Save Code"
+            Command="{Binding SaveCommand}"
+            IsVisible="{Binding HasCode, Converter={StaticResource InverseBoolConverter}}" />
+
+        <Button Text="Update Code"
+            Command="{Binding SaveCommand}"
+            IsVisible="{Binding HasCode}" />
+
+        <Button Text="Delete Code"
+            Command="{Binding DeleteCommand}"
+            IsVisible="{Binding HasCode}" />
+
+        <Frame Padding="10"
+           IsVisible="{Binding HasCode}">
+            <Label Text="{Binding Code}"
+             HorizontalOptions="Center" />
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>
