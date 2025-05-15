@@ -30,11 +30,8 @@ from time import sleep
 from gpiozero import OutputDevice
 
 from common.devices.actuator import Action, Command
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/devices/fan.py
 from dylan_system.devices.toggle_actuator import ToggleActuator
-========
-from joshkrav_system.devices.toggle_actuator import ToggleActuator
->>>>>>>> main:iot_subsystems/src/joshkrav_system/devices/fan.py
+
 
 
 class FanActuator(ToggleActuator):
