@@ -26,10 +26,7 @@ class TJKlintSystemInterface(Interface):
 
     def key_press(self, key: str) -> None:
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/interfaces/__init__.py
             command = Command(Action.MOTION_TOGGLE, 1)
-========
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
             command = Command(Action.TAKE_PICTURE, 1)
 ========
             command = Command(Action.LOCK_TOGGLE, 1)
