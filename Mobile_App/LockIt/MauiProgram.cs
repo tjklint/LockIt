@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using DotNetEnv;
+using LockIt.DataRepos;
+using LockIt.Services;
 
 namespace LockIt
 {
@@ -11,7 +13,7 @@ namespace LockIt
             var envPath = Path.Combine(baseDir, ".env");
             DotNetEnv.Env.Load(envPath);
 
-            var testApiKey = Environment.GetEnvironmentVariable("FIREBASE_API_KEY");
+            var testApiKey = "";
 
             if (string.IsNullOrEmpty(testApiKey))
             {
@@ -27,9 +29,10 @@ namespace LockIt
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Jersey15-Regular.ttf", "Jersey15Regular");
                 });
-
+            builder.Services.AddSingleton<UserDataRepo>();
+            builder.Services.AddSingleton<HubService>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
