@@ -1,4 +1,4 @@
-# File: tests/dylan_system/unit/test_aht20.py
+# File: src/example_system/iot/azure_device_client.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -24,7 +24,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/iot/azure_device_client.py
 import os
 import json
 from dotenv import dotenv_values
@@ -38,19 +37,11 @@ except ImportError:
 
 from common.devices.sensor import Reading
 from common.iot import IOTDeviceClient
-========
-from dylan_system.devices.aht20 import HumiditySensor, TemperatureSensor
->>>>>>>> main:iot_subsystems/tests/dylan_system/unit/test_aht20.py
 
 
-def test_temperature_sensor_read_sensor_returns_reading(
-    temperature_sensor: TemperatureSensor,
-):
-    reading = temperature_sensor.read_sensor()
-    assert isinstance(reading.value, float)
-    assert reading.measurement == temperature_sensor.measurement
+class AzureDeviceClient(IOTDeviceClient):
+    """IOT integrations with Azure Iot Hub."""
 
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/iot/azure_device_client.py
     def __init__(self):
         super().__init__()
         self.client = None
@@ -88,10 +79,3 @@ def test_temperature_sensor_read_sensor_returns_reading(
         """Sends readings to IoTHub."""
         for reading in readings:
             await self.send_reading(reading)
-========
-
-def test_humidity_sensor_read_sensor_returns_reading(humidity_sensor: HumiditySensor):
-    reading = humidity_sensor.read_sensor()
-    assert isinstance(reading.value, float)
-    assert reading.measurement == humidity_sensor.measurement
->>>>>>>> main:iot_subsystems/tests/dylan_system/unit/test_aht20.py

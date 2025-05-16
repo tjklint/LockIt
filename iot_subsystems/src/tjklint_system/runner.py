@@ -31,7 +31,7 @@ import os
 import argparse
 from dotenv import dotenv_values
 
-from tjklint_system.devices.motion import MotionSensor
+from tjklint_system.devices.motion import MotionSensor, MockMotionSensor
 from tjklint_system.devices.gps import GPSSensor
 from common.devices.device_controller import DeviceController
 from tjklint_system.system import TJKlintSystem
@@ -68,8 +68,8 @@ def main() -> None:
     logger = logging.getLogger(__name__)
 
     if runtime_environment == "DEVELOPMENT":
-        sensors = [MotionSensor(), GPSSensor()]
-        actuators = []
+        sensors = [MockMotionSensor(), GPSSensor()]
+        actuators = []  
     elif runtime_environment == "PRODUCTION":
         sensors = [MotionSensor(), GPSSensor()]
         actuators = []

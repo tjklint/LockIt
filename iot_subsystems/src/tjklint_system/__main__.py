@@ -37,15 +37,6 @@ if not __package__:
 
 
 if __name__ == "__main__":
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/__main__.py
     from tjklint_system.runner import main
-========
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/__main__.py
-    from dylan_system.runner import main
-========
-    from joshkrav_system.runner import main
->>>>>>>> main:iot_subsystems/src/joshkrav_system/__main__.py
->>>>>>>> main:iot_subsystems/src/joshkrav_system/__main__.py
-
     with contextlib.suppress(KeyboardInterrupt):
         main()
