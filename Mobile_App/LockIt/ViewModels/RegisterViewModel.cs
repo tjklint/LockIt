@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
 using LockIt.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Controls;
 
 namespace LockIt.ViewModels

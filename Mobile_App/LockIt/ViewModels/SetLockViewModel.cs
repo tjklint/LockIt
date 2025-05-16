@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
 using LockIt.Services;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace LockIt.ViewModels
@@ -28,7 +29,17 @@ namespace LockIt.ViewModels
 
         public SetLockViewModel()
         {
-            var dbUrl = Environment.GetEnvironmentVariable("FIREBASE_DB_URL");
+            var appSettingsPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+
+            if (!File.Exists(appSettingsPath))
+                throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
+
+            var json = File.ReadAllText(appSettingsPath);
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
+
             _repo = new CodeRepository(dbUrl, AuthService.IdToken);
 
             SaveCommand = new AsyncRelayCommand(SaveAsync);

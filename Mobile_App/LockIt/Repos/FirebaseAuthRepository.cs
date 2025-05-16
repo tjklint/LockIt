@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using LockIt.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace LockIt.Repos
 {
@@ -20,7 +21,17 @@ namespace LockIt.Repos
         public FirebaseAuthRepository()
         {
             _client = new HttpClient();
-            apiKey = Environment.GetEnvironmentVariable("FIREBASE_API_KEY") ?? throw new InvalidOperationException("API key not set");
+
+            var appSettingsPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+
+            if (!File.Exists(appSettingsPath))
+                throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
+
+            var json = File.ReadAllText(appSettingsPath);
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            this.apiKey = root.GetProperty("Firebase").GetProperty("ApiKey").GetString();
         }
 
         public async Task<FirebaseAuthResponse> LoginAsync(string email, string password)

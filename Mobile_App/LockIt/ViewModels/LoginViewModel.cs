@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
 using LockIt.Services;
 using LockIt.Views;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 
@@ -10,7 +11,7 @@ namespace LockIt.ViewModels
 {
     public partial class LoginViewModel : ObservableObject
     {
-        [ObservableProperty] private string email;
+        [ObservableProperty] private string? email;
         [ObservableProperty] private string password;
 
         private readonly FirebaseAuthRepository _authRepo;
@@ -97,8 +98,8 @@ namespace LockIt.ViewModels
 
         private void SignOut()
         {
-            AuthService.IdToken = null;
-            AuthService.Email = null;
+            AuthService.IdToken = string.Empty;
+            AuthService.Email = string.Empty;
             Email = string.Empty;
             Password = string.Empty;
 

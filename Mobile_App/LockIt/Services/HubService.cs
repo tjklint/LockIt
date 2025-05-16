@@ -16,7 +16,11 @@ namespace LockIt.Services
 {
     public class HubService
     {
-
+        private static string EventHubConnectionString = "Endpoint=sb://ihsuprodyqres019dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=2hiXTvTbsjS9rO2VngSIY4V1WQap6xK8VAIoTMWlWcA=;EntityPath=iothub-ehub-joshuakrav-55394611-27e5154dcc";
+        private static string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=projectleshabitants;AccountKey=9Sbl22xiRCrtTsrSMikGMp2pYhQUV10kpUNFSRh6awfbNWM2rXft05BkGe/Q+RRyFuCihxHjqzjo+AStXixtLg==;EndpointSuffix=core.windows.net";
+        private static string BlobContainerName = "project";
+        private static string EventHubName = "joshuakravitz-iot-hub";
+        private static string ConsumerGroup = "$Default";
 
         private  BlobContainerClient _storageClient;
         private EventProcessorClient _processor;
