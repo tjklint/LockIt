@@ -20,7 +20,7 @@ namespace LockIt.Repos
         public FirebaseAuthRepository()
         {
             _client = new HttpClient();
-            apiKey = "";
+            apiKey = Environment.GetEnvironmentVariable("FIREBASE_API_KEY") ?? throw new InvalidOperationException("API key not set");
         }
 
         public async Task<FirebaseAuthResponse> LoginAsync(string email, string password)
@@ -28,19 +28,24 @@ namespace LockIt.Repos
             var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={apiKey}";
             var payload = new
             {
-                email = email,
-                password = password,
+                email,
+                password,
                 returnSecureToken = true
             };
 
             var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(url, content);
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var json = await response.Content.ReadAsStringAsync();
 
-            // TODO: Error Handling
-            var result = JsonSerializer.Deserialize<FirebaseAuthResponse>(jsonResponse);
-            return result;
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = JsonSerializer.Deserialize<FirebaseErrorResponse>(json);
+                throw new FirebaseAuthException(error?.Error?.Message ?? "Unknown error");
+            }
+
+            return JsonSerializer.Deserialize<FirebaseAuthResponse>(json);
         }
+
 
         public async Task<FirebaseAuthResponse> RegisterAsync(string email, string password)
         {
@@ -61,5 +66,21 @@ namespace LockIt.Repos
             return result;
         }
     }
+
+    public class FirebaseErrorResponse
+    {
+        public FirebaseError Error { get; set; }
+    }
+
+    public class FirebaseError
+    {
+        public string Message { get; set; }
+    }
+
+    public class FirebaseAuthException : Exception
+    {
+        public FirebaseAuthException(string message) : base(message) { }
+    }
+
 }
 

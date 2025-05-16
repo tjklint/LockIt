@@ -1,4 +1,4 @@
-# File: tests/example_system/integration/test_system.py
+# File: tests/dylan_system/integration/test_system.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -31,10 +31,10 @@ from asyncmock import AsyncMock
 from logot import Logot, logged
 
 from common.devices.device_controller import DeviceController
-from common.devices.lock import LockActuator
-from joshkrav_system.example_system import ExampleSystem
-from joshkrav_system.interfaces import ExampleSystemInterface, Interface
-from joshkrav_system.iot.azure_device_client import AzureDeviceClient
+from dylan_system.devices.fan import FanActuator
+from dylan_system.example_system import ExampleSystem
+from dylan_system.interfaces import ExampleSystemInterface, Interface
+from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 from .conftest import MockInterface, MockIOTDeviceClient
 
@@ -76,27 +76,27 @@ async def test_loop_all_sensor_readings_logged_with_correct_units(system: Exampl
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_press_turns_lock_on(mocker, system: ExampleSystem, lock_actuator: LockActuator, logot: Logot):
+async def test_loop_f1_press_turns_fan_on(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
     mock_key_press = {"value": 1, "key": "F1"}
     mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_press))
-    lock_actuator.device.value = 0
+    fan_actuator.device.value = 0
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
-        await logot.await_for(logged.info("%sLOCK_TOGGLE%sON%s"))
+        await logot.await_for(logged.info("dylan_system.devices.camera:picture taken"))
         test_task.cancel()
-    assert lock_actuator.device.value == 1
+    assert fan_actuator.device.value == 1
 
 
 @pytest.mark.asyncio
-async def test_loop_f1_release_turns_fan_off(mocker, system: ExampleSystem, lock_actuator: LockActuator, logot: Logot):
+async def test_loop_f1_release_turns_fan_off(mocker, system: ExampleSystem, fan_actuator: FanActuator, logot: Logot):
     mock_key_release = {"value": 0, "key": "F1"}
     mocker.patch.object(MockInterface, "mock_event", AsyncMock(return_value=mock_key_release))
-    lock_actuator.device.value = 1
+    fan_actuator.device.value = 1
     async with asyncio.TaskGroup() as tasks:
         test_task = tasks.create_task(system.loop())
-        await logot.await_for(logged.info("%sLOCK_TOGGLE%sOFF%s"))
+        await logot.await_for(logged.info("%sFAN_TOGGLE%sOFF%s"))
         test_task.cancel()
-    assert lock_actuator.device.value == 0
+    assert fan_actuator.device.value == 0
 
 
 @pytest.mark.asyncio

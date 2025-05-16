@@ -12,70 +12,64 @@
 # Copyright (C) 2025 michaelhaaf
 #
 # This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import logging
 
 from common.devices.actuator import Action, Command
 from common.interfaces import Interface
+from common.interfaces.keyboard import KeyboardInterface
+from common.interfaces.reterminal import ReterminalInterface
 
 logger = logging.getLogger(__name__)
 
 
-class TJKlintSystemInterface(Interface):
-    """Custom interface for tjklint-system."""
+class ExampleSystemInterface(Interface):
+    """Common logic for all example_system interfaces."""
 
     def key_press(self, key: str) -> None:
+        """See base class."""
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/interfaces/__init__.py
-            command = Command(Action.MOTION_TOGGLE, 1)
-========
 <<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
             command = Command(Action.TAKE_PICTURE, 1)
 ========
             command = Command(Action.LOCK_TOGGLE, 1)
 >>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
             self.callbacks["control_actuator"](command)
-        elif key.upper() == "F2":
-            # Trigger GPS reading (calls a callback if registered)
-            if "trigger_gps" in self.callbacks:
-                self.callbacks["trigger_gps"]()
-            else:
-                logger.info("F2 pressed: GPS reading requested")
-        elif key.upper() == "F3":
-            logger.info("F3 pressed: Custom action")
         elif key.upper() == "O":
             logger.info("'O' pressed, script will exit when released")
         else:
             logger.debug(f"{key} pressed")
 
     def key_release(self, key: str) -> None:
+        """See base class."""
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/interfaces/__init__.py
-            command = Command(Action.MOTION_TOGGLE, 0)
-========
 <<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
             command = Command(Action.TAKE_PICTURE, 0)
 ========
             command = Command(Action.LOCK_TOGGLE, 0)
 >>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
             self.callbacks["control_actuator"](command)
-        elif key.upper() == "F2":
-            logger.info("F2 released")
-        elif key.upper() == "F3":
-            logger.info("F3 released")
         elif key.upper() == "O":
             logger.info("'O' released, script exiting.")
             self.callbacks["end_event_loop"]()
         else:
             logger.debug(f"{key} released")
 
-    async def event_loop(self) -> None:
-        import asyncio
 
-        while True:
-            await asyncio.sleep(1)
+class ExampleSystemReterminalInterface(ExampleSystemInterface, ReterminalInterface):
+    """Reterminal button-listener interface for the example_system reterminal."""
 
-    def end_event_loop(self) -> None:
-        pass
+
+class ExampleSystemKeyboardInterface(ExampleSystemInterface, KeyboardInterface):
+    """Keyboard button-listener interface for the example_system in development."""

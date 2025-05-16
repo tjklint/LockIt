@@ -1,4 +1,4 @@
-# File: tests/example_system/unit/test_aht20.py
+# File: src/example_system/__main__.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -24,18 +24,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from joshkrav_system.devices.aht20 import HumiditySensor, TemperatureSensor
+import contextlib
+import sys
+from pathlib import Path
+
+if not __package__:
+    # Make CLI runnable from source tree with
+    #    python src/package
+    # See: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/#running-a-command-line-interface-from-source-with-src-layout
+    package_source_path = Path(__file__).parent.parent.as_posix()
+    sys.path.insert(0, package_source_path)
 
 
-def test_temperature_sensor_read_sensor_returns_reading(
-    temperature_sensor: TemperatureSensor,
-):
-    reading = temperature_sensor.read_sensor()
-    assert isinstance(reading.value, float)
-    assert reading.measurement == temperature_sensor.measurement
+if __name__ == "__main__":
+<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/__main__.py
+    from tjklint_system.runner import main
+========
+<<<<<<<< HEAD:iot_subsystems/src/dylan_system/__main__.py
+    from dylan_system.runner import main
+========
+    from joshkrav_system.runner import main
+>>>>>>>> main:iot_subsystems/src/joshkrav_system/__main__.py
+>>>>>>>> main:iot_subsystems/src/joshkrav_system/__main__.py
 
-
-def test_humidity_sensor_read_sensor_returns_reading(humidity_sensor: HumiditySensor):
-    reading = humidity_sensor.read_sensor()
-    assert isinstance(reading.value, float)
-    assert reading.measurement == humidity_sensor.measurement
+    with contextlib.suppress(KeyboardInterrupt):
+        main()

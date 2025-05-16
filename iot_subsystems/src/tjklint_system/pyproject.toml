@@ -1,0 +1,30 @@
+[project]
+name = "tjklint-system"
+version = "0.1.0"
+description = "IoT subsystem for Assignment 2"
+authors = [
+    {name = "tjklint", email = "timothyjklint@gmail.com"},
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+
+dependencies = [
+    "python-dotenv",
+    "azure-iot-device",
+    # Add any other runtime dependencies here
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "TID", "ARG", "PL", "RUF"]
+ignore = []
+exclude = ["venv", ".venv", "build", "dist"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]

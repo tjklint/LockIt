@@ -44,6 +44,12 @@ class Action(dict, Enum):
         name (str): String that is the unique name of the action.
     """
 
+    TAKE_PICTURE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to take picture",
+    }
+
     FAN_TOGGLE = {
         "min_value": 0,
         "max_value": 1,
@@ -72,6 +78,12 @@ class Action(dict, Enum):
         "min_value": 0.0,
         "max_value": 1.0,
         "description": "Command to set the brightness of the LED",
+    }
+
+    MOTION_TOGGLE = {
+        "min_value": 0,
+        "max_value": 1,
+        "description": "Command to simulate motion detection",
     }
 
     def __init__(self, items: dict) -> None:

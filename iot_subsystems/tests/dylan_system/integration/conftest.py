@@ -1,4 +1,4 @@
-# File: tests/example_system/integration/conftest.py
+# File: tests/dylan_system/integration/conftest.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -25,8 +25,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from common.devices.sensor import Reading
-from joshkrav_system.interfaces import ExampleSystemInterface
-from joshkrav_system.iot.azure_device_client import AzureDeviceClient
+from dylan_system.interfaces import ExampleSystemInterface
+from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 
 class MockInterface(ExampleSystemInterface):

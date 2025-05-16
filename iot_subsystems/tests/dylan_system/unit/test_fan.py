@@ -1,4 +1,4 @@
-# File: tests/example_system/unit/test_fan.py
+# File: tests/dylan_system/unit/test_fan.py
 # Project: final-project-upstream
 # Creation date: 29 Apr 2025
 # Author: michaelhaaf <michael.haaf@gmail.com>
@@ -25,6 +25,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from common.devices.actuator import Action, Command
+from dylan_system.devices.fan import FanActuator
 from common.devices.lock import LockActuator
 
 
