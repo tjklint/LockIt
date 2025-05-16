@@ -61,14 +61,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove=".env" />
 	  <None Remove="Resources\Images\homeowner.png" />
 	  <None Remove="Resources\Images\visitor.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include=".env">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Azure.Messaging.EventHubs.Processor" Version="5.12.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="DotNetEnv" Version="3.1.1" />
+		<PackageReference Include="Firebase.Auth" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

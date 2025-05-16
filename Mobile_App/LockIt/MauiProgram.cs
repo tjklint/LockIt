@@ -13,11 +13,11 @@ namespace LockIt
             var envPath = Path.Combine(baseDir, ".env");
             DotNetEnv.Env.Load(envPath);
 
-            var testApiKey = "";
+            var testApiKey = Environment.GetEnvironmentVariable("FIREBASE_API_KEY");
 
             if (string.IsNullOrEmpty(testApiKey))
             {
-                throw new Exception("Firebase API key not found. Ensure the .env file is loaded.");
+                throw new InvalidOperationException("FIREBASE_API_KEY is not set in the .env file.");
             }
 
             var builder = MauiApp.CreateBuilder();
