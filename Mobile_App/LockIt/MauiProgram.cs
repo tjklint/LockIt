@@ -2,6 +2,8 @@
 using DotNetEnv;
 using LockIt.DataRepos;
 using LockIt.Services;
+using LockIt.ViewModels;
+using LockIt.Views;
 
 namespace LockIt
 {
@@ -13,7 +15,7 @@ namespace LockIt
             var envPath = Path.Combine(baseDir, ".env");
             DotNetEnv.Env.Load(envPath);
 
-            var testApiKey = "";
+            var testApiKey = "1";
 
             if (string.IsNullOrEmpty(testApiKey))
             {
@@ -31,6 +33,8 @@ namespace LockIt
                 });
             builder.Services.AddSingleton<UserDataRepo>();
             builder.Services.AddSingleton<HubService>();
+            builder.Services.AddSingleton<MenuPageViewModel>();
+            builder.Services.AddSingleton<VisitorMenuPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

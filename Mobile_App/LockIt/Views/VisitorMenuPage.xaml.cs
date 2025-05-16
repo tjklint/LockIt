@@ -1,16 +1,22 @@
+using LockIt.ViewModels;
+
 namespace LockIt.Views
+
 {
     /// <summary>
     /// Represents the menu interface for a visitor user, providing options such as accessing the camera or opening a lock.
     /// </summary>
     public partial class VisitorMenuPage : ContentPage
     {
+        public MenuPageViewModel ViewModel { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="VisitorMenuPage"/> class and loads its components.
         /// </summary>
-        public VisitorMenuPage()
+        public VisitorMenuPage(MenuPageViewModel viewmodel)
         {
             InitializeComponent();
+            BindingContext = viewmodel;
         }
 
         /// <summary>
