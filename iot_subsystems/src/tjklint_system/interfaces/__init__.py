@@ -28,10 +28,7 @@ class TJKlintSystemInterface(Interface):
         if key.upper() == "F1":
             command = Command(Action.MOTION_TOGGLE, 1)
             command = Command(Action.TAKE_PICTURE, 1)
-========
             command = Command(Action.LOCK_TOGGLE, 1)
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
             self.callbacks["control_actuator"](command)
         elif key.upper() == "F2":
             # Trigger GPS reading (calls a callback if registered)
@@ -48,16 +45,12 @@ class TJKlintSystemInterface(Interface):
 
     def key_release(self, key: str) -> None:
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/interfaces/__init__.py
-            command = Command(Action.MOTION_TOGGLE, 0)
-========
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
-            command = Command(Action.TAKE_PICTURE, 0)
-========
-            command = Command(Action.LOCK_TOGGLE, 0)
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
-            self.callbacks["control_actuator"](command)
+                command = Command(Action.MOTION_TOGGLE, 0)
+                command = Command(Action.TAKE_PICTURE, 0)
+
+                command = Command(Action.LOCK_TOGGLE, 0)
+
+                self.callbacks["control_actuator"](command)
         elif key.upper() == "F2":
             logger.info("F2 released")
         elif key.upper() == "F3":

@@ -87,8 +87,10 @@ def main() -> None:
     runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
-        camera = MockCamera()
         aht20 = MockGroveTemperatureHumidityAHT20()
+        luminosity_sensor = MockTMG39931()
+        lock = OutputDevice(pin=16, pin_factory=MockFactory())
+        door_sensor = MockDoorSensor()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
         aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
