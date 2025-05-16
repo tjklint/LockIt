@@ -2,6 +2,7 @@
 using Azure.Messaging.EventHubs.Processor;
 using Azure.Storage.Blobs;
 using LockIt.DataRepos;
+using LockIt.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,16 @@ namespace LockIt.Services
     public class HubService
     {
 
+
         private  BlobContainerClient _storageClient;
         private EventProcessorClient _processor;
+        private MenuPageViewModel _viewModel;
 
         public UserDataRepo _repo;
-        public HubService(UserDataRepo repo)
+        public HubService(UserDataRepo repo, MenuPageViewModel viewModel)
         {
             _repo = repo;
+            _viewModel = viewModel;
             _storageClient = new BlobContainerClient(StorageConnectionString, BlobContainerName);
             _processor = new EventProcessorClient(_storageClient, ConsumerGroup, EventHubConnectionString);
             _processor.ProcessEventAsync += ProcessEventHandler;
@@ -67,6 +71,10 @@ namespace LockIt.Services
                 Console.WriteLine(args.Data.EventBody);
                 JObject json = JObject.Parse(args.Data.EventBody.ToString());
                 _repo.UpdateFromJson(json);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _viewModel.UpdateData(json);
+                });
                 // This is where the repo parsing the data should come into place. 
                 // or a helper method which helps route the data to the appropriate repo.
             }

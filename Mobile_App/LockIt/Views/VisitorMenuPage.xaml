@@ -4,6 +4,24 @@
              x:Class="LockIt.Views.VisitorMenuPage"
              >
     <VerticalStackLayout VerticalOptions="Center">
+        <Label Text="Live Sensor Data" FontSize="24" FontAttributes="Bold" TextColor="Teal" Margin="0,30,0,10"/>
+        <Label Text="Temperature (°C):" />
+        <Label Text="{Binding Environment.TemperatureSensor}" />
+
+        <Label Text="Humidity (%):" />
+        <Label Text="{Binding Environment.HumiditySensor}" />
+
+        <Label Text="Red Luminance:" />
+        <Label Text="{Binding Environment.LuminositySensor.Red}" />
+
+        <Label Text="Green Luminance:" />
+        <Label Text="{Binding Environment.LuminositySensor.Green}" />
+
+        <Label Text="Blue Luminance:" />
+        <Label Text="{Binding Environment.LuminositySensor.Blue}" />
+
+        <Label Text="Proximity:" />
+        <Label Text="{Binding Environment.LuminositySensor.Proximity}" />
         <Button
             Margin="25"
             Text="ACCESS CAMERA" 

@@ -2,6 +2,8 @@
 using DotNetEnv;
 using LockIt.DataRepos;
 using LockIt.Services;
+using LockIt.ViewModels;
+using LockIt.Views;
 
 namespace LockIt
 {
@@ -14,6 +16,7 @@ namespace LockIt
             DotNetEnv.Env.Load(envPath);
 
             var testApiKey = Environment.GetEnvironmentVariable("FIREBASE_API_KEY");
+
 
             if (string.IsNullOrEmpty(testApiKey))
             {
@@ -31,6 +34,8 @@ namespace LockIt
                 });
             builder.Services.AddSingleton<UserDataRepo>();
             builder.Services.AddSingleton<HubService>();
+            builder.Services.AddSingleton<MenuPageViewModel>();
+            builder.Services.AddSingleton<VisitorMenuPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
