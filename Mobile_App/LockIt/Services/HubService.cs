@@ -13,17 +13,26 @@ using System.Threading.Tasks;
 
 namespace LockIt.Services
 {
-    public static class HubService
+    public class HubService
     {
 
-        public static BlobContainerClient _storageClient = new BlobContainerClient(StorageConnectionString, BlobContainerName);
-        private static EventProcessorClient _processor = new EventProcessorClient(_storageClient, ConsumerGroup, EventHubConnectionString);
-        
+        private  BlobContainerClient _storageClient;
+        private EventProcessorClient _processor;
 
-        public static async Task ProcessData()
+        public UserDataRepo _repo;
+        public HubService(UserDataRepo repo)
         {
+            _repo = repo;
+            _storageClient = new BlobContainerClient(StorageConnectionString, BlobContainerName);
+            _processor = new EventProcessorClient(_storageClient, ConsumerGroup, EventHubConnectionString);
             _processor.ProcessEventAsync += ProcessEventHandler;
             _processor.ProcessErrorAsync += ProcessErrorHandler;
+
+        }
+
+        public async Task ProcessData()
+        {
+   
             try
             {
                 await _processor.StartProcessingAsync();
@@ -50,14 +59,14 @@ namespace LockIt.Services
                 _processor.ProcessErrorAsync -= ProcessErrorHandler;
             }
         }
-        public static async Task ProcessEventHandler(ProcessEventArgs args)
+        public async Task ProcessEventHandler(ProcessEventArgs args)
         {
             
             try
             {
                 Console.WriteLine(args.Data.EventBody);
                 JObject json = JObject.Parse(args.Data.EventBody.ToString());
-                UserDataRepo.UpdateFromJson(json);
+                _repo.UpdateFromJson(json);
                 // This is where the repo parsing the data should come into place. 
                 // or a helper method which helps route the data to the appropriate repo.
             }
@@ -67,7 +76,7 @@ namespace LockIt.Services
             }
         }
 
-        public static async Task ProcessErrorHandler(ProcessErrorEventArgs args)
+        public async Task ProcessErrorHandler(ProcessErrorEventArgs args)
         {
             Debug.WriteLine($"ERROR: {args}");
         }

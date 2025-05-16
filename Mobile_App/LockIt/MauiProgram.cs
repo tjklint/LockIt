@@ -30,6 +30,7 @@ namespace LockIt
                     fonts.AddFont("Jersey15-Regular.ttf", "Jersey15Regular");
                 });
             builder.Services.AddSingleton<UserDataRepo>();
+            builder.Services.AddSingleton<HubService>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
