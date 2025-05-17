@@ -37,6 +37,7 @@ from common.devices.device_controller import DeviceController
 from tjklint_system.system import TJKlintSystem
 from tjklint_system.interfaces import TJKlintSystemInterface
 from tjklint_system.iot.azure_device_client import AzureDeviceClient
+from common.interfaces.keyboard import KeyboardInterface
 
 
 def main() -> None:
@@ -78,6 +79,8 @@ def main() -> None:
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     interface = TJKlintSystemInterface()
+    if not hasattr(interface, "event_loop") or not callable(getattr(interface, "event_loop", None)):
+        interface = KeyboardInterface()
     iot_device_client = AzureDeviceClient()
     system = TJKlintSystem(device_controller, interface, iot_device_client)
     system.telemetry_interval = args.telemetry_interval

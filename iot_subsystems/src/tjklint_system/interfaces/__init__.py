@@ -17,12 +17,13 @@ import logging
 
 from common.devices.actuator import Action, Command
 from common.interfaces import Interface
+from common.interfaces.keyboard import KeyboardInterface
 
 logger = logging.getLogger(__name__)
 
 
-class TJKlintSystemInterface(Interface):
-    """Custom interface for tjklint-system."""
+class TJKlintSystemInterface(Interface, KeyboardInterface):
+    """Keyboard button-listener interface for tjklint-system."""
 
     def key_press(self, key: str) -> None:
         if key.upper() == "F1":
