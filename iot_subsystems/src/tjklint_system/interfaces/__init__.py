@@ -26,8 +26,6 @@ class TJKlintSystemInterface(Interface):
 
     def key_press(self, key: str) -> None:
         if key.upper() == "F1":
-            command = Command(Action.MOTION_TOGGLE, 1)
-            command = Command(Action.TAKE_PICTURE, 1)
             command = Command(Action.LOCK_TOGGLE, 1)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "F2":
@@ -45,14 +43,12 @@ class TJKlintSystemInterface(Interface):
 
     def key_release(self, key: str) -> None:
         if key.upper() == "F1":
-            command = Command(Action.MOTION_TOGGLE, 0)
-            command = Command(Action.TAKE_PICTURE, 0)
             command = Command(Action.LOCK_TOGGLE, 0)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "F2":
-            logger.info("F2 released")
+            logger.debug("F2 released")
         elif key.upper() == "F3":
-            logger.info("F3 released")
+            logger.debug("F3 released")
         elif key.upper() == "O":
             logger.info("'O' released, script exiting.")
             self.callbacks["end_event_loop"]()
