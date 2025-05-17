@@ -22,7 +22,17 @@ class GPSDeviceUART:
                 "pyserial is not installed or not installed correctly. "
                 "Install with: pip install pyserial"
             )
-        self.ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
+        try:
+            self.ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
+        except PermissionError as e:
+            raise PermissionError(
+                f"Permission denied opening {port}. "
+                "Try running your script with 'sudo', or add your user to the 'dialout' group:\n"
+                "sudo usermod -a -G dialout $USER\n"
+                "Then log out and log back in."
+            ) from e
+        except serial.SerialException as e:
+            raise RuntimeError(f"Could not open serial port {port}: {e}") from e
 
     def read(self):
         """
