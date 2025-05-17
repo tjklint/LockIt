@@ -24,6 +24,9 @@ logger = logging.getLogger(__name__)
 class TJKlintSystemInterface(KeyboardInterface):
     """Keyboard button-listener interface for tjklint-system."""
 
+    async def event_loop(self) -> None:
+        await super().event_loop()
+
     def key_press(self, key: str) -> None:
         if key.upper() == "F1":
             command = Command(Action.LOCK_TOGGLE, 1)
@@ -53,12 +56,6 @@ class TJKlintSystemInterface(KeyboardInterface):
             self.callbacks["end_event_loop"]()
         else:
             logger.debug(f"{key} released")
-
-    async def event_loop(self) -> None:
-        import asyncio
-
-        while True:
-            await asyncio.sleep(1)
 
     def end_event_loop(self) -> None:
         pass
