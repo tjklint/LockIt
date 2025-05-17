@@ -33,7 +33,6 @@ from dotenv import dotenv_values
 
 from tjklint_system.devices.motion import MotionSensor, MockMotionSensor
 from tjklint_system.devices.gps import GPSSensor
-from dylan_system.devices.aht20 import TemperatureSensor, HumiditySensor, MockGroveTemperatureHumidityAHT20
 from common.devices.device_controller import DeviceController
 from tjklint_system.system import TJKlintSystem
 from tjklint_system.interfaces import TJKlintSystemInterface
