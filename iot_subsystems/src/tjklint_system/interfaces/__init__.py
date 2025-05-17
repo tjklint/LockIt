@@ -21,8 +21,7 @@ from common.interfaces.keyboard import KeyboardInterface
 
 logger = logging.getLogger(__name__)
 
-
-class TJKlintSystemInterface(Interface, KeyboardInterface):
+class TJKlintSystemInterface(KeyboardInterface):
     """Keyboard button-listener interface for tjklint-system."""
 
     def key_press(self, key: str) -> None:
@@ -30,7 +29,6 @@ class TJKlintSystemInterface(Interface, KeyboardInterface):
             command = Command(Action.LOCK_TOGGLE, 1)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "F2":
-            # Trigger GPS reading (calls a callback if registered)
             if "trigger_gps" in self.callbacks:
                 self.callbacks["trigger_gps"]()
             else:
