@@ -13,10 +13,10 @@ logger = logging.getLogger(__name__)
 class GPSDeviceUART:
     """
     Reads NMEA sentences from Grove GPS (Air530) via UART on Raspberry Pi.
-    Default UART: /dev/serial0 (TX=GPIO15, RX=GPIO14)
+    Default UART: /dev/ttyS0 (TX=GPIO15, RX=GPIO14)
     """
 
-    def __init__(self, port="/dev/serial0", baudrate=9600, timeout=1):
+    def __init__(self, port="/dev/ttyS0", baudrate=9600, timeout=1):
         if serial is None or not hasattr(serial, "Serial"):
             raise ImportError(
                 "pyserial is not installed or not installed correctly. "
@@ -24,6 +24,8 @@ class GPSDeviceUART:
             )
         try:
             self.ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
+            self.ser.reset_input_buffer()
+            self.ser.flush()
         except PermissionError as e:
             import getpass
             import os
@@ -46,13 +48,18 @@ class GPSDeviceUART:
         Returns (lat, lon) as floats, or (None, None) if not available.
         """
         while True:
-            line = self.ser.readline().decode(errors="ignore").strip()
-            if line.startswith("$GNGGA") or line.startswith("$GPGGA"):
+            try:
+                line = self.ser.readline().decode("utf-8")
+            except UnicodeDecodeError:
+                logger.warning("UnicodeDecodeError encountered")
+                continue
+            if "GGA" in line:
                 try:
                     msg = pynmea2.parse(line)
                     if msg.latitude and msg.longitude:
                         return (msg.latitude, msg.longitude)
-                except pynmea2.ParseError:
+                except pynmea2.ParseError as e:
+                    logger.warning(f"Parse error: {e}")
                     continue
             # Optionally, break after N attempts or timeout
 
