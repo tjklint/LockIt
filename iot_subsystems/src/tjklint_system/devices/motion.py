@@ -1,5 +1,5 @@
 import logging
-from gpiozero import DigitalInputDevice
+import os
 from random import randint
 from common.devices.sensor import Sensor, Measurement, Reading
 
@@ -12,14 +12,20 @@ class MockMotionSensorDevice:
 
 class MotionSensor(Sensor):
     """Production implementation for Grove Adjustable PIR Motion Sensor."""
-    device: DigitalInputDevice
+    device: object
     measurement: Measurement
 
     def __init__(self, device=None):
+        # Check for Raspberry Pi GPIO sysfs
+        if not os.path.exists("/sys/class/gpio"):
+            raise RuntimeError(
+                "GPIO sysfs not found. Are you running on a Raspberry Pi? "
+                "Use ENVIRONMENT=DEVELOPMENT for mock sensors."
+            )
         if device is not None:
             self.device = device
         else:
-            # GPIO12 is pin 12 (BCM numbering)
+            from gpiozero import DigitalInputDevice
             self.device = DigitalInputDevice(12)
         self.measurement = Measurement.MOTION
 
