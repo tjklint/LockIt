@@ -33,6 +33,7 @@ from dotenv import dotenv_values
 
 from tjklint_system.devices.motion import MotionSensor, MockMotionSensor
 from tjklint_system.devices.gps import GPSSensor
+from dylan_system.devices.aht20 import TemperatureSensor, HumiditySensor, MockGroveTemperatureHumidityAHT20
 from common.devices.device_controller import DeviceController
 from tjklint_system.system import TJKlintSystem
 from tjklint_system.interfaces import TJKlintSystemInterface
@@ -69,18 +70,22 @@ def main() -> None:
     logger = logging.getLogger(__name__)
 
     if runtime_environment == "DEVELOPMENT":
-        sensors = [MockMotionSensor(), GPSSensor()]
-        actuators = []  
+        sensors = [
+            MockMotionSensor(),
+            GPSSensor(),
+        ]
+        actuators = []
     elif runtime_environment == "PRODUCTION":
-        sensors = [MotionSensor(), GPSSensor()]
+        sensors = [
+            MotionSensor(),
+            GPSSensor(),
+        ]
         actuators = []
     else:
         raise ValueError("Invalid ENVIRONMENT in .env")
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
     interface = TJKlintSystemInterface()
-    if not hasattr(interface, "event_loop") or not callable(getattr(interface, "event_loop", None)):
-        interface = KeyboardInterface()
     iot_device_client = AzureDeviceClient()
     system = TJKlintSystem(device_controller, interface, iot_device_client)
     system.telemetry_interval = args.telemetry_interval
