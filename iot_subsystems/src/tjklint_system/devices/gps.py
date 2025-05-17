@@ -25,12 +25,18 @@ class GPSDeviceUART:
         try:
             self.ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
         except PermissionError as e:
-            raise PermissionError(
+            import getpass
+            import os
+            user = getpass.getuser()
+            groups = os.popen(f"groups {user}").read()
+            logger.error(
                 f"Permission denied opening {port}. "
-                "Try running your script with 'sudo', or add your user to the 'dialout' group:\n"
-                "sudo usermod -a -G dialout $USER\n"
-                "Then log out and log back in."
-            ) from e
+                f"Current user: {user}\n"
+                f"Groups: {groups}\n"
+                "Make sure your user is in the 'dialout' group and you have logged out and back in.\n"
+                "If this still fails, try running with 'sudo' as a last resort."
+            )
+            raise
         except serial.SerialException as e:
             raise RuntimeError(f"Could not open serial port {port}: {e}") from e
 
