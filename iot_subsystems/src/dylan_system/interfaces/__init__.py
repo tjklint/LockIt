@@ -40,11 +40,8 @@ class ExampleSystemInterface(Interface):
     def key_press(self, key: str) -> None:
         """See base class."""
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
             command = Command(Action.TAKE_PICTURE, 1)
-========
             command = Command(Action.LOCK_TOGGLE, 1)
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
             self.callbacks["control_actuator"](command)
         elif key.upper() == "O":
             logger.info("'O' pressed, script will exit when released")
@@ -54,11 +51,8 @@ class ExampleSystemInterface(Interface):
     def key_release(self, key: str) -> None:
         """See base class."""
         if key.upper() == "F1":
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/interfaces/__init__.py
             command = Command(Action.TAKE_PICTURE, 0)
-========
             command = Command(Action.LOCK_TOGGLE, 0)
->>>>>>>> main:iot_subsystems/src/joshkrav_system/interfaces/__init__.py
             self.callbacks["control_actuator"](command)
         elif key.upper() == "O":
             logger.info("'O' released, script exiting.")
