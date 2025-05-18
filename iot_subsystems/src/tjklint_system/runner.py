@@ -31,12 +31,13 @@ import os
 import argparse
 from dotenv import dotenv_values
 
-from tjklint_system.devices.motion import MotionSensor
+from tjklint_system.devices.motion import MotionSensor, MockMotionSensor
 from tjklint_system.devices.gps import GPSSensor
 from common.devices.device_controller import DeviceController
 from tjklint_system.system import TJKlintSystem
 from tjklint_system.interfaces import TJKlintSystemInterface
 from tjklint_system.iot.azure_device_client import AzureDeviceClient
+from common.interfaces.keyboard import KeyboardInterface
 
 
 def main() -> None:
@@ -68,10 +69,16 @@ def main() -> None:
     logger = logging.getLogger(__name__)
 
     if runtime_environment == "DEVELOPMENT":
-        sensors = [MotionSensor(), GPSSensor()]
+        sensors = [
+            MockMotionSensor(),
+            GPSSensor(),
+        ]
         actuators = []
     elif runtime_environment == "PRODUCTION":
-        sensors = [MotionSensor(), GPSSensor()]
+        sensors = [
+            MotionSensor(),
+            GPSSensor(),
+        ]
         actuators = []
     else:
         raise ValueError("Invalid ENVIRONMENT in .env")
