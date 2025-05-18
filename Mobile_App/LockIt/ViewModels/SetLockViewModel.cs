@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LockIt.Helpers;
 using LockIt.Repos;
 using LockIt.Services;
 using System.Text.Json;
@@ -29,16 +30,7 @@ namespace LockIt.ViewModels
 
         public SetLockViewModel()
         {
-            var rootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
-            var appSettingsPath = Path.Combine(rootPath, "appsettings.json");
-
-            if (!File.Exists(appSettingsPath))
-                throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
-
-            var json = File.ReadAllText(appSettingsPath);
-            using var doc = JsonDocument.Parse(json);
-            var root = doc.RootElement;
-
+            var root = AppSettingsLoader.Load();
             var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
 
             _repo = new CodeRepository(dbUrl, AuthService.IdToken);

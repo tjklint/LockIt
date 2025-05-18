@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using LockIt.Models;
 using Microsoft.Extensions.Configuration;
+using LockIt.Helpers;
 
 namespace LockIt.Repos
 {
@@ -22,16 +23,7 @@ namespace LockIt.Repos
         {
             _client = new HttpClient();
 
-            var rootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
-            var appSettingsPath = Path.Combine(rootPath, "appsettings.json");
-
-            if (!File.Exists(appSettingsPath))
-                throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
-
-            var json = File.ReadAllText(appSettingsPath);
-            using var doc = JsonDocument.Parse(json);
-            var root = doc.RootElement;
-
+            var root = AppSettingsLoader.Load();
             this.apiKey = root.GetProperty("Firebase").GetProperty("ApiKey").GetString();
         }
 

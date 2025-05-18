@@ -7,6 +7,7 @@ using LockIt.Views;
 using System.IO;
 using System.Text.Json;
 using LockIt.Repos;
+using LockIt.Helpers;
 
 namespace LockIt
 {
@@ -16,15 +17,7 @@ namespace LockIt
         {
             var builder = MauiApp.CreateBuilder();
 
-            var rootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
-            var appSettingsPath = Path.Combine(rootPath, "appsettings.json");
-
-            if (!File.Exists(appSettingsPath))
-                throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
-
-            var json = File.ReadAllText(appSettingsPath);
-            using var doc = JsonDocument.Parse(json);
-            var root = doc.RootElement;
+            var root = AppSettingsLoader.Load();
 
             var firebaseApiKey = root.GetProperty("Firebase").GetProperty("ApiKey").GetString();
 
