@@ -43,10 +43,12 @@ from dylan_system.iot.azure_device_client import AzureDeviceClient
 from dylan_system.devices.camera import MockCamera, CameraActuator
 from common.devices.actuator import Action
 
-from gpiozero import OutputDevice
+from gpiozero import OutputDevice,Button
 from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from joshkrav_system.devices.lock import LockActuator
+from joshkrav_system.devices.tmg39931 import TMG39931
+from joshkrav_system.devices.door_sensor import DoorSensor
 from common.devices.device_controller import DeviceController
 from common.devices.mocks import MockTMG39931, MockDoorSensor
 from joshkrav_system.devices.tmg39931 import (
@@ -72,7 +74,9 @@ from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
 logger = logging.getLogger(__name__)
 
-
+logging.basicConfig(
+    level=logging.DEBUG
+)
 
 # https://www.gnu.org/licenses/gpl-3.0.html#howto
 LICENSE_NOTICE = """
@@ -94,20 +98,19 @@ def main() -> None:
         door_sensor = MockDoorSensor()
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemReterminalInterface()
-        aht20 = GroveTemperatureHumidityAHT20(address=0x38, bus=4)
         lock = OutputDevice(pin=16)
+        luminosity_sensor = TMG39931()
+        door_sensor = DoorSensor(Button(18))
     else:
         raise ValueError
 
     sensors = [
-        TemperatureSensor(device=aht20),
-        HumiditySensor(device=aht20),
         ProximitySensor(device=luminosity_sensor),
         RedColorSensor(device=luminosity_sensor),
         GreenColorSensor(device=luminosity_sensor),
         BlueColorSensor(device=luminosity_sensor),
         ProximitySensor(device=luminosity_sensor),
-        MockDoorSensor(),
+        door_sensor,
     ]
     actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 
