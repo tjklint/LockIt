@@ -38,5 +38,6 @@ if not __package__:
 
 if __name__ == "__main__":
     from tjklint_system.runner import main
+
     with contextlib.suppress(KeyboardInterrupt):
         main()

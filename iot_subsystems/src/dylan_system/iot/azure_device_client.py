@@ -31,10 +31,8 @@ from common.iot import IOTDeviceClient
 from dotenv import dotenv_values
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/iot/azure_device_client.py
 import json
-========
->>>>>>>> main:iot_subsystems/src/joshkrav_system/iot/azure_device_client.py
+
 
 
 class AzureDeviceClient(IOTDeviceClient):
@@ -42,16 +40,13 @@ class AzureDeviceClient(IOTDeviceClient):
 
     def __init__(self):
         super().__init__()
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/iot/azure_device_client.py
         connection_string = dotenv_values(".env")["IOT_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
-========
         conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(
             "HostName=joshuakravitz-iot-hub.azure-devices.net;DeviceId=Project_Device;SharedAccessKey=OHxdGE9uPyGxPsP1Kg3QOp8qbPnN2pKFKq86syLO0CU=",
             websockets=True,
         )
->>>>>>>> main:iot_subsystems/src/joshkrav_system/iot/azure_device_client.py
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
@@ -59,22 +54,16 @@ class AzureDeviceClient(IOTDeviceClient):
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/iot/azure_device_client.py
-========
 
->>>>>>>> main:iot_subsystems/src/joshkrav_system/iot/azure_device_client.py
         await self.device_client.send_message(reading.value)
 
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
-<<<<<<<< HEAD:iot_subsystems/src/dylan_system/iot/azure_device_client.py
         for reading in readings:
             payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
             message = Message(payload)
             await self.device_client.send_message(message)
-========
 
         for reading in readings:
             payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
             await self.device_client.send_message(Message(payload))
->>>>>>>> main:iot_subsystems/src/joshkrav_system/iot/azure_device_client.py

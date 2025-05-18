@@ -3,17 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LockIt.Views.LoginPage"
              Shell.TabBarIsVisible="False"
-             xmlns:vm="clr-namespace:LockIt.ViewModels"
->
-    
+             xmlns:vm="clr-namespace:LockIt.ViewModels">
+
     <ContentPage.BindingContext>
         <vm:LoginViewModel />
     </ContentPage.BindingContext>
 
     <Grid>
+        <!-- LOGIN FORM -->
         <StackLayout 
             Padding="30"
-            Spacing="20">
+            Spacing="20"
+            IsVisible="{Binding ShowLoginForm}">
 
             <Label 
                 Text="Login" 
@@ -47,8 +48,45 @@
                 FontFamily="Jersey15Regular" 
                 CornerRadius="5"/>
 
-            <Button Text="Don't have an account? Register" Command="{Binding NavigateToRegisterCommand}" BackgroundColor="Transparent" TextColor="#189E8A" HorizontalOptions="Center" />
+            <Button 
+                Text="Don't have an account? Register" 
+                Command="{Binding NavigateToRegisterCommand}" 
+                BackgroundColor="Transparent" 
+                TextColor="#189E8A" 
+                HorizontalOptions="Center" />
+        </StackLayout>
 
+        <!-- LOGGED IN INFO -->
+        <StackLayout 
+            Padding="30"
+            Spacing="20"
+            IsVisible="{Binding ShowLoggedInInfo}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <Label 
+                Text="You're already signed in!" 
+                FontSize="30" 
+                FontFamily="Jersey15Regular"
+                TextColor="White"
+                HorizontalOptions="Center" />
+
+            <Label 
+                Text="{Binding LoggedInEmail}" 
+                FontSize="20" 
+                TextColor="White"
+                FontFamily="Jersey15Regular"
+                HorizontalOptions="Center" />
+
+            <Button 
+                Text="Sign Out" 
+                Command="{Binding SignOutCommand}" 
+                BackgroundColor="Red" 
+                TextColor="White"
+                FontFamily="Jersey15Regular"
+                CornerRadius="5"
+                WidthRequest="200"
+                HorizontalOptions="Center" />
         </StackLayout>
     </Grid>
 </ContentPage>
