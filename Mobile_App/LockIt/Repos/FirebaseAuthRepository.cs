@@ -22,7 +22,8 @@ namespace LockIt.Repos
         {
             _client = new HttpClient();
 
-            var appSettingsPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+            var rootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+            var appSettingsPath = Path.Combine(rootPath, "appsettings.json");
 
             if (!File.Exists(appSettingsPath))
                 throw new FileNotFoundException("Missing appsettings.json", appSettingsPath);
