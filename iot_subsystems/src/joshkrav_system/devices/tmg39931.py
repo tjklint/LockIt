@@ -4,6 +4,8 @@ from common.devices.sensor import Sensor, Measurement, Reading
 import logging
 import smbus
 
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,7 +29,7 @@ class RedColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _, red, _, _, _ = self.device.read()
         reading = Reading(red, self.measurement)
-        logger.info(reading)
+        logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
         return reading
 
 
@@ -39,7 +41,7 @@ class GreenColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _, _, green, _, _ = self.device.read()
         reading = Reading(green, self.measurement)
-        logger.info(reading)
+        logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
         return reading
 
 
@@ -51,7 +53,7 @@ class BlueColorSensor(Sensor):
     def read_sensor(self) -> Reading:
         _, _, _, blue, _ = self.device.read()
         reading = Reading(blue, self.measurement)
-        logger.info(reading)
+        logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
         return reading
 
 
@@ -63,7 +65,7 @@ class ProximitySensor(Sensor):
     def read_sensor(self) -> Reading:
         _, _, _, _, proximity = self.device.read()
         reading = Reading(proximity, self.measurement)
-        logger.info(reading)
+        logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
         return reading
 
 class TMG39931():
@@ -72,7 +74,7 @@ class TMG39931():
         self.address = address
         self.bus = smbus.SMBus(1)
 
-    def read(self):
+    def read(self) -> tuple[float,float,float,float,float]:
                 # TMG39931 address, 0x39(57)
         # Select Enable register, 0x80(128)
         #		0x0F(15)	Power ON, ALS enable, Proximity enable, Wait disable
@@ -97,12 +99,21 @@ class TMG39931():
         blue = data[7] * 256.0 + data[6]
         proximity = data[8]
 
+
+        
+        return cData,red,green,blue,proximity
+        #reading = Reading(proximity, Measurement.PROXIMITY)
+        #logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
+        #reading = Reading(blue, Measurement.BLUE)
+        #logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
+        #reading = Reading(green, Measurement.GREEN)
+        #logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
+        #reading = Reading(red, Measurement.RED)
+        #logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
+        #reading = Reading(cData, Measurement.INFRARED)
+        #logger.info(f"{reading.value},{reading.measurement.unit},{reading.measurement.description}")
         # Output data to screen
-        print("InfraRed luminance : %.2f lux" %cData)
-        print("Red Color luminance : %.2f lux" %red)
-        print ("Green Color luminance : %.2f lux" %green)
-        print ("Blue Color luminance : %.2f lux" %blue)
-        print ("Proximity of the device : %d " %proximity)
+        
 
 
 

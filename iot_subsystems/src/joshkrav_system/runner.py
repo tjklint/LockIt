@@ -70,8 +70,9 @@ from joshkrav_system.interfaces import (
 )
 from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+
 
 # https://www.gnu.org/licenses/gpl-3.0.html#howto
 LICENSE_NOTICE = """
