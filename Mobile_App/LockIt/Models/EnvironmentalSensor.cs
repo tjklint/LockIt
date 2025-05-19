@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Team Name: LockIt
+// Team Members: Dylan Savelson, Joshua Kravitz, Timothy (TJ) Klint
+// Description: Model for capturing environmental sensor readings, including temperature, humidity, and luminosity.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +14,7 @@ using System.Device.I2c;
 namespace LockIt.Models
 {
     /// <summary>
-    /// Provides functionality to read environmental data including temperature and humidity.
+    /// Provides functionality to read and store environmental data such as temperature, humidity, and luminosity.
     /// </summary>
     public class EnvironmentalSensor
     {
@@ -18,11 +22,9 @@ namespace LockIt.Models
         private double _humiditySensor;
         private LuminositySensor _luminositySensor = new LuminositySensor();
 
-
         /// <summary>
-        /// Gets or sets the value used for temperature measurements.
+        /// Gets or sets the temperature reading in degrees Celsius.
         /// </summary>
-        // TODO: Add validation
         public double TemperatureSensor
         {
             get { return _temperatureSensor; }
@@ -30,7 +32,7 @@ namespace LockIt.Models
         }
 
         /// <summary>
-        /// Gets or sets the value used for the luminosity sensor.
+        /// Gets or sets the sensor used to store RGB and proximity luminosity data.
         /// </summary>
         public LuminositySensor LuminositySensor
         {
@@ -39,7 +41,7 @@ namespace LockIt.Models
         }
 
         /// <summary>
-        /// Gets or sets the value used for the humidity measurements.
+        /// Gets or sets the humidity reading as a percentage.
         /// </summary>
         public double HumiditySensor
         {
