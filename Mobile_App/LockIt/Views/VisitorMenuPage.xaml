@@ -23,6 +23,7 @@
         <Label Text="Proximity:" />
         <Label Text="{Binding Environment.LuminositySensor.Proximity}" />
         <Button
+            x:Name="CameraButton"
             Margin="25"
             Text="ACCESS CAMERA" 
             BackgroundColor="#189E8A" 
@@ -34,6 +35,7 @@
             Clicked="OnAccessCameraClicked"/>
 
         <Button 
+            x:Name="LockButton"
             Margin="25"
             Text="OPEN LOCK"
             BackgroundColor="#189E8A" 
@@ -43,5 +45,17 @@
             FontSize="30"
             WidthRequest="300"
             Clicked="OnOpenLockClicked"/>
+
+        <Button 
+            x:Name="MapButton"
+            Margin="25"
+            Text="OPEN LOCK"
+            BackgroundColor="#189E8A" 
+            TextColor="White" 
+            FontFamily="Jersey15Regular"
+            CornerRadius="2"
+            FontSize="30"
+            WidthRequest="300"
+            Clicked="OnMapClicked"/>
     </VerticalStackLayout>
 </ContentPage>

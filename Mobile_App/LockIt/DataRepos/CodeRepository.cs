@@ -1,4 +1,5 @@
 ﻿using LockIt.Services;
+using LockIt.ViewModels;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -58,6 +59,31 @@ namespace LockIt.Repos
             var response = await _client.DeleteAsync(url);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<VisitorPermissions> GetVisitorPermissionsAsync(string email)
+        {
+            var safeKey = email.Replace(".", "_").Replace("@", "_");
+            var url = $"{_dbUrl}/visitor_permissions/{safeKey}.json";
+            if (!string.IsNullOrEmpty(_idToken)) url += $"?auth={_idToken}";
+
+            var response = await _client.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<VisitorPermissions>(json);
+        }
+
+        public async Task<bool> SetVisitorPermissionsAsync(string email, VisitorPermissions perms)
+        {
+            var safeKey = email.Replace(".", "_").Replace("@", "_");
+            var url = $"{_dbUrl}/visitor_permissions/{safeKey}.json?auth={_idToken}";
+            var json = JsonSerializer.Serialize(perms);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _client.PutAsync(url, content);
+            return response.IsSuccessStatusCode;
+        }
+
     }
 
 }

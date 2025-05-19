@@ -34,7 +34,8 @@ namespace LockIt.ViewModels
             var existingCode = await _repo.GetCodeAsync(email);
             if (existingCode?.Trim('"') == code)
             {
-                await Shell.Current.GoToAsync(nameof(VisitorMenuPage));
+                var menuVm = new MenuPageViewModel { HomeownerEmail = Email };
+                await Shell.Current.Navigation.PushAsync(new VisitorMenuPage(menuVm));
             }
             else
             {

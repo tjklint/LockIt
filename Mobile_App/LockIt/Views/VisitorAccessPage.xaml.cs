@@ -7,3 +7,4 @@ public partial class VisitorAccessPage : ContentPage
 		InitializeComponent();
 	}
 }
+
