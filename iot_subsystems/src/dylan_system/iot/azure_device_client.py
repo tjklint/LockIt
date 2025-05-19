@@ -77,6 +77,14 @@ class AzureDeviceClient(IOTDeviceClient):
             status_code=response.status if success else 500,
             status_description="Upload complete" if success else "Upload failed"
         )
+        if success:
+            message = {
+                "imageUploaded": True,
+                "blobName": blob_info["blobName"],
+                "sasUrl": sas_url
+            }
+            await self.device_client.send_message(json.dumps(message))
+
 
 
     async def send_reading(self, reading: Reading) -> None:
