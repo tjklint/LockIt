@@ -41,7 +41,6 @@ from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 from dylan_system.devices.camera import MockCamera, CameraActuator, Camera
 from common.devices.actuator import Action
-
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 

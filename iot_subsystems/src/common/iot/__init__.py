@@ -75,6 +75,6 @@ class IOTDeviceClient(ABC):
         pass
 
     @abstractmethod
-    async def send_picure(self, output:str) -> None:
+    async def send_picture(self, output:str) -> None:
         """Sends image to IoTHub."""
         pass
