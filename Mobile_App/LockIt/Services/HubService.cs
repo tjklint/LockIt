@@ -10,6 +10,7 @@ using LockIt.ViewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace LockIt.Services
@@ -27,67 +28,79 @@ namespace LockIt.Services
         private static string ConsumerGroup = "$Default";
 
         private readonly BlobContainerClient _storageClient;
-        private readonly EventProcessorClient _processor;
+        private EventProcessorClient _processor;
         private readonly MenuPageViewModel _viewModel;
+        private CancellationTokenSource _cts = new();
+        private bool _isProcessing = false;
 
-        /// <summary>
-        /// Local repository for updating application data.
-        /// </summary>
         public UserDataRepo _repo;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HubService"/> class and sets up event handlers.
-        /// </summary>
-        /// <param name="repo">The repository to update with parsed data.</param>
-        /// <param name="viewModel">The view model to update the UI in real-time.</param>
         public HubService(UserDataRepo repo, MenuPageViewModel viewModel)
         {
             _repo = repo;
             _viewModel = viewModel;
             _storageClient = new BlobContainerClient(StorageConnectionString, BlobContainerName);
+
+            InitializeProcessor();
+            NetworkChange.NetworkAvailabilityChanged += NetworkAvailabilityChanged;
+        }
+
+        private void InitializeProcessor()
+        {
             _processor = new EventProcessorClient(_storageClient, ConsumerGroup, EventHubConnectionString);
             _processor.ProcessEventAsync += ProcessEventHandler;
             _processor.ProcessErrorAsync += ProcessErrorHandler;
         }
 
         /// <summary>
-        /// Starts processing data from the Event Hub and handles cleanup on termination.
+        /// Starts processing data and monitors connectivity.
         /// </summary>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task ProcessData()
         {
-            try
-            {
-                await _processor.StartProcessingAsync();
-                await Task.Delay(Timeout.Infinite); // Keeps processor running
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"ERROR while processing event: {e.Message}");
-            }
+            if (_isProcessing) return;
 
             try
             {
-                await _processor.StopProcessingAsync();
+                _isProcessing = true;
+                await _processor.StartProcessingAsync(_cts.Token);
+                await Task.Delay(Timeout.Infinite, _cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                Debug.WriteLine("Processor cancelled.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error during processing: {ex.Message}");
             }
             finally
             {
-                _processor.ProcessEventAsync -= ProcessEventHandler;
-                _processor.ProcessErrorAsync -= ProcessErrorHandler;
+                _isProcessing = false;
+                await _processor.StopProcessingAsync();
             }
         }
 
         /// <summary>
-        /// Handles incoming messages from the Event Hub, parses them, and updates local state.
+        /// Handles network changes and restarts processing on reconnect.
         /// </summary>
-        /// <param name="args">Event data received from Event Hub.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="Exception">Logs any parsing or update exceptions to Debug.</exception>
+        private async void NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+        {
+            if (e.IsAvailable && !_isProcessing)
+            {
+                Debug.WriteLine("Network available. Attempting to restart Event Hub processor...");
+                _cts = new();
+                InitializeProcessor();
+                await ProcessData();
+            }
+        }
+
+        /// <summary>
+        /// Parses Event Hub messages and updates app state.
+        /// </summary>
         public async Task ProcessEventHandler(ProcessEventArgs args)
         {
             try
             {
-                Console.WriteLine(args.Data.EventBody);
                 JObject json = JObject.Parse(args.Data.EventBody.ToString());
                 _repo.UpdateFromJson(json);
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -97,18 +110,16 @@ namespace LockIt.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"ERROR while processing event: {e.Message}");
+                Debug.WriteLine($"Event processing error: {e.Message}");
             }
         }
 
         /// <summary>
-        /// Handles any errors that occur during Event Hub processing.
+        /// Logs errors during event processing.
         /// </summary>
-        /// <param name="args">Error event arguments.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task ProcessErrorHandler(ProcessErrorEventArgs args)
         {
-            Debug.WriteLine($"ERROR: {args}");
+            Debug.WriteLine($"Event Hub error: {args.Exception.Message}");
         }
     }
 }
