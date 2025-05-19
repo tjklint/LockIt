@@ -50,7 +50,7 @@ namespace LockIt.Views
             VisitorFrame.BorderColor = Colors.Blue;
             HomeownerFrame.BorderColor = Colors.Transparent;
 
-            await Shell.Current.GoToAsync(nameof(VisitorMenuPage));
+            await Shell.Current.GoToAsync(nameof(VisitorAccessPage));
         }
     }
 }

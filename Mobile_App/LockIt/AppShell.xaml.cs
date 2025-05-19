@@ -16,7 +16,7 @@ namespace LockIt
             Routing.RegisterRoute(nameof(SelectUserTypePage), typeof(SelectUserTypePage));
             Routing.RegisterRoute(nameof(SetLockPage), typeof(SetLockPage));
             Routing.RegisterRoute(nameof(FindMyPage), typeof(FindMyPage));
-
+            Routing.RegisterRoute(nameof(VisitorAccessPage), typeof(VisitorAccessPage));
         }
     }
 }

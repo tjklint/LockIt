@@ -8,44 +8,56 @@ namespace LockIt.Repos
 {
     public class CodeRepository
     {
-        private readonly HttpClient _client = new HttpClient();
-        private readonly string _baseUrl;
-        private readonly string _authToken;
+        private readonly string _dbUrl;
+        private readonly string _idToken;
+        private readonly HttpClient _client;
 
-        public CodeRepository(string baseUrl, string authToken)
+        public CodeRepository(string dbUrl, string idToken = null)
         {
-            _baseUrl = baseUrl.TrimEnd('/');
-            _authToken = authToken;
+            _dbUrl = dbUrl.TrimEnd('/');
+            _idToken = idToken;
+            _client = new HttpClient();
         }
-
-        private string EmailKey => (AuthService.Email ?? throw new InvalidOperationException("No email set"))
-                          .Replace(".", "_")
-                          .Replace("@", "_");
 
         public async Task<string> GetCodeAsync()
         {
-            var url = $"{_baseUrl}/codes/{EmailKey}.json?auth={_authToken}";
-            var resp = await _client.GetAsync(url);
-            if (!resp.IsSuccessStatusCode) return null;
-            var json = await resp.Content.ReadAsStringAsync();
-            // stored as plain string in JSON
-            return JsonSerializer.Deserialize<string>(json);
+            if (string.IsNullOrEmpty(AuthService.Email))
+                throw new InvalidOperationException("No email available in AuthService.");
+
+            return await GetCodeAsync(AuthService.Email);
+        }
+
+        public async Task<string> GetCodeAsync(string email)
+        {
+            var safeKey = email.Replace(".", "_").Replace("@", "_");
+            var url = $"{_dbUrl}/codes/{safeKey}.json";
+
+            if (!string.IsNullOrEmpty(_idToken))
+                url += $"?auth={_idToken}";
+
+            var response = await _client.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<bool> SetCodeAsync(string code)
         {
-            var url = $"{_baseUrl}/codes/{EmailKey}.json?auth={_authToken}";
-            var payload = new StringContent(JsonSerializer.Serialize(code),
-                                           Encoding.UTF8, "application/json");
-            var resp = await _client.PutAsync(url, payload);
-            return resp.IsSuccessStatusCode;
+            var safeKey = AuthService.Email.Replace(".", "_");
+            var url = $"{_dbUrl}/codes/{safeKey}.json?auth={_idToken}";
+            var content = new StringContent(JsonSerializer.Serialize(code), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync(url, content);
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> DeleteCodeAsync()
         {
-            var url = $"{_baseUrl}/codes/{EmailKey}.json?auth={_authToken}";
-            var resp = await _client.DeleteAsync(url);
-            return resp.IsSuccessStatusCode;
+            var safeKey = AuthService.Email.Replace(".", "_");
+            var url = $"{_dbUrl}/codes/{safeKey}.json?auth={_idToken}";
+            var response = await _client.DeleteAsync(url);
+            return response.IsSuccessStatusCode;
         }
     }
+
 }
