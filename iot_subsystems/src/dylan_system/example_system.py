@@ -82,7 +82,7 @@ class ExampleSystem:
 
     async def collect_readings(self) -> None:
         """Collect readings."""
-        self.iot_device_client.send_picure('output.jpg')
+        await self.iot_device_client.send_picture('output.jpg')
         await asyncio.sleep(self.telemetry_interval)
         #while self.is_collecting_readings:
             #readings = self.device_controller.read_sensors()

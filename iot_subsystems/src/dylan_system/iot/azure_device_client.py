@@ -31,33 +31,53 @@ from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
 import json
 import os
-
+from os.path import basename
+import aiohttp
 
 class AzureDeviceClient(IOTDeviceClient):
     """IOT integrations with Azure Iot Hub."""
 
     def __init__(self):
         super().__init__()
-        connection_string = dotenv_values(".env")["IOT_DEVICE_CONNECTION_STRING"]
+        connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
         await self.device_client.connect()
 
-    def send_picure(self,output_path='output.jpg'):
+
+    async def send_picture(self,output_path='output.jpg'):
         if not os.path.exists(output_path):
             print("image not found")
             return
         
-        with open(output_path, 'rb') as image_file:
-            image_data = image_file.read()
-            msg = Message(image_data)
-            msg.content_encoding = "utf-8"
-            msg.content_type = "application/octet-stream"
-            msg.custom_properties["filename"] = output_path
-            self.device_client.send_message(msg)
-            print("image sent")
+        blob_info = await self.device_client.get_storage_info_for_blob(basename(output_path))
+
+
+        sas_url = (
+            f"https://{blob_info['hostName']}/{blob_info['containerName']}/"
+            f"{blob_info['blobName']}{blob_info['sasToken']}"
+        )
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                with open(output_path, 'rb') as image_file:
+                    headers = {"x-ms-blob-type": "BlockBlob"}
+                    async with session.put(sas_url, data=image_file, headers=headers) as response:
+                        success = response.status == 201
+                        print(f"Upload response status: {response.status}")
+        except Exception as e:
+            success = False
+            print(f"Upload failed with exception: {e}")
+
+        await self.device_client.notify_blob_upload_status(
+            correlation_id=blob_info["correlationId"],
+            is_success=success,
+            status_code=response.status if success else 500,
+            status_description="Upload complete" if success else "Upload failed"
+        )
+
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
