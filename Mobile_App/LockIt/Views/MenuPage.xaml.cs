@@ -11,4 +11,8 @@ public partial class MenuPage : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(SetLockPage));
     }
+    private async void OnManageVisitorClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ManageVisitor));
+    }
 }

@@ -53,7 +53,8 @@
             FontFamily="Jersey15Regular"
             CornerRadius="2"
             FontSize="30"
-            WidthRequest="300"/>
+            WidthRequest="300"
+            Clicked="OnManageVisitorClicked"/>
         
         
     </VerticalStackLayout>

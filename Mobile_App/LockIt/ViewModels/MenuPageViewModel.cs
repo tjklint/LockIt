@@ -15,6 +15,8 @@ namespace LockIt.ViewModels
     {
         public EnvironmentalSensor Environment { get; set; } = new();
         public event PropertyChangedEventHandler PropertyChanged;
+        public string HomeownerEmail { get; set; }
+
 
         public void UpdateData(JObject json)
         {

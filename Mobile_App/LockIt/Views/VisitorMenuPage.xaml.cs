@@ -1,54 +1,49 @@
+using LockIt.Helpers;
+using LockIt.Repos;
 using LockIt.ViewModels;
 
 namespace LockIt.Views
-
 {
-    /// <summary>
-    /// Represents the menu interface for a visitor user, providing options such as accessing the camera or opening a lock.
-    /// </summary>
     public partial class VisitorMenuPage : ContentPage
     {
         public MenuPageViewModel ViewModel { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VisitorMenuPage"/> class and loads its components.
-        /// </summary>
         public VisitorMenuPage(MenuPageViewModel viewmodel)
         {
             InitializeComponent();
-            BindingContext = viewmodel;
+            ViewModel = viewmodel;
+            BindingContext = ViewModel;
+
+            // Load access permissions for the homeowner
+            LoadPermissions();
         }
 
-        /// <summary>
-        /// Handles the event when the "Access Camera" button is clicked.
-        /// Navigates the user to the <c>CameraPage</c>.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments.</param>
-        /// <example>
-        /// <code>
-        /// OnAccessCameraClicked(this, EventArgs.Empty);
-        /// </code>
-        /// </example>
+        private async void LoadPermissions()
+        {
+            var root = AppSettingsLoader.Load();
+            var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
+
+            var repo = new CodeRepository(dbUrl);
+            var permissions = await repo.GetVisitorPermissionsAsync(ViewModel.HomeownerEmail);
+
+            CameraButton.IsVisible = permissions?.Camera ?? false;
+            LockButton.IsVisible = permissions?.Lock ?? false;
+            MapButton.IsVisible = permissions?.Map ?? false;
+        }
+
         private async void OnAccessCameraClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("CameraPage");
         }
 
-        /// <summary>
-        /// Handles the event when the "Open Lock" button is clicked.
-        /// Navigates the user to the <c>OpenLockPage</c>.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments.</param>
-        /// <example>
-        /// <code>
-        /// OnOpenLockClicked(this, EventArgs.Empty);
-        /// </code>
-        /// </example>
         private async void OnOpenLockClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("OpenLockPage");
+        }
+        
+        private async void OnMapClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(FindMyPage));
         }
     }
 }
