@@ -29,7 +29,7 @@ namespace LockIt.Repos
 
         public async Task<string> GetCodeAsync(string email)
         {
-            var safeKey = email.Replace(".", "_");
+            var safeKey = email.Replace(".", "_").Replace("@", "_");
             var url = $"{_dbUrl}/codes/{safeKey}.json";
 
             if (!string.IsNullOrEmpty(_idToken))
