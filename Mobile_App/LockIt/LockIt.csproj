@@ -68,9 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include=".env">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>

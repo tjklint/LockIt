@@ -8,8 +8,6 @@ namespace LockIt.Views
     /// </summary>
     public partial class VisitorMenuPage : ContentPage
     {
-        public MenuPageViewModel ViewModel { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="VisitorMenuPage"/> class and loads its components.
         /// </summary>
@@ -32,7 +30,10 @@ namespace LockIt.Views
         /// </example>
         private async void OnAccessCameraClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("CameraPage");
+            var cameraViewModel = new CameraPageViewModel();
+            var cameraPage = new CameraPage(cameraViewModel);
+
+            await Navigation.PushAsync(cameraPage);
         }
 
         /// <summary>
