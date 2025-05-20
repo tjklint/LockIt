@@ -47,14 +47,13 @@ class AzureDeviceClient(IOTDeviceClient):
         await self.device_client.connect()
 
 
+
     async def send_picture(self,output_path='output.jpg'):
         if not os.path.exists(output_path):
             print("image not found")
             return
         
-        blob_info = await self.device_client.get_storage_info_for_blob(basename(output_path))
-
-
+        blob_info = await self.device_client.get_storage_info_for_blob(basename(output_path))        
         sas_url = (
             f"https://{blob_info['hostName']}/{blob_info['containerName']}/"
             f"{blob_info['blobName']}{blob_info['sasToken']}"
@@ -66,10 +65,9 @@ class AzureDeviceClient(IOTDeviceClient):
                     headers = {"x-ms-blob-type": "BlockBlob"}
                     async with session.put(sas_url, data=image_file, headers=headers) as response:
                         success = response.status == 201
-                        print(f"Upload response status: {response.status}")
+                        
         except Exception as e:
             success = False
-            print(f"Upload failed with exception: {e}")
 
         await self.device_client.notify_blob_upload_status(
             correlation_id=blob_info["correlationId"],
