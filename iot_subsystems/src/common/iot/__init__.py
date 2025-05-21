@@ -73,3 +73,8 @@ class IOTDeviceClient(ABC):
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
         pass
+
+    @abstractmethod
+    async def send_picture(self, output:str) -> None:
+        """Sends image to IoTHub."""
+        pass

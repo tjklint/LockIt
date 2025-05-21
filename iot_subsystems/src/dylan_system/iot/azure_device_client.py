@@ -32,7 +32,9 @@ from dotenv import dotenv_values
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
 import json
-
+import os
+from os.path import basename
+import aiohttp
 
 
 class AzureDeviceClient(IOTDeviceClient):
@@ -40,17 +42,51 @@ class AzureDeviceClient(IOTDeviceClient):
 
     def __init__(self):
         super().__init__()
-        connection_string = dotenv_values(".env")["IOT_DEVICE_CONNECTION_STRING"]
+        connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
-        conn_str = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
-        self.device_client = IoTHubDeviceClient.create_from_connection_string(
-            "HostName=joshuakravitz-iot-hub.azure-devices.net;DeviceId=Project_Device;SharedAccessKey=OHxdGE9uPyGxPsP1Kg3QOp8qbPnN2pKFKq86syLO0CU=",
-            websockets=True,
-        )
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
         await self.device_client.connect()
+
+
+
+    async def send_picture(self,output_path='output.jpg'):
+        if not os.path.exists(output_path):
+            print("image not found")
+            return
+        
+        blob_info = await self.device_client.get_storage_info_for_blob(basename(output_path))        
+        sas_url = (
+            f"https://{blob_info['hostName']}/{blob_info['containerName']}/"
+            f"{blob_info['blobName']}{blob_info['sasToken']}"
+        )
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                with open(output_path, 'rb') as image_file:
+                    headers = {"x-ms-blob-type": "BlockBlob"}
+                    async with session.put(sas_url, data=image_file, headers=headers) as response:
+                        success = response.status == 201
+                        
+        except Exception as e:
+            success = False
+
+        await self.device_client.notify_blob_upload_status(
+            correlation_id=blob_info["correlationId"],
+            is_success=success,
+            status_code=response.status if success else 500,
+            status_description="Upload complete" if success else "Upload failed"
+        )
+        if success:
+            message = {
+                "imageUploaded": True,
+                "blobName": blob_info["blobName"],
+                "sasUrl": sas_url
+            }
+            await self.device_client.send_message(json.dumps(message))
+
+
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
@@ -63,7 +99,3 @@ class AzureDeviceClient(IOTDeviceClient):
             payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
             message = Message(payload)
             await self.device_client.send_message(message)
-
-        for reading in readings:
-            payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
-            await self.device_client.send_message(Message(payload))

@@ -1,9 +1,15 @@
-namespace LockIt.Views;
+using LockIt.ViewModels;
 
-public partial class CameraPage : ContentPage
+namespace LockIt.Views
 {
-	public CameraPage()
-	{
-		InitializeComponent();
-	}
+    public partial class CameraPage : ContentPage
+    {
+
+        public CameraPage(CameraPageViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+            viewModel.LoadCameraImage();
+        }
+    }
 }
