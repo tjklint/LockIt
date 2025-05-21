@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Repos;
 using LockIt.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Controls;
 
 namespace LockIt.ViewModels
@@ -96,6 +98,12 @@ namespace LockIt.ViewModels
         // TODO: Check email format
         private async Task RegisterAsync()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                await Application.Current.MainPage.DisplayAlert("No Internet Connection :(", "Please connect to the internet and try again.", "OK");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(Username) ||
                 string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(Password) ||

@@ -33,6 +33,7 @@ from common.devices.actuator import Action, Command
 from dylan_system.devices.toggle_actuator import ToggleActuator
 
 
+
 class FanActuator(ToggleActuator):
     """Implementation of ToggleActuator with defaults specific to fans."""
 

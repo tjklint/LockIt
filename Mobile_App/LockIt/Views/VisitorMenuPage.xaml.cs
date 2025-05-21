@@ -1,48 +1,83 @@
+// Team Name: LockIt
+// Team Members: Dylan Savelson, Joshua Kravitz, Timothy (TJ) Klint
+// Description: Controls the visitor-facing menu interface, showing allowed features based on homeowner permissions.
+
+using LockIt.Helpers;
+using LockIt.Repos;
+using LockIt.ViewModels;
+
 namespace LockIt.Views
 {
     /// <summary>
-    /// Represents the menu interface for a visitor user, providing options such as accessing the camera or opening a lock.
+    /// Represents the visitor menu interface and handles visibility of features based on homeowner-defined permissions.
     /// </summary>
     public partial class VisitorMenuPage : ContentPage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VisitorMenuPage"/> class and loads its components.
+        /// The ViewModel used for data binding sensor values and homeowner reference.
         /// </summary>
-        public VisitorMenuPage()
+        public MenuPageViewModel ViewModel { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisitorMenuPage"/> class and loads the access permissions.
+        /// </summary>
+        /// <param name="viewmodel">The view model containing environment data and homeowner reference.</param>
+        public VisitorMenuPage(MenuPageViewModel viewmodel)
         {
             InitializeComponent();
+            ViewModel = viewmodel;
+            BindingContext = ViewModel;
+
+            LoadPermissions();
         }
 
         /// <summary>
-        /// Handles the event when the "Access Camera" button is clicked.
-        /// Navigates the user to the <c>CameraPage</c>.
+        /// Loads visitor access permissions from the Firebase database and toggles feature visibility accordingly.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments.</param>
-        /// <example>
-        /// <code>
-        /// OnAccessCameraClicked(this, EventArgs.Empty);
-        /// </code>
-        /// </example>
+        private async void LoadPermissions()
+        {
+            var root = AppSettingsLoader.Load();
+            var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
+
+            var repo = new CodeRepository(dbUrl);
+            var permissions = await repo.GetVisitorPermissionsAsync(ViewModel.HomeownerEmail);
+
+            CameraButton.IsVisible = permissions?.Camera ?? false;
+            LockButton.IsVisible = permissions?.Lock ?? false;
+            MapButton.IsVisible = permissions?.Map ?? false;
+        }
+
+        /// <summary>
+        /// Handles the "Access Camera" button click event.
+        /// Navigates the visitor to the camera viewing page.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
         private async void OnAccessCameraClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("CameraPage");
         }
 
         /// <summary>
-        /// Handles the event when the "Open Lock" button is clicked.
-        /// Navigates the user to the <c>OpenLockPage</c>.
+        /// Handles the "Open Lock" button click event.
+        /// Navigates the visitor to the lock control page.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments.</param>
-        /// <example>
-        /// <code>
-        /// OnOpenLockClicked(this, EventArgs.Empty);
-        /// </code>
-        /// </example>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
         private async void OnOpenLockClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("OpenLockPage");
+        }
+
+        /// <summary>
+        /// Handles the "Map" button click event.
+        /// Navigates the visitor to the GPS map tracking page.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnMapClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(FindMyPage));
         }
     }
 }

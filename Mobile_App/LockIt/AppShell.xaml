@@ -27,7 +27,7 @@
         
         <ShellContent
         Icon="profile.png"
-        ContentTemplate="{DataTemplate views:ProfilePage}"/>
+        ContentTemplate="{DataTemplate views:LoginPage}"/>
 
     </TabBar>
 

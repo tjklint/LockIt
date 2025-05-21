@@ -24,7 +24,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/iot/azure_device_client.py
+import os
+import json
+from dotenv import dotenv_values
+
+try:
+    from azure.iot.device.aio import IoTHubDeviceClient
+    from azure.iot.device import Message
+except ImportError:
+    IoTHubDeviceClient = None
+    Message = None
+
+from common.devices.sensor import Reading
+from common.iot import IOTDeviceClient
+========
 from dylan_system.devices.aht20 import HumiditySensor, TemperatureSensor
+>>>>>>>> main:iot_subsystems/tests/dylan_system/unit/test_aht20.py
 
 
 def test_temperature_sensor_read_sensor_returns_reading(
@@ -34,8 +50,48 @@ def test_temperature_sensor_read_sensor_returns_reading(
     assert isinstance(reading.value, float)
     assert reading.measurement == temperature_sensor.measurement
 
+<<<<<<<< HEAD:iot_subsystems/src/tjklint_system/iot/azure_device_client.py
+    def __init__(self):
+        super().__init__()
+        self.client = None
+        env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
+        env_path = os.path.abspath(env_path)
+        print(f"DEBUG: Loading .env from: {env_path}")
+        env = dotenv_values(env_path)
+        print(f"DEBUG: dotenv_values: {env}")
+        self.connection_string = env.get("IOT_DEVICE_CONNECTION_STRING", "")
+        print(f"Loaded connection string: '{self.connection_string}'")
+
+    async def connect(self) -> None:
+        """Connects to IoTHub."""
+        if IoTHubDeviceClient is None:
+            raise ImportError("azure-iot-device not installed")
+        self.client = IoTHubDeviceClient.create_from_connection_string(
+            self.connection_string
+        )
+        await self.client.connect()
+        self.connected = True
+
+    async def send_reading(self, reading: Reading) -> None:
+        """Sends reading to IoTHub."""
+        if self.client is None:
+            await self.connect()
+        msg = Message(
+            json.dumps(
+                {"value": reading.value, "measurement": reading.measurement.name}
+            )
+        )
+        msg.custom_properties["measurement"] = reading.measurement.name
+        await self.client.send_message(msg)
+
+    async def send_readings(self, readings: list[Reading]) -> None:
+        """Sends readings to IoTHub."""
+        for reading in readings:
+            await self.send_reading(reading)
+========
 
 def test_humidity_sensor_read_sensor_returns_reading(humidity_sensor: HumiditySensor):
     reading = humidity_sensor.read_sensor()
     assert isinstance(reading.value, float)
     assert reading.measurement == humidity_sensor.measurement
+>>>>>>>> main:iot_subsystems/tests/dylan_system/unit/test_aht20.py

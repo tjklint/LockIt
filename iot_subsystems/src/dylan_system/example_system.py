@@ -92,6 +92,7 @@ class ExampleSystem:
         """Initialize and close the interface loop."""
         self.interface.register_callback("control_actuator", self.process_command)
         self.interface.register_callback("end_event_loop", self.end_loop)
+        await self.iot_device_client.connect()
         try:
             async with asyncio.TaskGroup() as tg:
                 tg.create_task(self.collect_readings())

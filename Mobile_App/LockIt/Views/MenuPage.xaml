@@ -13,7 +13,7 @@
             CornerRadius="2"
             FontSize="30"
             WidthRequest="300"/>
-        
+
         <Button 
             Margin="25"
             Text="SET CODE" 
@@ -22,8 +22,9 @@
             FontFamily="Jersey15Regular"
             CornerRadius="2"
             FontSize="30"
-            WidthRequest="300"/>
-        
+            WidthRequest="300"
+            Clicked="OnSetLockedClicked"/>
+
         <Button 
             Margin="25"
             Text="OPEN LOCK"
@@ -52,6 +53,9 @@
             FontFamily="Jersey15Regular"
             CornerRadius="2"
             FontSize="30"
-            WidthRequest="300"/>
+            WidthRequest="300"
+            Clicked="OnManageVisitorClicked"/>
+        
+        
     </VerticalStackLayout>
 </ContentPage>

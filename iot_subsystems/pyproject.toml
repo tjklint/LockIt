@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "assignment 2"
 authors = [
     {name = "DylanSavelson", email = "Dylannsavelson@gmail.com"},
+    {name = "joshkrav", email = "jbkravitz2005@gmail.com"},
 ]
 requires-python = ">=3.11"
 readme = "README.md"
@@ -42,13 +43,6 @@ dependencies = [
   "urllib3>=2.4.0"
 ]
 
-format = [
-    "ruff>=0.11.8"
-]
-[tool.ruff]
-line-length = 120
-
-
 [project.optional-dependencies]
 test = [
   "pytest>=8.3.5",
@@ -56,3 +50,9 @@ test = [
   "pytest-mock>=3.14.0",
   "logot[pytest]==1.3.0"
 ]
+format = [
+    "ruff>=0.11.8"
+]
+
+[tool.ruff]
+line-length = 120
