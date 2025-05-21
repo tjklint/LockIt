@@ -72,7 +72,7 @@ namespace LockIt.Repos
         /// <returns>True if the operation was successful; otherwise, false.</returns>
         public async Task<bool> SetCodeAsync(string code)
         {
-            var safeKey = AuthService.Email.Replace(".", "_");
+            var safeKey = AuthService.Email.Replace(".", "_").Replace("@", "_"); ;
             var url = $"{_dbUrl}/codes/{safeKey}.json?auth={_idToken}";
             var content = new StringContent(JsonSerializer.Serialize(code), Encoding.UTF8, "application/json");
             var response = await _client.PutAsync(url, content);

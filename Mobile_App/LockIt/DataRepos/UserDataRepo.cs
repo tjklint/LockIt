@@ -22,7 +22,9 @@ namespace LockIt.DataRepos
 
         public float Longitude { get; set; } = 92.90769F;
 
-        public float Lattitude { get; set; } = -84.32806F;
+        public float Latitude { get; set; } = -84.32806F;
+
+        public uint Motion { get; set; } = 0;
 
         public string VideoSource { get; set; } = "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24488382/batterdoorbellplus_package_deliverypov.jpg?quality=90&strip=all&crop=7.8125%2C0%2C84.375%2C100&w=1080";
 
@@ -56,6 +58,19 @@ namespace LockIt.DataRepos
                     break;
                 case "If True Door is closed if False door is open":
                     SecurityData.IsClosed = (bool)value;
+                    break;
+                case "MOTION":
+                    Motion = value?.Value<uint>() ?? 0;
+                    break;
+                case "GPS":
+                    var coords = value?.ToString().Split(',');
+                    if (coords?.Length == 2 &&
+                        float.TryParse(coords[0], out float lat) &&
+                        float.TryParse(coords[1], out float lon))
+                    {
+                        Latitude = lat;
+                        Longitude = lon;
+                    }
                     break;
                 default:
                     Debug.WriteLine($"Unknown data type: {measurement}");
