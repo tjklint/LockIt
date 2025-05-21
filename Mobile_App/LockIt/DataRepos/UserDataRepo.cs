@@ -1,4 +1,4 @@
-﻿
+
 using LockIt.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -59,10 +59,10 @@ namespace LockIt.DataRepos
                 case "If True Door is closed if False door is open":
                     SecurityData.IsClosed = (bool)value;
                     break;
-                case "MOTION":
+                case "motion detected (1/0)":
                     Motion = value?.Value<uint>() ?? 0;
                     break;
-                case "GPS":
+                case "GPS latitude and longitude":
                     var coords = value?.ToString().Split(',');
                     if (coords?.Length == 2 &&
                         float.TryParse(coords[0], out float lat) &&
@@ -76,9 +76,6 @@ namespace LockIt.DataRepos
                     Debug.WriteLine($"Unknown data type: {measurement}");
                     break;
             }
-
-               
-
         }
     }
 }
