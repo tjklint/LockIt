@@ -44,25 +44,18 @@ class AzureDeviceClient(IOTDeviceClient):
 
     def __init__(self):
         super().__init__()
-        self.client = None
-        env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
-        env_path = os.path.abspath(env_path)
-        print(f"DEBUG: Loading .env from: {env_path}")
-        env = dotenv_values(env_path)
-        print(f"DEBUG: dotenv_values: {env}")
-        self.connection_string = env.get("IOT_DEVICE_CONNECTION_STRING", "")
-        print(f"Loaded connection string: '{self.connection_string}'")
+        connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
+        self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
-        if IoTHubDeviceClient is None:
-            raise ImportError("azure-iot-device not installed")
-        self.client = IoTHubDeviceClient.create_from_connection_string(
-            self.connection_string
-        )
-        await self.client.connect()
-        self.connected = True
+        await self.device_client.connect()
 
+
+
+    async def send_picture(self,output_path='output.jpg'):
+        pass
+    
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
         if self.client is None:
@@ -78,4 +71,6 @@ class AzureDeviceClient(IOTDeviceClient):
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""
         for reading in readings:
-            await self.send_reading(reading)
+            payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
+            message = Message(payload)
+            await self.device_client.send_message(message)

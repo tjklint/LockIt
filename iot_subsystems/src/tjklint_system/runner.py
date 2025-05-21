@@ -41,8 +41,7 @@ from common.interfaces.keyboard import KeyboardInterface
 
 
 def main() -> None:
-    env_path = os.path.join(os.path.dirname(__file__), ".env")
-    runtime_environment = dotenv_values(env_path)["ENVIRONMENT"]
+    runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
 
     parser = argparse.ArgumentParser(description="TJKlint System CLI")
     parser.add_argument(

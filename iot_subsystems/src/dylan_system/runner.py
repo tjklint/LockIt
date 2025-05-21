@@ -33,10 +33,7 @@ from dotenv import dotenv_values
 from common.devices.device_controller import DeviceController
 from dylan_system.devices.aht20 import HumiditySensor, MockGroveTemperatureHumidityAHT20, TemperatureSensor
 from dylan_system.example_system import ExampleSystem
-from dylan_system.interfaces import (
-    ExampleSystemKeyboardInterface,
-    ExampleSystemReterminalInterface,
-)
+
 from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 from dylan_system.devices.camera import MockCamera, CameraActuator, Camera
@@ -48,26 +45,15 @@ from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
 from joshkrav_system.devices.lock import LockActuator
 from common.devices.device_controller import DeviceController
 from common.devices.mocks import MockTMG39931, MockDoorSensor
-from joshkrav_system.devices.tmg39931 import (
-    ProximitySensor,
-    RedColorSensor,
-    BlueColorSensor,
-    ProximitySensor,
-    GreenColorSensor,
-)
+
 from common.devices.actuator import Action
-from joshkrav_system.devices.aht20 import (
-    HumiditySensor,
-    MockGroveTemperatureHumidityAHT20,
-    TemperatureSensor,
-)
-from joshkrav_system.devices.fan import FanActuator
-from joshkrav_system.example_system import ExampleSystem
-from joshkrav_system.interfaces import (
+
+from dylan_system.devices.fan import FanActuator
+from dylan_system.example_system import ExampleSystem
+from dylan_system.interfaces import (
     ExampleSystemKeyboardInterface,
     ExampleSystemReterminalInterface,
 )
-from joshkrav_system.iot.azure_device_client import AzureDeviceClient
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
