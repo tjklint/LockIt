@@ -14,7 +14,6 @@ namespace LockIt.Views
             ViewModel = viewmodel;
             BindingContext = ViewModel;
 
-            // Load access permissions for the homeowner
             LoadPermissions();
         }
 
