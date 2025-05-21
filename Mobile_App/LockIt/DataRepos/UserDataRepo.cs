@@ -1,4 +1,4 @@
-﻿
+
 using LockIt.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -76,9 +76,6 @@ namespace LockIt.DataRepos
                     Debug.WriteLine($"Unknown data type: {measurement}");
                     break;
             }
-
-               
-
         }
     }
 }
