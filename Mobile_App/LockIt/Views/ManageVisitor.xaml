@@ -1,0 +1,23 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LockIt.ViewModels"
+             x:Class="LockIt.Views.ManageVisitor"
+             Title="Manage Visitor Access">
+
+    <ContentPage.BindingContext>
+        <vm:ManageVisitorViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Visitor Access Controls" FontSize="24" HorizontalOptions="Center" />
+
+        <CheckBox IsChecked="{Binding CameraEnabled}" />
+        <Label Text="Camera Access" />
+
+        <CheckBox IsChecked="{Binding MapEnabled}" />
+        <Label Text="Map Access" />
+
+        <CheckBox IsChecked="{Binding LockEnabled}" />
+        <Label Text="Unlock Door" />
+    </StackLayout>
+</ContentPage>

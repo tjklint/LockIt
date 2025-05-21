@@ -1,0 +1,19 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LockIt.ViewModels"
+             x:Class="LockIt.Views.VisitorAccessPage"
+             Title="Visitor Access">
+
+    <ContentPage.BindingContext>
+        <vm:VisitorAccessViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="30" Spacing="20">
+        <Label Text="Enter Homeowner Info" FontSize="24" HorizontalOptions="Center" />
+
+        <Entry Placeholder="Homeowner Email" Text="{Binding Email}" />
+        <Entry Placeholder="Access Code" Text="{Binding Code}" IsPassword="True" />
+
+        <Button Text="Submit" Command="{Binding SubmitCommand}" />
+    </StackLayout>
+</ContentPage>

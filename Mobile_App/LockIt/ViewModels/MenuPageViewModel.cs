@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Team Name: LockIt
+// Team Members: Dylan Savelson, Joshua Kravitz, Timothy (TJ) Klint
+// Description: ViewModel for binding and updating environmental sensor data for the menu pages.
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
@@ -11,11 +10,30 @@ using LockIt.Models;
 
 namespace LockIt.ViewModels
 {
+    /// <summary>
+    /// ViewModel that holds environmental sensor data and updates it based on incoming JSON events.
+    /// </summary>
     public class MenuPageViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Gets or sets the environmental sensor data model.
+        /// </summary>
         public EnvironmentalSensor Environment { get; set; } = new();
+
+        /// <summary>
+        /// Event raised when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Gets or sets the email of the associated homeowner (used in visitor context).
+        /// </summary>
+        public string HomeownerEmail { get; set; }
+
+        /// <summary>
+        /// Updates the environmental data properties from a JSON event payload.
+        /// </summary>
+        /// <param name="json">A JSON object containing a measurement and value.</param>
         public void UpdateData(JObject json)
         {
             var measurement = json["measurement"]?.ToString();
@@ -49,6 +67,10 @@ namespace LockIt.ViewModels
             OnPropertyChanged(nameof(Environment));
         }
 
+        /// <summary>
+        /// Notifies the UI that a property has changed.
+        /// </summary>
+        /// <param name="name">The name of the property. Automatically supplied by the caller if not provided.</param>
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

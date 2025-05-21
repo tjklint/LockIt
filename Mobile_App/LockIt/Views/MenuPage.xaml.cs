@@ -1,14 +1,42 @@
-namespace LockIt.Views;
+// Team Name: LockIt
+// Team Members: Dylan Savelson, Joshua Kravitz, Timothy (TJ) Klint
+// Description: Controls the main homeowner menu page, allowing navigation to lock settings and visitor management.
 
-public partial class MenuPage : ContentPage
+namespace LockIt.Views
 {
-	public MenuPage()
-	{
-		InitializeComponent();
-    }
-
-    private async void OnSetLockedClicked(object sender, EventArgs e)
+    /// <summary>
+    /// Represents the main homeowner menu page that provides navigation to lock and visitor management settings.
+    /// </summary>
+    public partial class MenuPage : ContentPage
     {
-        await Shell.Current.GoToAsync(nameof(SetLockPage));
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuPage"/> class and sets up the UI components.
+        /// </summary>
+        public MenuPage()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Handles the event when the "Set Lock" button is clicked.
+        /// Navigates to the <see cref="SetLockPage"/>.
+        /// </summary>
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnSetLockedClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(SetLockPage));
+        }
+
+        /// <summary>
+        /// Handles the event when the "Manage Visitor" button is clicked.
+        /// Navigates to the <see cref="ManageVisitor"/> page.
+        /// </summary>
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnManageVisitorClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(ManageVisitor));
+        }
     }
 }
