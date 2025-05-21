@@ -41,7 +41,7 @@ from dylan_system.iot.azure_device_client import AzureDeviceClient
 
 from dylan_system.devices.camera import MockCamera, CameraActuator, Camera
 from common.devices.actuator import Action
-========
+
 from gpiozero import OutputDevice
 from gpiozero.pins.mock import MockFactory
 from grove.grove_temperature_humidity_aht20 import GroveTemperatureHumidityAHT20
