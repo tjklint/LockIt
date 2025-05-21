@@ -116,6 +116,11 @@ namespace LockIt.Services
 
                     string path = Path.Combine(FileSystem.AppDataDirectory, fileName);
 
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
                     File.WriteAllBytes(path, imageBytes);
 
                     Debug.WriteLine($"Image saved to: {path}");

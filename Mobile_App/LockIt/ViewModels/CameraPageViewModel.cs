@@ -25,7 +25,8 @@ namespace LockIt.ViewModels
             string filePath = Path.Combine(FileSystem.AppDataDirectory, "output.jpg");
             if (File.Exists(filePath))
             {
-                CameraImage = ImageSource.FromFile(filePath);
+                using var stream = File.OpenRead(filePath);
+                CameraImage = ImageSource.FromStream(() => File.OpenRead(filePath));
             }
         }
 
