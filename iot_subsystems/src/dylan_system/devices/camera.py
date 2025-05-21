@@ -1,14 +1,38 @@
 from dataclasses import dataclass
 from common.devices.actuator import Command, Actuator
 import logging
-
+import subprocess
+from azure.iot.device import Message
+import os
 logger = logging.getLogger(__name__)
 
 
 class Camera:
     """Implementation of the Camera."""
 
-    # todo
+    def __init__(self, output_path='output.jpg'):
+        """Initializes the mock class."""
+        self.state = 0
+        self.output_path = output_path
+        
+    def take_picture(self):
+        "Takes a picture"
+
+        if os.path.exists(self.output_path):
+            os.remove(self.output_path)
+            
+        command = [
+        'ffmpeg',
+        '-f', 'v4l2',
+        '-video_size', '640x480',
+        '-i', '/dev/video0',
+        '-frames:v', '1',
+        'output.jpg'
+        ]
+
+        subprocess.run(command)
+        
+
 
 
 class MockCamera:
