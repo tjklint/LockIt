@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LockIt.Helpers;
 using LockIt.Repos;
+using LockIt.Services;
 using LockIt.Views;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace LockIt.ViewModels
             if (existingCode?.Trim('"') == code)
             {
                 var menuVm = new MenuPageViewModel { HomeownerEmail = Email };
+                AuthService.HomeownerEmail = Email;
                 await Shell.Current.Navigation.PushAsync(new VisitorMenuPage(menuVm));
             }
             else

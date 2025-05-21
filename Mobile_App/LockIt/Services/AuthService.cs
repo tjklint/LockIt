@@ -21,5 +21,8 @@ namespace LockIt.Services
         /// Gets or sets the email of the currently authenticated user.
         /// </summary>
         public static string Email { get; set; }
+
+        public static string HomeownerEmail { get; set; }
+
     }
 }

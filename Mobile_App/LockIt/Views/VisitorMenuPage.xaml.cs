@@ -4,6 +4,7 @@
 
 using LockIt.Helpers;
 using LockIt.Repos;
+using LockIt.Services;
 using LockIt.ViewModels;
 
 namespace LockIt.Views
@@ -40,7 +41,7 @@ namespace LockIt.Views
             var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
 
             var repo = new CodeRepository(dbUrl);
-            var permissions = await repo.GetVisitorPermissionsAsync(ViewModel.HomeownerEmail);
+            var permissions = await repo.GetVisitorPermissionsAsync(AuthService.HomeownerEmail);
 
             CameraButton.IsVisible = permissions?.Camera ?? false;
             LockButton.IsVisible = permissions?.Lock ?? false;
