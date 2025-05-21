@@ -55,7 +55,10 @@ namespace LockIt.Views
         /// <param name="e">The event data.</param>
         private async void OnAccessCameraClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("CameraPage");
+            var cameraViewModel = new CameraPageViewModel();
+            var cameraPage = new CameraPage(cameraViewModel);
+
+            await Navigation.PushAsync(cameraPage);
         }
 
         /// <summary>

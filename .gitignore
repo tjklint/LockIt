@@ -978,3 +978,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Mobile_App/LockIt/appsettings.json

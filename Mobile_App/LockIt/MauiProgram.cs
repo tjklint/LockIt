@@ -48,7 +48,9 @@ namespace LockIt
             builder.Services.AddSingleton<UserDataRepo>();
             builder.Services.AddSingleton<HubService>();
             builder.Services.AddSingleton<MenuPageViewModel>();
+            builder.Services.AddSingleton<CameraPageViewModel>();
             builder.Services.AddSingleton<VisitorMenuPage>();
+            builder.Services.AddSingleton<CameraPage>();
             builder.Services.AddSingleton<FirebaseAuthRepository>();
 
 #if DEBUG

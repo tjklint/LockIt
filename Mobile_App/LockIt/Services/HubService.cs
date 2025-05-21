@@ -136,6 +136,17 @@ namespace LockIt.Services
                 {
                     _viewModel.UpdateData(json);
                 });
+                // This is where the repo parsing the data should come into place. 
+                // or a helper method which helps route the data to the appropriate repo.
+
+                if (json["imageUploaded"]?.Value<bool>() == true)
+                {
+                    string sasUrl = json["sasUrl"]?.ToString();
+                    if (!string.IsNullOrEmpty(sasUrl))
+                    {
+                        await DownloadImageFromSasUrl(sasUrl);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -151,6 +162,40 @@ namespace LockIt.Services
         public async Task ProcessErrorHandler(ProcessErrorEventArgs args)
         {
             Debug.WriteLine($"ERROR: {args.Exception.Message}");
+        }
+        private async Task DownloadImageFromSasUrl(string sasUrl)
+        {
+            try
+            {
+                using HttpClient client = new HttpClient();
+                var response = await client.GetAsync(sasUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
+
+                    string fileName = "output.jpg";
+
+                    string path = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
+                    File.WriteAllBytes(path, imageBytes);
+
+                    Debug.WriteLine($"Image saved to: {path}");
+                }
+                else
+                {
+                    Debug.WriteLine($"Failed to download image: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception during image download: {ex.Message}");
+            }
         }
     }
 }
