@@ -57,6 +57,19 @@ namespace LockIt.DataRepos
                 case "If True Door is closed if False door is open":
                     SecurityData.IsClosed = (bool)value;
                     break;
+                case "motion detected (1/0)":
+                    Motion = value?.Value<uint>() ?? 0;
+                    break;
+                case "GPS latitude and longitude":
+                    var coords = value?.ToString().Split(',');
+                    if (coords?.Length == 2 &&
+                        float.TryParse(coords[0], out float lat) &&
+                        float.TryParse(coords[1], out float lon))
+                    {
+                        Latitude = lat;
+                        Longitude = lon;
+                    }
+                    break;
                 default:
                     Debug.WriteLine($"Unknown data type: {measurement}");
                     break;
