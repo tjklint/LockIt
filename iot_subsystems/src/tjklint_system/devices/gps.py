@@ -1,4 +1,5 @@
 import logging
+import random
 
 try:
     import serial
@@ -79,3 +80,13 @@ class GPSSensor(Sensor):
         logger.info(reading)
         return reading
 
+class MockGPSDevice:
+    """
+    Simulates a GPS device by returning random latitude and longitude near Montreal.
+    """
+
+    def read(self):
+        lat = round(random.uniform(45.4, 45.6), 6)
+        lon = round(random.uniform(-73.7, -73.5), 6)
+        logger.debug(f"[MOCK GPS] lat={lat}, lon={lon}")
+        return lat, lon
