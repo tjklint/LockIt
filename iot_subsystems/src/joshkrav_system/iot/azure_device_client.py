@@ -45,6 +45,7 @@ class AzureDeviceClient(IOTDeviceClient):
     async def connect(self) -> None:
         """Connects to IoTHub."""
         await self.device_client.connect()
+        self.device_client.on_method_request_received = self.method_handler
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
@@ -71,7 +72,6 @@ class AzureDeviceClient(IOTDeviceClient):
                 data = json.loads(method_request.payload) if method_request.payload else {}
                 value = data.get("value", 0)
                 
-                # Call the actuator callback
                 if self.control_actuator_callback:
                     from common.devices.actuator import Action, Command
                     command = Command(Action.LOCK_TOGGLE, value)
