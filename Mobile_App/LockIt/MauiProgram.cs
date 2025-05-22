@@ -37,6 +37,7 @@ namespace LockIt
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiMaps()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -59,6 +60,7 @@ namespace LockIt
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<UserDataRepo>();
+            builder.Services.AddSingleton<FindMyPageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
