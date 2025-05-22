@@ -115,10 +115,13 @@ def main() -> None:
     actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 
     device_controller = DeviceController(sensors=sensors, actuators=actuators)
+    iot_client = AzureDeviceClient()
+    iot_client.control_actuator_callback = device_controller.control_actuator
+
     system = ExampleSystem(
         device_controller=device_controller,
         interface=interface,
-        iot_device_client=AzureDeviceClient(),
+        iot_device_client=iot_client,
     )
 
     try:

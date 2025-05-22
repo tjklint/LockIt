@@ -30,7 +30,7 @@ from common.devices.sensor import Reading
 from common.iot import IOTDeviceClient
 from dotenv import dotenv_values
 from azure.iot.device.aio import IoTHubDeviceClient
-from azure.iot.device import Message
+from azure.iot.device import Message, MethodResponse
 import json
 
 
@@ -65,3 +65,24 @@ class AzureDeviceClient(IOTDeviceClient):
         for reading in readings:
             payload = json.dumps({"measurement": reading.measurement.description, "value": reading.value})
             await self.device_client.send_message(Message(payload))
+
+        async def method_handler(self, method_request):
+            if method_request.name == "toggle_lock":
+                try:
+                    data = json.loads(method_request.payload) if method_request.payload else {}
+                    value = data.get("value", 0)
+                    
+                    # Call the actuator callback
+                    if self.control_actuator_callback:
+                        from common.devices.actuator import Action, Command
+                        command = Command(Action.LOCK_TOGGLE, value)
+                        result = self.control_actuator_callback(command)
+
+                    response_payload = {"result": "Lock toggled", "value": value}
+                    method_response = MethodResponse.create_from_method_request(method_request, 200, response_payload)
+                except Exception as e:
+                    method_response = MethodResponse.create_from_method_request(method_request, 500, {"error": str(e)})
+            else:
+                method_response = MethodResponse.create_from_method_request(method_request, 404, {"error": "Unknown method"})
+
+            await self.device_client.send_method_response(method_response)

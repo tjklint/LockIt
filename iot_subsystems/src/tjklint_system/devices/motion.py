@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 
 class MockMotionSensorDevice:
     def read(self):
-        # Toggle state for mock
         return randint(0, 1)
 
 class MotionSensor(Sensor):
