@@ -86,8 +86,11 @@ class AzureDeviceClient(IOTDeviceClient):
                 response_payload = {"result": "Lock toggled", "value": value}
                 method_response = MethodResponse.create_from_method_request(method_request, 200, response_payload)
             except Exception as e:
-                error_payload = json.dumps({"errorabc": str(e)})
-                method_response = MethodResponse.create_from_method_request(method_request, 500, error_payload)        \
+                method_response = MethodResponse.create_from_method_request(
+                    method_request,
+                    500,
+                    {"error": str(e)}  
+                )
         
         else:
             method_response = MethodResponse.create_from_method_request(method_request, 404, {"error": "Unknown method"})
