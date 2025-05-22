@@ -71,7 +71,7 @@ class AzureDeviceClient(IOTDeviceClient):
         if method_request.name == "toggle_lock":
             try:
                 print(f"Received method request: {method_request.name}")
-                data = json.loads(method_request.payload) if method_request.payload else {}
+                data = method_request.payload or {}
                 value = data.get("value", 0)
                 
                 print(f"Callback assigned? {self.control_actuator_callback is not None}")
