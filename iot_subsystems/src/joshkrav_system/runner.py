@@ -85,7 +85,6 @@ def main() -> None:
     runtime_environment = dotenv_values(".env")["ENVIRONMENT"]
     if runtime_environment == "DEVELOPMENT":
         interface = ExampleSystemKeyboardInterface()
-        aht20 = MockGroveTemperatureHumidityAHT20()
         luminosity_sensor = MockTMG39931()
         lock = OutputDevice(pin=16, pin_factory=MockFactory())
         door_sensor = MockDoorSensor()
@@ -103,7 +102,7 @@ def main() -> None:
         GreenColorSensor(device=luminosity_sensor),
         BlueColorSensor(device=luminosity_sensor),
         ProximitySensor(device=luminosity_sensor),
-        door_sensor,
+        door_sensor
     ]
     actuators = [LockActuator(device=lock, action=Action.LOCK_TOGGLE)]
 

@@ -2,6 +2,7 @@ from gpiozero import Servo
 from time import sleep
 from dataclasses import dataclass
 from common.devices.actuator import Action, Command, Actuator
+from common.devices.sensor import Reading
 
 
 @dataclass
@@ -24,10 +25,8 @@ class LockActuator(Actuator):
             self.device.max()
             self.state = 1
             command.data = 1
-            
-        return False
-
-
+            return True
+        
 TEST_SLEEP_TIME = 1
 
 
