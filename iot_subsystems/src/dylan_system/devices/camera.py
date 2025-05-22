@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import time
 from common.devices.actuator import Command, Actuator
 import logging
 import subprocess
@@ -17,28 +18,30 @@ class Camera:
         
     def take_picture(self):
         "Takes a picture"
+        while True:
 
-        if os.path.exists(self.output_path):
-            os.remove(self.output_path)
+            if os.path.exists(self.output_path):
+                os.remove(self.output_path)
+                
+            # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "exposure_auto=1"])
+            # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "exposure_absolute=800"])
+            # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "brightness=128"])
+            # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "gain=20"])
             
-        # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "exposure_auto=1"])
-        # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "exposure_absolute=800"])
-        # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "brightness=128"])
-        # subprocess.run(["v4l2-ctl", "-d", "/dev/video0", "-c", "gain=20"])
-        
-        command = [
-            'ffmpeg',
-            '-f', 'v4l2',
-            '-video_size', '640x480',
-            '-i', '/dev/video0',
-            '-frames:v', '1',
-            '-vf', 'scale=in_range=limited:out_range=full,eq=brightness=0.06:contrast=1.2',
-            '-pix_fmt', 'yuvj422p',
-            'output.jpg'
-        ]
+            command = [
+                'ffmpeg',
+                '-f', 'v4l2',
+                '-video_size', '640x480',
+                '-i', '/dev/video0',
+                '-frames:v', '1',
+                '-vf', 'scale=in_range=limited:out_range=full,eq=brightness=0.06:contrast=1.2',
+                '-pix_fmt', 'yuvj422p',
+                'output.jpg'
+            ]
 
 
-        subprocess.run(command)
+            subprocess.run(command)
+            time.sleep(5)
         
 
 
