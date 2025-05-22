@@ -60,7 +60,7 @@ class AzureDeviceClient(IOTDeviceClient):
         """Sends reading to IoTHub."""
         if self.client is None:
             await self.connect()
-        msg = Message(
+            msg = Message(
             json.dumps(
                 {"value": reading.value, "measurement": reading.measurement.name}
             )
