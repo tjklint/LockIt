@@ -47,12 +47,18 @@ namespace LockIt
             // Register services for DI container
             builder.Services.AddSingleton<UserDataRepo>();
             builder.Services.AddSingleton<HubService>();
-            builder.Services.AddSingleton<MenuPageViewModel>();
-            builder.Services.AddSingleton<CameraPageViewModel>();
             builder.Services.AddSingleton<VisitorMenuPage>();
             builder.Services.AddSingleton<CameraPage>();
             builder.Services.AddSingleton<FirebaseAuthRepository>();
 
+            builder.Services.AddSingleton<ManageVisitorViewModel>();
+            builder.Services.AddSingleton<VisitorAccessViewModel>();
+            builder.Services.AddSingleton<MenuPageViewModel>();
+            builder.Services.AddSingleton<CameraPageViewModel>();
+            builder.Services.AddSingleton<SetLockViewModel>();
+            builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<RegisterViewModel>();
+            builder.Services.AddSingleton<UserDataRepo>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

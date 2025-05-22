@@ -3,6 +3,7 @@ using LockIt.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace LockIt.DataRepos
 {
-    public class UserDataRepo
+    public class UserDataRepo : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public string Username { get; set; } = "AUsername";
 
         public string Password { get; set; } = "APassword";
@@ -24,7 +26,19 @@ namespace LockIt.DataRepos
 
         public float Latitude { get; set; } = -84.32806F;
 
-        public uint Motion { get; set; } = 0;
+        private uint _motion = 0;
+        public uint Motion
+        {
+            get => _motion;
+            set
+            {
+                if (_motion != value)
+                {
+                    _motion = value;
+                    OnPropertyChanged(nameof(Motion));
+                }
+            }
+        }
 
         public string VideoSource { get; set; } = "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24488382/batterdoorbellplus_package_deliverypov.jpg?quality=90&strip=all&crop=7.8125%2C0%2C84.375%2C100&w=1080";
 
@@ -35,7 +49,7 @@ namespace LockIt.DataRepos
 
             switch (measurement)
             {
-                case "temperature in degrees celcius":
+                case "temperature in degrees celsius":
                     EnvironmentalSensor.TemperatureSensor = (double)value;
                     break;
                 case "relative measurement of humidity":
@@ -58,9 +72,11 @@ namespace LockIt.DataRepos
                     break;
                 case "If True Door is closed if False door is open":
                     SecurityData.IsClosed = (bool)value;
+                    Console.WriteLine(value);
                     break;
                 case "motion detected (1/0)":
                     Motion = value?.Value<uint>() ?? 0;
+                    Console.WriteLine(Motion);
                     break;
                 case "GPS latitude and longitude":
                     var coords = value?.ToString().Split(',');
@@ -71,11 +87,14 @@ namespace LockIt.DataRepos
                         Latitude = lat;
                         Longitude = lon;
                     }
+                    Console.WriteLine(coords);
                     break;
                 default:
                     Debug.WriteLine($"Unknown data type: {measurement}");
                     break;
             }
         }
+        private void OnPropertyChanged(string propertyName) =>
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
