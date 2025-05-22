@@ -19,12 +19,12 @@ class LockActuator(Actuator):
             self.device.min()
             self.state = 0
             command.data = 0
-            print(command)
+            return True
         else:
             self.device.max()
             self.state = 1
             command.data = 1
-            print(command)
+            
         return False
 
 
