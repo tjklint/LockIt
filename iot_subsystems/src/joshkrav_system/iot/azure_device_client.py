@@ -40,7 +40,8 @@ class AzureDeviceClient(IOTDeviceClient):
     def __init__(self):
         super().__init__()
         connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
-        self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
+        self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)    
+        self.control_actuator_callback = None
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
@@ -72,6 +73,8 @@ class AzureDeviceClient(IOTDeviceClient):
                 data = json.loads(method_request.payload) if method_request.payload else {}
                 value = data.get("value", 0)
                 
+                print(f"Callback assigned? {self.control_actuator_callback is not None}")
+
                 if self.control_actuator_callback:
                     from common.devices.actuator import Action, Command
                     command = Command(Action.LOCK_TOGGLE, value)
