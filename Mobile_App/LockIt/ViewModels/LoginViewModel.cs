@@ -115,6 +115,7 @@ namespace LockIt.ViewModels
                 {
                     AuthService.IdToken = result.idToken;
                     AuthService.Email = Email;
+                    AuthService.HomeownerEmail = Email;
                     RefreshState();
 
                     await Shell.Current.GoToAsync(nameof(SelectUserTypePage));

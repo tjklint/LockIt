@@ -41,7 +41,6 @@ class ExampleSystemInterface(Interface):
         """See base class."""
         if key.upper() == "F1":
             command = Command(Action.TAKE_PICTURE, 1)
-            command = Command(Action.LOCK_TOGGLE, 1)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "O":
             logger.info("'O' pressed, script will exit when released")
@@ -52,7 +51,6 @@ class ExampleSystemInterface(Interface):
         """See base class."""
         if key.upper() == "F1":
             command = Command(Action.TAKE_PICTURE, 0)
-            command = Command(Action.LOCK_TOGGLE, 0)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "O":
             logger.info("'O' released, script exiting.")

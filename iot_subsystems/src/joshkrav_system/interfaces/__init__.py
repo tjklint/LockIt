@@ -40,7 +40,6 @@ class ExampleSystemInterface(Interface):
     def key_press(self, key: str) -> None:
         """See base class."""
         if key.upper() == "F1":
-            command = Command(Action.TAKE_PICTURE, 1)
             command = Command(Action.LOCK_TOGGLE, 1)
             self.callbacks["control_actuator"](command)
         elif key.upper() == "O":
@@ -51,9 +50,7 @@ class ExampleSystemInterface(Interface):
     def key_release(self, key: str) -> None:
         """See base class."""
         if key.upper() == "F1":
-            command = Command(Action.TAKE_PICTURE, 0)
-            command = Command(Action.LOCK_TOGGLE, 0)
-            self.callbacks["control_actuator"](command)
+            pass
         elif key.upper() == "O":
             logger.info("'O' released, script exiting.")
             self.callbacks["end_event_loop"]()
