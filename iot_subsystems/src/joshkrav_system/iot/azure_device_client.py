@@ -41,10 +41,6 @@ class AzureDeviceClient(IOTDeviceClient):
         super().__init__()
         connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
-        self.device_client = IoTHubDeviceClient.create_from_connection_string(
-            "HostName=joshuakravitz-iot-hub.azure-devices.net;DeviceId=Project_Device;SharedAccessKey=OHxdGE9uPyGxPsP1Kg3QOp8qbPnN2pKFKq86syLO0CU=",
-            websockets=True,
-        )
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
@@ -53,6 +49,9 @@ class AzureDeviceClient(IOTDeviceClient):
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
         await self.device_client.send_message(reading.value)
+
+    async def send_picture(self) -> None:
+        pass
 
     async def send_readings(self, readings: list[Reading]) -> None:
         """Sends readings to IoTHub."""

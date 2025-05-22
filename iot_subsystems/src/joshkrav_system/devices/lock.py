@@ -14,11 +14,17 @@ class LockActuator(Actuator):
 
     def control_actuator(self, command: Command) -> bool:
         """Function that controls the fan actuator"""
-        print(command)
-        if command.data==1:
-            self.device.max()
-        elif command.data==0:
+        
+        if self.state == 1:
             self.device.min()
+            self.state = 0
+            command.data = 0
+            print(command)
+        else:
+            self.device.max()
+            self.state = 1
+            command.data = 1
+            print(command)
         return False
 
 
@@ -32,10 +38,7 @@ def main():
 
     while True:
         lock_on = Command(Action.LOCK_TOGGLE, 1)
-        lock_off = Command(Action.LOCK_TOGGLE, 0)
         lock_actuator.control_actuator(lock_on)
-        sleep(TEST_SLEEP_TIME)
-        lock_actuator.control_actuator(lock_off)
         sleep(TEST_SLEEP_TIME)
 
 

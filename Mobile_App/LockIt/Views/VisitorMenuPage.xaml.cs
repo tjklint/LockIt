@@ -41,6 +41,7 @@ namespace LockIt.Views
             var dbUrl = root.GetProperty("Firebase").GetProperty("DatabaseUrl").GetString();
 
             var repo = new CodeRepository(dbUrl);
+            var x = AuthService.HomeownerEmail;
             var permissions = await repo.GetVisitorPermissionsAsync(AuthService.HomeownerEmail);
 
             CameraButton.IsVisible = permissions?.Camera ?? false;
@@ -56,8 +57,9 @@ namespace LockIt.Views
         /// <param name="e">The event data.</param>
         private async void OnAccessCameraClicked(object sender, EventArgs e)
         {
-            var cameraViewModel = new CameraPageViewModel();
-            var cameraPage = new CameraPage(cameraViewModel);
+            var cameraPage = App.Current.Handler.MauiContext.Services.GetService<CameraPage>();
+
+
 
             await Navigation.PushAsync(cameraPage);
         }

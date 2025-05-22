@@ -138,7 +138,7 @@ namespace LockIt.Services
                 });
                 // This is where the repo parsing the data should come into place. 
                 // or a helper method which helps route the data to the appropriate repo.
-
+                
                 if (json["imageUploaded"]?.Value<bool>() == true)
                 {
                     string sasUrl = json["sasUrl"]?.ToString();

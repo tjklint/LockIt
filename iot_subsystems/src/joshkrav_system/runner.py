@@ -32,15 +32,7 @@ from dotenv import dotenv_values
 
 
 from common.devices.device_controller import DeviceController
-from dylan_system.devices.aht20 import HumiditySensor, MockGroveTemperatureHumidityAHT20, TemperatureSensor
-from dylan_system.example_system import ExampleSystem
-from dylan_system.interfaces import (
-    ExampleSystemKeyboardInterface,
-    ExampleSystemReterminalInterface,
-)
-from dylan_system.iot.azure_device_client import AzureDeviceClient
 
-from dylan_system.devices.camera import MockCamera, CameraActuator
 from common.devices.actuator import Action
 
 from gpiozero import OutputDevice,Button
@@ -71,6 +63,7 @@ from joshkrav_system.interfaces import (
     ExampleSystemReterminalInterface,
 )
 from joshkrav_system.iot.azure_device_client import AzureDeviceClient
+from gpiozero import Servo
 
 logger = logging.getLogger(__name__)
 
@@ -97,8 +90,8 @@ def main() -> None:
         lock = OutputDevice(pin=16, pin_factory=MockFactory())
         door_sensor = MockDoorSensor()
     elif runtime_environment == "PRODUCTION":
-        interface = ExampleSystemReterminalInterface()
-        lock = OutputDevice(pin=16)
+        interface = ExampleSystemKeyboardInterface()
+        lock = Servo(pin=16)
         luminosity_sensor = TMG39931()
         door_sensor = DoorSensor(Button(18))
     else:
