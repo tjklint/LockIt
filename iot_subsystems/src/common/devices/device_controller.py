@@ -81,3 +81,4 @@ class DeviceController:
             if command.action == actuator.action:
                 return actuator.control_actuator(command)
         return False
+

@@ -70,6 +70,7 @@ class AzureDeviceClient(IOTDeviceClient):
     async def method_handler(self, method_request):
         if method_request.name == "toggle_lock":
             try:
+                print(f"Received method request: {method_request.name}")
                 data = json.loads(method_request.payload) if method_request.payload else {}
                 value = data.get("value", 0)
                 
@@ -79,6 +80,8 @@ class AzureDeviceClient(IOTDeviceClient):
                     from common.devices.actuator import Action, Command
                     command = Command(Action.LOCK_TOGGLE, value)
                     result = self.control_actuator_callback(command)
+                    print (f"Result of control actuator callback: {result}")
+                    print (f"Command: {command}")
 
                 response_payload = {"result": "Lock toggled", "value": value}
                 method_response = MethodResponse.create_from_method_request(method_request, 200, response_payload)
