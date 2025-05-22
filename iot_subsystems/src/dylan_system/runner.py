@@ -31,6 +31,7 @@ import logging
 from dotenv import dotenv_values
 
 from common.devices.device_controller import DeviceController
+from common.devices.sensor import Measurement
 from dylan_system.devices.aht20 import HumiditySensor, MockGroveTemperatureHumidityAHT20, TemperatureSensor
 from dylan_system.example_system import ExampleSystem
 
@@ -76,14 +77,14 @@ def main() -> None:
     elif runtime_environment == "PRODUCTION":
         interface = ExampleSystemKeyboardInterface()
         camera = Camera()
-        aht20 = MockGroveTemperatureHumidityAHT20()
+        aht20 = GroveTemperatureHumidityAHT20(bus=4)
 
     else:
         raise ValueError
 
     sensors = [        
         TemperatureSensor(device=aht20),
-        HumiditySensor(device=aht20),]
+        HumiditySensor(device=aht20)]
     actuators = [CameraActuator(camera, Action.TAKE_PICTURE)]
 
 

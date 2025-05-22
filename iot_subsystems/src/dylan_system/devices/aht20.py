@@ -63,7 +63,7 @@ class TemperatureSensor(Sensor):
     def read_sensor(self) -> Reading:
         """See base class."""
         temperature, _ = self.device.read()
-        reading = Reading(value=temperature, measurement=self.measurement)
+        reading = Reading(value=round(temperature,2), measurement=Measurement.TEMPERATURE)
         logger.info(reading)
         return reading
 
@@ -82,7 +82,7 @@ class HumiditySensor(Sensor):
     def read_sensor(self) -> Reading:
         """See base class."""
         _, humidity = self.device.read()
-        reading = Reading(value=humidity, measurement=self.measurement)
+        reading = Reading(value=round(humidity,2), measurement=Measurement.HUMIDITY)
         logger.info(reading)
         return reading
 
@@ -97,15 +97,23 @@ def main() -> None:
         $ export PYTHONPATH=${HOME}/path-to-repository/src:${PYTHONPATH}
         $ python src/example_system/devices/aht20.py
     """
-    device = GroveTemperatureHumidityAHT20(bus=4)
-    humi_sensor = TemperatureSensor(device=device)
-    temp_sensor = HumiditySensor(device=device)
+    sensor = GroveTemperatureHumidityAHT20(bus=4)
+    sensors = [TemperatureSensor(sensor), HumiditySensor(sensor)]
+
     while True:
-        logger.info(temp_sensor.read_sensor())
-        logger.info(humi_sensor.read_sensor())
-        sleep(1)
+        try:
+            
+            while True:           
+                reading1 = sensors[0].read_sensor()
+                print(f"{reading1.measurement.name}: {reading1.value}")
+                reading2 = sensors[1].read_sensor()
+                print(f"{reading2.measurement.name}: {reading2.value}")
+                logger.info(f"{reading1.value},{reading1.measurement.unit},{reading1.measurement.description}")
+                logger.info(f"{reading2.value},{reading2.measurement.unit},{reading2.measurement.description}")
 
-
+                sleep(1)
+        except Exception as e:
+            print(f"Error reading from sensor: {e}")
 if __name__ == "__main__":
     with contextlib.suppress(KeyboardInterrupt):
         main()

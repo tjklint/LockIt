@@ -21,7 +21,7 @@ class DoorSensor(Sensor):
         return reading
 
 def main():
-    button1 =Button(16)
+    button1 =Button(18)
 
 
     device = DoorSensor(button1)
@@ -31,8 +31,6 @@ def main():
         reading = device.read_sensor()
 
         print(reading)
-
-
         time.sleep(1)
 
 

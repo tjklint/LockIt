@@ -90,7 +90,6 @@ class AzureDeviceClient(IOTDeviceClient):
 
     async def send_reading(self, reading: Reading) -> None:
         """Sends reading to IoTHub."""
-
         await self.device_client.send_message(reading.value)
 
     async def send_readings(self, readings: list[Reading]) -> None:
