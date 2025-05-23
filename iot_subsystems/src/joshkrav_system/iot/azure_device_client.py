@@ -68,31 +68,31 @@ class AzureDeviceClient(IOTDeviceClient):
             await self.device_client.send_message(Message(payload))
 
     async def method_handler(self, method_request):
-        if method_request.name == "toggle_lock":
+        if method_request.name == "is_online":
+            method_response = MethodResponse.create_from_method_request(method_request, 200)
+            await self.device_client.send_method_response(method_response)
+            return
+
+        elif method_request.name == "toggle_lock":
             try:
-                print(f"Received method request: {method_request.name}")
-                data = method_request.payload or {}
+                data = json.loads(method_request.payload) if method_request.payload else {}
                 value = data.get("value", 0)
-                
-                print(f"Callback assigned? {self.control_actuator_callback is not None}")
 
                 if self.control_actuator_callback:
                     from common.devices.actuator import Action, Command
                     command = Command(Action.LOCK_TOGGLE, value)
-                    result = self.control_actuator_callback(command)
-                    print (f"Result of control actuator callback: {result}")
-                    print (f"Command: {command}")
+                    self.control_actuator_callback(command)
 
-                response_payload = {"result": "Lock toggled", "value": value}
-                method_response = MethodResponse.create_from_method_request(method_request, 200, response_payload)
+                method_response = MethodResponse.create_from_method_request(
+                    method_request, 200, {"result": "Lock toggled", "value": value}
+                )
             except Exception as e:
                 method_response = MethodResponse.create_from_method_request(
-                    method_request,
-                    500,
-                    {"error": str(e)}  
+                    method_request, 500, {"error": str(e)}
                 )
-        
         else:
-            method_response = MethodResponse.create_from_method_request(method_request, 404, {"error": "Unknown method"})
+            method_response = MethodResponse.create_from_method_request(
+                method_request, 400, {"details": "method name unknown"}
+            )
 
         await self.device_client.send_method_response(method_response)
