@@ -56,6 +56,7 @@ class MockCamera:
     def take_picture(self):
         "Takes a picture"
         logger.info("picture taken")
+        return "Picture Taken"
 
 
 @dataclass
