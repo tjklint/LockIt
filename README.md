@@ -154,7 +154,74 @@ All sensors and actuators were tested on a Raspberry Pi reTerminal powered by a 
 
 ## 🗂️ UML, Wireframes & Docs
 
-All supporting documentation including UML diagrams, wireframes, and full subsystem descriptions can be found in the `Documents/` folder of this repo.
+classDiagram
+
+class Surveillance {
+  -int _motionSensorPin
+  -int _camera
+  -GpioController _motionSensor
+  -int _GPS
+  +int Camera
+  +GpioController MotionSensor
+  +int GPS
+  +bool IsMotion()
+  +void GetGPSData()
+  +VideoCaptureDevice GetCamera()
+}
+
+class SecurityModel {
+  -int _lockPin
+  -bool _isLocked
+  -bool _isClosed
+  +bool IsLocked
+  +bool IsClosed
+  +void Unlocking()
+  +void Locking()
+}
+
+class FirebaseAuthResponse {
+  +string idToken
+  +string email
+  +string refreshToken
+  +string expiresIn
+  +string localId
+  +string Error
+}
+
+class EnvironmentalSensor {
+  -double _temperatureSensor
+  -double _humiditySensor
+  -LuminositySensor _luminositySensor
+  +double TemperatureSensor
+  +double HumiditySensor
+  +LuminositySensor LuminositySensor
+}
+
+class LuminositySensor {
+  -double _infraRed
+  -double _green
+  -double _blue
+  -double _red
+  -double _proximity
+  +double infraRed
+  +double Green
+  +double Blue
+  +double Red
+  +double Proximity
+}
+
+class User {
+  +string Uid
+  +string Email
+  +string DisplayName
+}
+
+Surveillance --> GpioController : uses
+Surveillance --> VideoCaptureDevice : returns
+SecurityModel --> GpioController : uses
+EnvironmentalSensor --> LuminositySensor : has
+```
+
 
 <h6 align="center">
   Like what you see? Give us a ⭐ to support our work!  
