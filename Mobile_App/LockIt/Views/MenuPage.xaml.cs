@@ -38,5 +38,42 @@ namespace LockIt.Views
         {
             await Shell.Current.GoToAsync(nameof(ManageVisitor));
         }
+
+        /// <summary>
+        /// Handles the "Access Camera" button click event.
+        /// Navigates the visitor to the camera viewing page.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnAccessCameraClicked(object sender, EventArgs e)
+        {
+            var cameraPage = App.Current.Handler.MauiContext.Services.GetService<CameraPage>();
+
+
+
+            await Navigation.PushAsync(cameraPage);
+        }
+
+        /// <summary>
+        /// Handles the "Open Lock" button click event.
+        /// Navigates the visitor to the lock control page.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnOpenLockClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("OpenLockPage");
+        }
+
+        /// <summary>
+        /// Handles the "Map" button click event.
+        /// Navigates the visitor to the GPS map tracking page.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnMapClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(FindMyPage));
+        }
     }
 }

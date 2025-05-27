@@ -61,6 +61,8 @@ namespace LockIt
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<UserDataRepo>();
             builder.Services.AddSingleton<FindMyPageViewModel>();
+            builder.Services.AddSingleton<HeaderViewModel>();
+            builder.Services.AddSingleton<HeaderView>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

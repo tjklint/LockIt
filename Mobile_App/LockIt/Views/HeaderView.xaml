@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LockIt.Views.HeaderView">
+
+    <Frame Padding="6" CornerRadius="6" BackgroundColor="#E0F2F1" HasShadow="False" Margin="5">
+        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+
+            <Label Text="{Binding Environment.TemperatureSensor, StringFormat='T:{0:F1}°C'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#00796B" />
+
+            <Label Text="{Binding Environment.HumiditySensor, StringFormat='H:{0:F0}%'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#00796B" />
+
+            <Label Text="{Binding Environment.LuminositySensor.Red, StringFormat='R:{0:F0}'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#B71C1C" />
+
+            <Label Text="{Binding Environment.LuminositySensor.Green, StringFormat='G:{0:F0}'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#1B5E20" />
+
+            <Label Text="{Binding Environment.LuminositySensor.Blue, StringFormat='B:{0:F0}'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#0D47A1" />
+
+            <Label Text="{Binding Environment.LuminositySensor.Proximity, StringFormat='P:{0:F0}'}"
+             FontSize="12" FontAttributes="Bold" TextColor="#00796B" />
+
+        </HorizontalStackLayout>
+    </Frame>
+
+</ContentView>

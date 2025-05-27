@@ -2,8 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             x:Class="LockIt.Views.FindMyPage">
+             x:Class="LockIt.Views.FindMyPage"
+             xmlns:views="clr-namespace:LockIt.Views">
+
     <VerticalStackLayout>
+        <views:HeaderView />
         <Label 
                 Text="Find My Doorbell" 
                 FontSize="50"
