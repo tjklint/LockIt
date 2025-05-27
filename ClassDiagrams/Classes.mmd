@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
 
 class Surveillance {
@@ -13,16 +14,14 @@ class Surveillance {
   +VideoCaptureDevice GetCamera()
 }
 
-class Security {
+class SecurityModel {
   -int _lockPin
-  -GpioController _lock
-  -GpioController _motor
-  -bool isLocked
-  +GpioController Lock
-  +GpioController Motor
+  -bool _isLocked
+  -bool _isClosed
+  +bool IsLocked
+  +bool IsClosed
   +void Unlocking()
   +void Locking()
-  +void GetMotor()
 }
 
 class FirebaseAuthResponse {
@@ -35,13 +34,25 @@ class FirebaseAuthResponse {
 }
 
 class EnvironmentalSensor {
-  -I2cDevice _temperatureHumiditySensor
-  -GpioController _luminositySensor
-  +I2cDevice TemperatureHumiditySensor
-  +GpioController LuminositySensor
-  +Temperature GetTemperature()
-  +RelativeHumidity GetHumidity()
-  +void GetLuminosity()
+  -double _temperatureSensor
+  -double _humiditySensor
+  -LuminositySensor _luminositySensor
+  +double TemperatureSensor
+  +double HumiditySensor
+  +LuminositySensor LuminositySensor
+}
+
+class LuminositySensor {
+  -double _infraRed
+  -double _green
+  -double _blue
+  -double _red
+  -double _proximity
+  +double infraRed
+  +double Green
+  +double Blue
+  +double Red
+  +double Proximity
 }
 
 class User {
@@ -51,7 +62,7 @@ class User {
 }
 
 Surveillance --> GpioController : uses
-Security --> GpioController : uses
-EnvironmentalSensor --> I2cDevice : uses
-EnvironmentalSensor --> GpioController : uses
 Surveillance --> VideoCaptureDevice : returns
+SecurityModel --> GpioController : uses
+EnvironmentalSensor --> LuminositySensor : has
+```
