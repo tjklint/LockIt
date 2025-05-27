@@ -25,12 +25,13 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
+from asyncio.log import logger
 import json
 from common.devices.sensor import Reading
 from common.iot import IOTDeviceClient
 from dotenv import dotenv_values
 from azure.iot.device.aio import IoTHubDeviceClient
-from azure.iot.device import Message
+from azure.iot.device import Message, MethodResponse
 import json
 import os
 from os.path import basename
@@ -44,12 +45,50 @@ class AzureDeviceClient(IOTDeviceClient):
         super().__init__()
         connection_string = dotenv_values(".env")["IOTHUB_DEVICE_CONNECTION_STRING"]
         self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
+        self.control_actuator_callback = None
+
 
     async def connect(self) -> None:
         """Connects to IoTHub."""
         await self.device_client.connect()
+        self.device_client.on_method_request_received = self.method_handler
 
 
+    async def method_handler(self, method_request):
+        """Handles direct method calls."""
+        logger.info(f"Received direct method: {method_request.name}")
+
+        if method_request.name == "is_online":
+            response = MethodResponse.create_from_method_request(method_request, 200)
+            await self.device_client.send_method_response(response)
+            logger.info("Responded to 'is_online' with 200.")
+            return
+
+        elif method_request.name == "take_picture":
+            try:
+                picture_path = 'output.jpg'
+                if self.control_actuator_callback:
+                    from common.devices.actuator import Action, Command
+                    command = Command(Action.TAKE_PICTURE, 1)
+                    result = self.control_actuator_callback(command)
+                    logger.info(f"command sent to camera, result: {result}")
+                await self.send_picture(picture_path)
+
+                response = MethodResponse.create_from_method_request(
+                    method_request, 200, {"result": "Picture taken and uploaded", "path": picture_path}
+                )
+                print("Picture successfully taken and sent to IoT Hub.")
+
+            except Exception as e:
+                print(f"Exception during picture upload: {e}")
+                success = False
+        else:
+            print(f"Unknown method name: {method_request.name}")
+            response = MethodResponse.create_from_method_request(
+                method_request, 400, {"details": "Unknown method name"}
+            )
+
+        await self.device_client.send_method_response(response)
 
     async def send_picture(self,output_path='output.jpg'):
         if not os.path.exists(output_path):
