@@ -4,6 +4,17 @@
              x:Class="LockIt.Views.MenuPage"
              >
     <VerticalStackLayout VerticalOptions="Center" >
+        <Button 
+            Margin="25"
+            Text="SET CODE" 
+            BackgroundColor="#189E8A" 
+            TextColor="White" 
+            FontFamily="Jersey15Regular"
+            CornerRadius="2"
+            FontSize="30"
+            WidthRequest="300"
+            Clicked="CheckOnlineClicked"/>
+        
         <Button
             Margin="25"
             Text="ACCESS CAMERA" 

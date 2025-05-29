@@ -2,6 +2,10 @@
 // Team Members: Dylan Savelson, Joshua Kravitz, Timothy (TJ) Klint
 // Description: Controls the main homeowner menu page, allowing navigation to lock settings and visitor management.
 
+using LockIt.Helpers;
+using Microsoft.Azure.Devices;
+using System.Reflection;
+
 namespace LockIt.Views
 {
     /// <summary>
@@ -9,12 +13,17 @@ namespace LockIt.Views
     /// </summary>
     public partial class MenuPage : ContentPage
     {
+        private string deviceId;
+        private string methodName;
+        private string connectionString;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuPage"/> class and sets up the UI components.
         /// </summary>
         public MenuPage()
         {
             InitializeComponent();
+            LoadIoTSettings();
         }
 
         /// <summary>
@@ -38,5 +47,43 @@ namespace LockIt.Views
         {
             await Shell.Current.GoToAsync(nameof(ManageVisitor));
         }
+
+        private void LoadIoTSettings()
+        {
+            var root = AppSettingsLoader.Load();
+            var iotSection = root.GetProperty("IoTHub");
+
+            connectionString = iotSection.GetProperty("DeviceConnectionString").GetString();
+            deviceId = iotSection.GetProperty("DeviceId").GetString();
+            methodName = iotSection.GetProperty("MethodName").GetString();
+        }
+
+        private async void CheckOnlineClicked(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    using var client = ServiceClient.CreateFromConnectionString(connectionString);
+            //    var cloudToDeviceMethod = new CloudToDeviceMethod("is_online")
+            //    {
+            //        ResponseTimeout = TimeSpan.FromSeconds(10)
+            //    };
+
+            //    var response = await client.InvokeDeviceMethodAsync(deviceId, cloudToDeviceMethod);
+
+            //    if (response.Status == 200)
+            //    {
+            //        await DisplayAlert("Device Status", "Your IoT device is online and connected.", "OK");
+            //    }
+            //    else
+            //    {
+            //        await DisplayAlert("Device Status", $"Unexpected response: {response.Status}", "OK");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await DisplayAlert("Error", $"Failed to check device status: {ex.Message}", "OK");
+            //}
+        }
+
     }
 }
